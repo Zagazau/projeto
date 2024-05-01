@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<persistence xmlns="https://jakarta.ee/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence https://jakarta.ee/xml/ns/persistence/persistence_3_0.xsd"
+             version="3.0">
+  <persistence-unit name="default">
+
+      <mapping-file>Cliente.xml</mapping-file>
+      <mapping-file>Codigopostal.xml</mapping-file>
+      <mapping-file>Encomenda.xml</mapping-file>
+      <mapping-file>Encomendaproduto.xml</mapping-file>
+      <mapping-file>Faturacompra.xml</mapping-file>
+      <mapping-file>Faturavenda.xml</mapping-file>
+      <mapping-file>Fornecedor.xml</mapping-file>
+      <mapping-file>Pedido.xml</mapping-file>
+      <mapping-file>Pedidoproduto.xml</mapping-file>
+      <class>entity.Cliente</class>
+      <class>entity.Codigopostal</class>
+      <class>entity.Encomenda</class>
+      <class>entity.Encomendaproduto</class>
+      <class>entity.Faturacompra</class>
+      <class>entity.Faturavenda</class>
+      <class>entity.Fornecedor</class>
+      <class>entity.Pedido</class>
+      <class>entity.Pedidoproduto</class>
+  </persistence-unit>
+</persistence>

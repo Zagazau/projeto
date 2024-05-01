@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings xmlns="https://jakarta.ee/xml/ns/persistence/orm"
+                 version="3.0">
+
+    <entity class="entity.Fornecedor">
+        <table name="fornecedor" schema="public" catalog="Proj2"/>
+        <attributes>
+            <id name="idfornecedor">
+                <column name="idfornecedor"/>
+            </id>
+            <basic name="codpostal">
+                <column name="codpostal"/>
+            </basic>
+            <basic name="nome">
+                <column name="nome"/>
+            </basic>
+            <basic name="telefone">
+                <column name="telefone"/>
+            </basic>
+            <basic name="rua">
+                <column name="rua"/>
+            </basic>
+            <basic name="numporta">
+                <column name="numporta"/>
+            </basic>
+            <basic name="nif">
+                <column name="nif"/>
+            </basic>
+        </attributes>
+    </entity>
+</entity-mappings>

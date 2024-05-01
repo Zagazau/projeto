@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings xmlns="https://jakarta.ee/xml/ns/persistence/orm"
+                 version="3.0">
+
+    <entity class="entity.Codigopostal">
+        <table name="codigopostal" schema="public" catalog="Proj2"/>
+        <attributes>
+            <id name="codpostal">
+                <column name="codpostal"/>
+            </id>
+            <basic name="localidade">
+                <column name="localidade"/>
+            </basic>
+        </attributes>
+    </entity>
+</entity-mappings>

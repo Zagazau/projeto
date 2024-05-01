@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings xmlns="https://jakarta.ee/xml/ns/persistence/orm"
+                 version="3.0">
+
+    <entity class="entity.Pedidoproduto">
+        <table name="pedidoproduto" schema="public" catalog="Proj2"/>
+        <id-class class="entity.PedidoprodutoPK"/>
+        <attributes>
+            <id name="idpedido">
+                <column name="idpedido"/>
+            </id>
+            <id name="idproduto">
+                <column name="idproduto"/>
+            </id>
+        </attributes>
+    </entity>
+</entity-mappings>

@@ -4,7 +4,6 @@
              xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence https://jakarta.ee/xml/ns/persistence/persistence_3_0.xsd"
              version="3.0">
   <persistence-unit name="default">
-      <mapping-file>Admin.xml</mapping-file>
 
       <class>entity.Cliente</class>
     <class>entity.Codigopostal</class>
@@ -18,27 +17,15 @@
       <class>entity.Admin</class>
 
       <properties>
-      <property name="jakarta.persistence.jdbc.driver_class" value="org.postgresql.Driver"/>
-      <property name="jakarta.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/Proj2"/>
-      <property name="jakarta.persistence.jdbc.user" value="postgres"/>
-      <property name="jakarta.persistence.jdbc.password" value="paulosa01"/>
-      <property name="hibernate.show_sql" value="true"/>
-          <property name="toplink.jdbc.url" value="jdbc:postgresql://localhost:5432/Proj2"/>
-          <property name="toplink.jdbc.driver" value="org.postgresql.Driver"/>
-          <property name="toplink.jdbc.user" value="postgres"/>
-          <property name="toplink.jdbc.password" value="paulosa01"/>
-          <property name="hibernate.connection.url" value="jdbc:postgresql://localhost:5432/Proj2"/>
-          <property name="hibernate.connection.driver_class" value="org.postgresql.Driver"/>
-          <property name="hibernate.connection.username" value="postgres"/>
-          <property name="hibernate.connection.password" value="paulosa01"/>
-          <property name="openjpa.ConnectionURL" value="jdbc:postgresql://localhost:5432/Proj2"/>
-          <property name="openjpa.ConnectionDriverName" value="org.postgresql.Driver"/>
-          <property name="openjpa.ConnectionUserName" value="postgres"/>
-          <property name="openjpa.ConnectionPassword" value="paulosa01"/>
-          <property name="eclipselink.jdbc.url" value="jdbc:postgresql://localhost:5432/Proj2"/>
-          <property name="eclipselink.jdbc.driver" value="org.postgresql.Driver"/>
-          <property name="eclipselink.jdbc.user" value="postgres"/>
-          <property name="eclipselink.jdbc.password" value="paulosa01"/>
+          <!-- Configurações do Jakarta Persistence -->
+          <property name="jakarta.persistence.jdbc.driver_class" value="org.postgresql.Driver"/>
+          <property name="jakarta.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/Proj2"/>
+          <property name="jakarta.persistence.jdbc.user" value="postgres"/>
+          <property name="jakarta.persistence.jdbc.password" value="paulosa01"/>
+
+          <!-- Configuração do Hibernate (opcional) -->
+          <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
+          <property name="hibernate.show_sql" value="true"/>
       </properties>
 
   </persistence-unit>

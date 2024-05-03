@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.desktop.MenuAdminController">
     <top>
         <AnchorPane style="-fx-background-color: #FFDAB9;" BorderPane.alignment="CENTER">
             <Button fx:id="goBack" layoutX="14.0" layoutY="453.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="128.0" text="Terminar sessão" />
@@ -74,7 +74,7 @@
 
             <ImageView fitHeight="36.0" fitWidth="44.0" layoutX="644.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
                 <image>
-                    <Image url="@../../../../../Logo.png" />
+                    <Image url="@../../../../../../../Logo.png" />
                 </image>
             </ImageView>
             <Label layoutX="567.0" layoutY="33.0" prefHeight="19.0" prefWidth="102.0" text="Queijaria Taulo">

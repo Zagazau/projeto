@@ -26,13 +26,17 @@ public class AdminBll {
 
     public static Admin findAdminByUsername(String username){
         EntityManager em = DbConnection.getEntityManager();
-        return em.createQuery("SELECT a FROM Admin a WHERE a.username = :username", Admin.class)
+        System.out.println("Searching for admin with username: " + username);
+        Admin admin = em.createQuery("SELECT a FROM Admin a WHERE a.username = :username", Admin.class)
                 .setParameter("username", username)
                 .getResultList()
                 .stream()
                 .findFirst()
                 .orElse(null);
+        System.out.println("Found admin: " + admin); // Verifica se o admin foi encontrado
+        return admin;
     }
+
 
     public static List<Admin> listar(){
         return DbConnection.getEntityManager().createQuery("FROM Admin", Admin.class).getResultList();

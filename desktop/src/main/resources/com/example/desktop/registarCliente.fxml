@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+   <left>
+        <AnchorPane prefHeight="501.0" prefWidth="711.0" style="-fx-background-color: #FFDAB9;" BorderPane.alignment="CENTER">
+            <AnchorPane layoutX="-46.0" layoutY="1.0" prefHeight="500.0" prefWidth="30.0" style="-fx-background-color: white;" />
+            <Label layoutX="229.0" layoutY="30.0" prefHeight="45.0" prefWidth="242.0" text="Registo de Cliente">
+                <font>
+                    <Font size="30.0" />
+                </font>
+            </Label>
+
+
+            <ImageView fitHeight="36.0" fitWidth="44.0" layoutX="644.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
+                <image>
+                    <Image url="@../../../../../Logo.png" />
+                </image>
+            </ImageView>
+            <Label layoutX="567.0" layoutY="33.0" prefHeight="19.0" prefWidth="102.0" text="Queijaria Taulo">
+                <font>
+                    <Font size="11.0" />
+                </font>
+            </Label>
+         <Label layoutX="125.0" layoutY="107.0" prefHeight="19.0" prefWidth="102.0" text="Nome">
+            <font>
+               <Font size="11.0" />
+            </font>
+         </Label>
+         <Label layoutX="125.0" layoutY="160.0" prefHeight="19.0" prefWidth="502.0" text="_____________________________________________________________________________________________________________">
+            <font>
+               <Font size="11.0" />
+            </font>
+         </Label>
+         <TextField fx:id="telefoneField" layoutX="329.0" layoutY="209.0" />
+         <TextField fx:id="nifField" layoutX="125.0" layoutY="209.0" />
+         <Label layoutX="125.0" layoutY="190.0" prefHeight="19.0" prefWidth="102.0" text="NIF">
+            <font>
+               <Font size="11.0" />
+            </font>
+         </Label>
+         <Label layoutX="329.0" layoutY="190.0" prefHeight="19.0" prefWidth="102.0" text="NºTelefone">
+            <font>
+               <Font size="11.0" />
+            </font>
+         </Label>
+         <TextField fx:id="ruaField" layoutX="125.0" layoutY="300.0" prefHeight="25.0" prefWidth="172.0" />
+         <Label layoutX="125.0" layoutY="281.0" prefHeight="19.0" prefWidth="102.0" text="Rua ">
+            <font>
+               <Font size="11.0" />
+            </font>
+         </Label>
+         <TextField fx:id="numPortaField" layoutX="334.0" layoutY="300.0" prefHeight="25.0" prefWidth="53.0" />
+         <Label layoutX="331.0" layoutY="281.0" prefHeight="19.0" prefWidth="58.0" text="Nº da Porta">
+            <font>
+               <Font size="11.0" />
+            </font>
+         </Label>
+         <TextField fx:id="codPostalField" layoutX="431.0" layoutY="300.0" prefHeight="25.0" prefWidth="115.0" />
+         <Label layoutX="431.0" layoutY="281.0" prefHeight="19.0" prefWidth="70.0" text="Código-Postal">
+            <font>
+               <Font size="11.0" />
+            </font>
+         </Label>
+         <Button fx:id="registarClienteButton" layoutX="268.0" layoutY="368.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="186.0" text="Registar">
+            <font>
+               <Font size="13.0" />
+            </font>
+         </Button>
+         <TextField fx:id="usernameField" layoutX="297.0" layoutY="126.0" prefHeight="25.0" prefWidth="119.0" />
+         <Label layoutX="297.0" layoutY="107.0" prefHeight="19.0" prefWidth="102.0" text="Username ">
+            <font>
+               <Font size="11.0" />
+            </font>
+         </Label>
+         <Label layoutX="463.0" layoutY="107.0" prefHeight="19.0" prefWidth="102.0" text="Password">
+            <font>
+               <Font size="11.0" />
+            </font>
+         </Label>
+         <TextField fx:id="passField" layoutX="463.0" layoutY="126.0" prefHeight="25.0" prefWidth="119.0" />
+         <TextField fx:id="nomeField" layoutX="125.0" layoutY="126.0" prefHeight="25.0" prefWidth="119.0" />
+         <Label layoutX="121.0" layoutY="244.0" prefHeight="19.0" prefWidth="510.0" text="_____________________________________________________________________________________________________________">
+            <font>
+               <Font size="11.0" />
+            </font>
+         </Label>
+         <Button fx:id="sairButton" layoutX="268.0" layoutY="417.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="186.0" text="Voltar">
+            <font>
+               <Font size="13.0" />
+            </font>
+         </Button>
+
+        </AnchorPane>
+   </left>
+</BorderPane>

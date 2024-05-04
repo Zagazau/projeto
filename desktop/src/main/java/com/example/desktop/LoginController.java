@@ -43,7 +43,7 @@ public class LoginController {
 
                 if (admin != null && admin.getSenha().equals(password)) {
                     try {
-                        Parent root = FXMLLoader.load(getClass().getResource("/com/example/desktop/adminMenu.fxml"));
+                        Parent root = FXMLLoader.load(getClass().getResource("/com/example/desktop/Admin/adminMenu.fxml"));
                         Scene scene = new Scene(root);
                         Stage stage = (Stage) loginButton.getScene().getWindow(); // Obtém o Stage atual
                         stage.setScene(scene);

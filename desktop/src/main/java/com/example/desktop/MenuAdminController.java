@@ -55,7 +55,7 @@ public class MenuAdminController {
 
         controlarStockButton.setOnAction(event -> {
             try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/desktop/controlarStockAdmin.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/desktop/Admin/controlarStockAdmin.fxml"));
                 Parent root = loader.load();
 
                 Scene scene = new Scene(root);

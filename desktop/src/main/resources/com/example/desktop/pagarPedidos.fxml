@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TreeTableColumn?>
+<?import javafx.scene.control.TreeTableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+   <bottom>
+        <AnchorPane style="-fx-background-color: #FFDAB9;" BorderPane.alignment="CENTER">
+            <Button fx:id="goBack" layoutX="14.0" layoutY="453.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="128.0" text="Terminar sessão" />
+            <AnchorPane layoutX="-35.0" prefHeight="500.0" prefWidth="191.0" style="-fx-background-color: white;">
+                <children>
+                    <Button fx:id="pedidosButton" layoutX="48.0" layoutY="105.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="132.0" text="Pedidos">
+                        <font>
+                            <Font size="14.0" />
+                        </font>
+                    </Button>
+                    <Button fx:id="pagamentosButton" layoutX="48.0" layoutY="157.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="132.0" text="Pagamentos">
+                        <font>
+                            <Font size="13.0" />
+                        </font>
+                    </Button>
+                    <Button fx:id="sairButton" layoutX="77.0" layoutY="440.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="74.0" text="Sair">
+                        <font>
+                            <Font size="13.0" />
+                        </font>
+                    </Button>
+                    <Label layoutX="59.0" layoutY="35.0" prefHeight="32.0" prefWidth="107.0" text="Menu Cliente">
+                        <font>
+                            <Font size="18.0" />
+                        </font>
+                    </Label>
+                    <Button fx:id="consultarProdutosButton" layoutX="48.0" layoutY="209.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="132.0" text="Consultar Produtos">
+                        <font>
+                            <Font size="13.0" />
+                        </font>
+                    </Button>
+                </children>
+            </AnchorPane>
+            <Label layoutX="317.0" layoutY="30.0" prefHeight="45.0" prefWidth="180.0" text="Pagamentos ">
+                <font>
+                    <Font size="30.0" />
+                </font>
+            </Label>
+
+
+            <ImageView fitHeight="36.0" fitWidth="44.0" layoutX="644.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
+                <image>
+                    <Image url="@../../../../../Logo.png" />
+                </image>
+            </ImageView>
+            <Label layoutX="567.0" layoutY="33.0" prefHeight="19.0" prefWidth="102.0" text="Queijaria Taulo">
+                <font>
+                    <Font size="11.0" />
+                </font>
+            </Label>
+            <Label layoutX="209.0" layoutY="66.0" prefHeight="19.0" prefWidth="382.0" text="_________________________________________________________________________________">
+                <font>
+                    <Font size="11.0" />
+                </font>
+            </Label>
+         <TreeTableView layoutX="190.0" layoutY="134.0" prefHeight="204.0" prefWidth="470.0">
+           <columns>
+             <TreeTableColumn fx:id="idpedidoField" prefWidth="83.0" text="id_pedido" />
+             <TreeTableColumn fx:id="dataField" prefWidth="85.0" text="Data" />
+               <TreeTableColumn fx:id="quantidadeField" prefWidth="84.0" text="Quantidade" />
+               <TreeTableColumn fx:id="queijoField" minWidth="0.0" prefWidth="103.0" text="Queijo" />
+               <TreeTableColumn fx:id="valorField" prefWidth="114.0" text="Valor" />
+           </columns>
+         </TreeTableView>
+         <Label layoutX="190.0" layoutY="338.0" prefHeight="19.0" prefWidth="198.0" text="Selecione o pedido que pretende pagar">
+            <font>
+               <Font size="11.0" />
+            </font>
+         </Label>
+         <Button fx:id="pagarButton" layoutX="320.0" layoutY="374.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="190.0" text="Pagar">
+            <font>
+               <Font size="13.0" />
+            </font>
+         </Button>
+         <Button fx:id="backButton" layoutX="320.0" layoutY="415.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="190.0" text="Voltar">
+            <font>
+               <Font size="13.0" />
+            </font>
+         </Button>
+
+        </AnchorPane>
+   </bottom>
+</BorderPane>

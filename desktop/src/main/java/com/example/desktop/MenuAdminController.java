@@ -1,5 +1,6 @@
 package com.example.desktop;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -8,8 +9,11 @@ import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class MenuAdminController {
+
     @FXML
     private Button consultarFaturacaoButton;
 
@@ -31,56 +35,53 @@ public class MenuAdminController {
     @FXML
     private Button sairButton;
 
+    private static final Logger LOGGER = Logger.getLogger(MenuAdminController.class.getName());
+
     @FXML
-    public void initialize() {
-        consultarFaturacaoButton.setOnAction(event -> {
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/desktop/ConsultaFaturacao.fxml"));
-                Parent root = loader.load();
+    private void initialize() {
+        consultarFaturacaoButton.setOnAction(this::consultarFaturacao);
+        consultarProducaoButton.setOnAction(this::consultarProducao);
+        controlarStockButton.setOnAction(this::controlarStock);
+        encomendarLeiteButton.setOnAction(this::encomendarLeite);
+        pagarEncomendasButton.setOnAction(this::pagarEncomendas);
+        sairButton.setOnAction(this::goBack);
+    }
 
-                Scene scene = new Scene(root);
+    private void consultarFaturacao(ActionEvent event) {
+        openScene("/com/example/desktop/Admin/consultarFaturaçãoAdmin.fxml", "Consulta Faturação", event);
+    }
 
-                Stage stage = (Stage) consultarFaturacaoButton.getScene().getWindow();
+    private void consultarProducao(ActionEvent event) {
+        openScene("/com/example/desktop/Admin/ConsultarProducao.fxml", "Consultar Produção", event);
+    }
 
-                stage.setScene(scene);
-                stage.show();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
+    private void controlarStock(ActionEvent event) {
+        openScene("/com/example/desktop/Admin/controlarStockAdmin.fxml", "Controlar Stock", event);
+    }
 
-        consultarProducaoButton.setOnAction(event -> {
-            // Lógica para abrir a página de consulta de produção
-        });
+    private void encomendarLeite(ActionEvent event) {
+        openScene("/com/example/desktop/Admin/encomendasAdmin.fxml", "Encomendar Leite", event);
+    }
 
-        controlarStockButton.setOnAction(event -> {
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/desktop/Admin/controlarStockAdmin.fxml"));
-                Parent root = loader.load();
+    private void pagarEncomendas(ActionEvent event) {
+        openScene("/com/example/desktop/Admin/PagarEncomendas.fxml", "Pagar Encomendas", event);
+    }
 
-                Scene scene = new Scene(root);
+    private void goBack(ActionEvent event) {
+        openScene("/com/example/desktop/PaginaAnterior.fxml", "Página Anterior", event);
+    }
 
-                Stage stage = (Stage) controlarStockButton.getScene().getWindow();
-
-                stage.setScene(scene);
-                stage.show();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
-
-        encomendarLeiteButton.setOnAction(event -> {
-            // Lógica para abrir a página de encomenda de leite
-        });
-
-        pagarEncomendasButton.setOnAction(event -> {
-            // Lógica para abrir a página de pagamento de encomendas
-        });
-
-        sairButton.setOnAction(event -> {
-            // Lógica para voltar para a página anterior
-            Stage stage = (Stage) sairButton.getScene().getWindow();
-            stage.close();
-        });
+    private void openScene(String fxmlPath, String title, ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+            stage.setScene(scene);
+            stage.setTitle(title);
+            stage.show();
+        } catch (IOException e) {
+            LOGGER.log(Level.SEVERE, "Erro ao abrir a cena: " + fxmlPath, e);
+        }
     }
 }

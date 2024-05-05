@@ -11,7 +11,6 @@
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.desktop.MenuAdminController">
     <top>
         <AnchorPane style="-fx-background-color: #FFDAB9;" BorderPane.alignment="CENTER">
-            <Button fx:id="goBack" layoutX="14.0" layoutY="453.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="128.0" text="Terminar sessão" />
             <AnchorPane layoutX="-35.0" prefHeight="500.0" prefWidth="191.0" style="-fx-background-color: white;">
                 <children>
                     <Label layoutX="59.0" layoutY="31.0" prefHeight="32.0" prefWidth="109.0" text="Menu Admin">
@@ -19,31 +18,11 @@
                             <Font size="18.0" />
                         </font>
                     </Label>
-                    <Button fx:id="encomendarLeiteButton" layoutX="48.0" layoutY="126.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="132.0" text="Encomendas">
-                        <font>
-                            <Font size="14.0" />
-                        </font>
-                    </Button>
-                    <Button fx:id="controlarStockButton" layoutX="48.0" layoutY="181.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="132.0" text="Controlar Stock">
-                        <font>
-                            <Font size="13.0" />
-                        </font>
-                    </Button>
-                    <Button fx:id="consultarFaturacaoButton" layoutX="47.0" layoutY="234.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="133.0" text="Consultar Faturação">
-                        <font>
-                            <Font size="13.0" />
-                        </font>
-                    </Button>
-                    <Button fx:id="consultarProducaoButton" layoutX="47.0" layoutY="286.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="133.0" text="Consultar Produção">
-                        <font>
-                            <Font size="13.0" />
-                        </font>
-                    </Button>
-                    <Button fx:id="sairButton" layoutX="77.0" layoutY="440.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="74.0" text="Sair">
-                        <font>
-                            <Font size="13.0" />
-                        </font>
-                    </Button>
+                    <Button fx:id="encomendarLeiteButton" layoutX="48.0" layoutY="126.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="132.0" text="Encomendas" onAction="#encomendarLeite"/>
+                    <Button fx:id="controlarStockButton" layoutX="48.0" layoutY="181.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="132.0" text="Controlar Stock" onAction="#controlarStock"/>
+                    <Button fx:id="consultarFaturacaoButton" layoutX="47.0" layoutY="234.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="133.0" text="Consultar Faturação" onAction="#consultarFaturacao"/>
+                    <Button fx:id="consultarProducaoButton" layoutX="47.0" layoutY="286.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="133.0" text="Consultar Produção" onAction="#consultarProducao"/>
+                    <Button fx:id="sairButton" layoutX="77.0" layoutY="440.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="74.0" text="Sair" onAction="#sair"/>
                 </children>
             </AnchorPane>
             <Label layoutX="281.0" layoutY="30.0" prefHeight="45.0" prefWidth="214.0" text="Controlar Stock">
@@ -56,21 +35,21 @@
                     <Font size="13.0" />
                 </font>
             </Button>
-         <Button fx:id="adicionarProdutoButton" layoutX="302.0" layoutY="126.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="172.0" text="Adicionar Produto">
-            <font>
-               <Font size="14.0" />
-            </font>
-         </Button>
-         <Button fx:id="alterarProdutoButton" layoutX="302.0" layoutY="186.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="172.0" text="Alterar Produto">
-            <font>
-               <Font size="14.0" />
-            </font>
-         </Button>
-         <Button fx:id="removerProdutoButton" layoutX="302.0" layoutY="250.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="172.0" text="Remover Produto">
-            <font>
-               <Font size="14.0" />
-            </font>
-         </Button>
+            <Button fx:id="adicionarProdutoButton" layoutX="302.0" layoutY="126.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="172.0" text="Adicionar Produto">
+                <font>
+                    <Font size="14.0" />
+                </font>
+            </Button>
+            <Button fx:id="alterarProdutoButton" layoutX="302.0" layoutY="186.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="172.0" text="Alterar Produto">
+                <font>
+                    <Font size="14.0" />
+                </font>
+            </Button>
+            <Button fx:id="removerProdutoButton" layoutX="302.0" layoutY="250.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="172.0" text="Remover Produto">
+                <font>
+                    <Font size="14.0" />
+                </font>
+            </Button>
 
             <ImageView fitHeight="36.0" fitWidth="44.0" layoutX="644.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
                 <image>

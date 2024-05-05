@@ -65,7 +65,7 @@ public class LoginController {
         });
 
         registerButton.setOnAction(event -> {
-            // Aqui você pode adicionar a lógica para abrir a tela de registro
+
         });
     }
 

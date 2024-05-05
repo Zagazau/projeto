@@ -27,9 +27,6 @@ public class MenuAdminController {
     private Button encomendarLeiteButton;
 
     @FXML
-    private Button goBack;
-
-    @FXML
     private Button pagarEncomendasButton;
 
     @FXML
@@ -38,45 +35,58 @@ public class MenuAdminController {
     private static final Logger LOGGER = Logger.getLogger(MenuAdminController.class.getName());
 
     @FXML
-    private void initialize() {
+    public void initialize() {
         consultarFaturacaoButton.setOnAction(this::consultarFaturacao);
         consultarProducaoButton.setOnAction(this::consultarProducao);
         controlarStockButton.setOnAction(this::controlarStock);
         encomendarLeiteButton.setOnAction(this::encomendarLeite);
-        pagarEncomendasButton.setOnAction(this::pagarEncomendas);
-        sairButton.setOnAction(this::goBack);
+        pagarEncomendasButton.setOnAction(event -> openScene("/com/example/desktop/Admin/PagarEncomendas.fxml", "Pagar Encomendas"));
+        sairButton.setOnAction(event -> sair());
     }
 
-    private void consultarFaturacao(ActionEvent event) {
-        openScene("/com/example/desktop/Admin/consultarFaturaçãoAdmin.fxml", "Consulta Faturação", event);
+    @FXML
+    private void sair() {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/com/example/desktop/firstPage.fxml"));
+            Scene scene = new Scene(root);
+            Stage stage = (Stage) sairButton.getScene().getWindow();
+            stage.setScene(scene);
+            stage.setTitle("Página Anterior");
+            stage.show();
+        } catch (IOException e) {
+            LOGGER.log(Level.SEVERE, "Erro ao voltar para a página anterior", e);
+        }
     }
 
-    private void consultarProducao(ActionEvent event) {
-        openScene("/com/example/desktop/Admin/ConsultarProducao.fxml", "Consultar Produção", event);
-    }
-
-    private void controlarStock(ActionEvent event) {
-        openScene("/com/example/desktop/Admin/controlarStockAdmin.fxml", "Controlar Stock", event);
-    }
-
+    @FXML
     private void encomendarLeite(ActionEvent event) {
-        openScene("/com/example/desktop/Admin/encomendasAdmin.fxml", "Encomendar Leite", event);
+        System.out.println("Botão Encomendar Leite pressionado!");
+        openScene("/com/example/desktop/Admin/encomendasAdmin.fxml", "Encomendar Leite");
     }
 
-    private void pagarEncomendas(ActionEvent event) {
-        openScene("/com/example/desktop/Admin/PagarEncomendas.fxml", "Pagar Encomendas", event);
+    @FXML
+    private void controlarStock(ActionEvent event) {
+        System.out.println("Botão controlar stock pressionado!");
+        openScene("/com/example/desktop/Admin/controlarStockAdmin.fxml", "Controlar Stock");
     }
 
-    private void goBack(ActionEvent event) {
-        openScene("/com/example/desktop/PaginaAnterior.fxml", "Página Anterior", event);
+    @FXML
+    private void consultarFaturacao(ActionEvent event) {
+        System.out.println("Botão consultar faturação pressionado!");
+        openScene("/com/example/desktop/Admin/consultarFaturaçãoAdmin.fxml", "Consulta Faturação");
     }
 
-    private void openScene(String fxmlPath, String title, ActionEvent event) {
+    @FXML
+    private void consultarProducao(ActionEvent event) {
+        openScene("/com/example/desktop/Admin/ConsultarProducao.fxml", "Consultar Produção");
+    }
+
+    private void openScene(String fxmlPath, String title) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
             Parent root = loader.load();
             Scene scene = new Scene(root);
-            Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+            Stage stage = (Stage) sairButton.getScene().getWindow();
             stage.setScene(scene);
             stage.setTitle(title);
             stage.show();

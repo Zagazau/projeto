@@ -26,17 +26,17 @@
                             <Font size="14.0" />
                         </font>
                     </Button>
-                    <Button fx:id="controlarStockButton" layoutX="48.0" layoutY="181.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="132.0" text="Controlar Stock">
+                    <Button fx:id="controlarStockButton" layoutX="49.0" layoutY="177.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="132.0" text="Controlar Stock">
                         <font>
                             <Font size="13.0" />
                         </font>
                     </Button>
-                    <Button fx:id="consultarFaturacaoButton" layoutX="48.0" layoutY="234.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="133.0" text="Consultar Faturação">
+                    <Button fx:id="consultarFaturacaoButton" layoutX="49.0" layoutY="269.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="133.0" text="Consultar Faturação">
                         <font>
                             <Font size="13.0" />
                         </font>
                     </Button>
-                    <Button fx:id="consultarProducaoButton" layoutX="47.0" layoutY="286.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="133.0" text="Consultar Produção">
+                    <Button fx:id="consultarProducaoButton" layoutX="48.0" layoutY="313.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="133.0" text="Consultar Produção">
                         <font>
                             <Font size="13.0" />
                         </font>
@@ -46,6 +46,11 @@
                             <Font size="13.0" />
                         </font>
                     </Button>
+               <Button fx:id="controlarStockButton1" layoutX="47.0" layoutY="224.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="132.0" text="Pagar Encomendas">
+                  <font>
+                     <Font size="13.0" />
+                  </font>
+               </Button>
                 </children>
             </AnchorPane>
             <Label layoutX="319.0" layoutY="20.0" prefHeight="45.0" prefWidth="208.0" text="Cancelar Encomenda">
@@ -69,7 +74,7 @@
 
             <ImageView fitHeight="36.0" fitWidth="44.0" layoutX="644.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
                 <image>
-                    <Image url="@../../../../../Logo.png" />
+                    <Image url="@../../../../../../../../Logo.png" />
                 </image>
             </ImageView>
             <Label layoutX="567.0" layoutY="33.0" prefHeight="19.0" prefWidth="102.0" text="Queijaria Taulo">

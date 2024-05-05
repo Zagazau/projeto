@@ -12,16 +12,11 @@
     <top>
         <AnchorPane style="-fx-background-color: #FFDAB9;" BorderPane.alignment="CENTER">
             <Button fx:id="goBack" layoutX="14.0" layoutY="453.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="128.0" text="Terminar sessão" />
-            <AnchorPane layoutX="-35.0" prefHeight="500.0" prefWidth="191.0" style="-fx-background-color: white;">
+            <AnchorPane layoutX="-35.0" prefHeight="500.0" prefWidth="231.0" style="-fx-background-color: white;">
                 <children>
-                    <Button fx:id="pedidosButton" layoutX="48.0" layoutY="105.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="132.0" text="Encomendas">
+                    <Button fx:id="consultarEncomendasButton" layoutX="48.0" layoutY="106.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="163.0" text="Consultar Encomendas">
                         <font>
                             <Font size="14.0" />
-                        </font>
-                    </Button>
-                    <Button fx:id="pagamentosButton" layoutX="48.0" layoutY="157.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="132.0" text="Pagamentos">
-                        <font>
-                            <Font size="13.0" />
                         </font>
                     </Button>
                     <Button fx:id="sairButton" layoutX="77.0" layoutY="440.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="74.0" text="Sair">
@@ -29,16 +24,11 @@
                             <Font size="13.0" />
                         </font>
                     </Button>
-                    <Label layoutX="41.0" layoutY="35.0" prefHeight="32.0" prefWidth="147.0" text="Menu Fornecedor">
+                    <Label layoutX="56.0" layoutY="37.0" prefHeight="32.0" prefWidth="147.0" text="Menu Fornecedor">
                         <font>
                             <Font size="18.0" />
                         </font>
                     </Label>
-                    <Button fx:id="consultarProdutosButton" layoutX="48.0" layoutY="209.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="132.0" text="Consultar Produtos">
-                        <font>
-                            <Font size="13.0" />
-                        </font>
-                    </Button>
                 </children>
             </AnchorPane>
             <Label layoutX="328.0" layoutY="21.0" prefHeight="45.0" prefWidth="161.0" text="Bem vindo!">

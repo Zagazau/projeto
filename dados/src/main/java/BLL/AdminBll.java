@@ -1,8 +1,8 @@
 package BLL;
 
-import entity.Admin;
 import jakarta.persistence.EntityManager;
 import java.util.List;
+import entity.Admin;
 
 public class AdminBll {
 
@@ -27,15 +27,20 @@ public class AdminBll {
     public static Admin findAdminByUsername(String username){
         EntityManager em = DbConnection.getEntityManager();
         System.out.println("Searching for admin with username: " + username);
-        Admin admin = em.createQuery("SELECT a FROM Admin a WHERE a.username = :username", Admin.class)
-                .setParameter("username", username)
-                .getResultList()
-                .stream()
-                .findFirst()
-                .orElse(null);
-        System.out.println("Found admin: " + admin); // Verifica se o admin foi encontrado
-        return admin;
+        try {
+            Admin admin = em.createQuery("SELECT a FROM Admin a WHERE a.username = :username", Admin.class)
+                    .setParameter("username", username)
+                    .getResultList()
+                    .stream()
+                    .findFirst()
+                    .orElse(null);
+            System.out.println("Found admin: " + admin); // Verifica se o admin foi encontrado
+            return admin;
+        } finally {
+            em.close(); // Feche o EntityManager somente após ter concluído o trabalho com os resultados da consulta
+        }
     }
+
 
 
     public static List<Admin> listar(){

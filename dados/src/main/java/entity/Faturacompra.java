@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 public class Faturacompra {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @jakarta.persistence.Column(name = "idfaturac")
+    @Column(name = "idfaturac")
     private int idfaturac;
 
     public int getIdfaturac() {

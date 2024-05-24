@@ -2,17 +2,27 @@ package BLL;
 
 import entity.Cliente;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.NoResultException;
+import jakarta.persistence.Persistence;
 
 import java.util.List;
 
 public class ClienteBLL {
 
-
     public static void criar(Cliente cli){
         EntityManager em = DbConnection.getEntityManager();
-        em.getTransaction().begin();
-        em.persist(cli);
-        em.getTransaction().commit();
+        try {
+            em.getTransaction().begin();
+            em.persist(cli);
+            em.getTransaction().commit();
+            System.out.println("Cliente criado com sucesso.");
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+            System.err.println("Erro ao criar cliente: " + e.getMessage());
+        } finally {
+            em.close();
+        }
     }
 
     public static void apagar(Cliente cli){
@@ -23,13 +33,19 @@ public class ClienteBLL {
     }
 
     public static Cliente findClienteByUsername(String username) {
-        EntityManager em = DbConnection.getEntityManager();
-        return em.createQuery("SELECT c FROM Cliente c WHERE c.username = :username", Cliente.class)
-                .setParameter("username", username)
-                .getResultList()
-                .stream()
-                .findFirst()
-                .orElse(null);
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("persistence.xml");
+        EntityManager em = emf.createEntityManager();
+
+        try {
+            return em.createQuery("SELECT c FROM Cliente c WHERE c.username = :username", Cliente.class)
+                    .setParameter("username", username)
+                    .getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        } finally {
+            em.close();
+            emf.close();
+        }
     }
 
     public static String getPasswordForCliente(String username) {
@@ -44,9 +60,4 @@ public class ClienteBLL {
     public static List<Cliente> listarWithName(String nome){
         return DbConnection.getEntityManager().createQuery("from Cliente where nome like ?1").setParameter(1, nome).getResultList();
     }
-
-
-
-
-
 }

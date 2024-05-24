@@ -36,28 +36,30 @@ public class LoginController {
             String username = usernameField.getText();
             String password = passwordField.getText();
 
+            System.out.println("Trying to login with username: " + username);
+
             Cliente cliente = ClienteBLL.findClienteByUsername(username);
 
-            if (cliente == null) {
-                Admin admin = AdminBll.findAdminByUsername(username);
-
-                if (admin != null && admin.getSenha().equals(password)) {
-                    try {
-                        Parent root = FXMLLoader.load(getClass().getResource("/com/example/desktop/Admin/adminMenu.fxml"));
-                        Scene scene = new Scene(root);
-                        Stage stage = (Stage) loginButton.getScene().getWindow(); // Obtém o Stage atual
-                        stage.setScene(scene);
-                        stage.show();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    showAlert(Alert.AlertType.INFORMATION, "Login Successful", "Welcome, Admin!");
+            if (cliente != null) {
+                System.out.println("Found cliente: " + cliente.getNome());
+                if (cliente.getSenha().equals(password)) {
+                    showAlert(Alert.AlertType.INFORMATION, "Login Successful", "Welcome, " + cliente.getNome() + "!");
+                    redirectToClienteMenu();
                 } else {
                     showAlert(Alert.AlertType.ERROR, "Login Failed", "Invalid username or password.");
                 }
             } else {
-                if (cliente.getSenha().equals(password)) {
-                    showAlert(Alert.AlertType.INFORMATION, "Login Successful", "Welcome, " + cliente.getNome() + "!");
+                System.out.println("No cliente found, trying admin.");
+                Admin admin = AdminBll.findAdminByUsername(username);
+
+                if (admin != null) {
+                    System.out.println("Found admin: " + admin.getUsername());
+                    if (admin.getSenha().equals(password)) {
+                        showAlert(Alert.AlertType.INFORMATION, "Login Successful", "Welcome, Admin!");
+                        redirectToAdminMenu();
+                    } else {
+                        showAlert(Alert.AlertType.ERROR, "Login Failed", "Invalid username or password.");
+                    }
                 } else {
                     showAlert(Alert.AlertType.ERROR, "Login Failed", "Invalid username or password.");
                 }
@@ -65,8 +67,40 @@ public class LoginController {
         });
 
         registerButton.setOnAction(event -> {
-
+            try {
+                Parent root = FXMLLoader.load(getClass().getResource("/com/example/desktop/Cliente/registarCliente.fxml"));
+                Scene scene = new Scene(root);
+                Stage stage = (Stage) registerButton.getScene().getWindow();
+                stage.setScene(scene);
+                stage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         });
+    }
+
+    private void redirectToAdminMenu() {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/com/example/desktop/Admin/adminMenu.fxml"));
+            Scene scene = new Scene(root);
+            Stage stage = (Stage) loginButton.getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void redirectToClienteMenu() {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/com/example/desktop/Cliente/clienteMenu.fxml"));
+            Scene scene = new Scene(root);
+            Stage stage = (Stage) loginButton.getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void showAlert(Alert.AlertType alertType, String title, String message) {
@@ -77,3 +111,4 @@ public class LoginController {
         alert.showAndWait();
     }
 }
+

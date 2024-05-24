@@ -5,11 +5,17 @@ import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 
 public class DbConnection {
-    private static EntityManagerFactory factory = Persistence.createEntityManagerFactory("default");
-    private static EntityManager em = factory.createEntityManager();
-    //private static EntityTransaction transaction = em.getTransaction();
+    private static final EntityManagerFactory entityManagerFactory;
 
-    public static EntityManager getEntityManager(){
-        return em;
+    static {
+        try {
+            entityManagerFactory = Persistence.createEntityManagerFactory("default");
+        } catch (Throwable ex) {
+            throw new ExceptionInInitializerError(ex);
+        }
+    }
+
+    public static EntityManager getEntityManager() {
+        return entityManagerFactory.createEntityManager();
     }
 }

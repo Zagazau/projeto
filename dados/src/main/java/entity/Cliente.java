@@ -1,13 +1,15 @@
 package entity;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 public class Cliente {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     @Id
-    @jakarta.persistence.Column(name = "idcliente")
-    private int idcliente;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idcliente", nullable = false)
+    private Integer idcliente;
 
     public int getIdcliente() {
         return idcliente;

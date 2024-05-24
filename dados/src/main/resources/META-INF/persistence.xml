@@ -5,16 +5,21 @@
              version="3.0">
   <persistence-unit name="default">
 
-      <class>entity.Cliente</class>
-    <class>entity.Codigopostal</class>
-    <class>entity.Encomenda</class>
-    <class>entity.Encomendaproduto</class>
-    <class>entity.Faturacompra</class>
-    <class>entity.Faturavenda</class>
-    <class>entity.Fornecedor</class>
-    <class>entity.Pedido</class>
-    <class>entity.Pedidoproduto</class>
-      <class>entity.Admin</class>
+        <class>entity.Cliente</class>
+        <class>entity.Codigopostal</class>
+        <class>entity.Encomenda</class>
+        <class>entity.Encomendaproduto</class>
+        <class>entity.Faturacompra</class>
+        <class>entity.Faturavenda</class>
+        <class>entity.Fornecedor</class>
+        <class>entity.Pedido</class>
+        <class>entity.Pedidoproduto</class>
+        <class>entity.Admin</class>
+        <class>entity.Tipoutilizador</class>
+        <class>entity.Produto</class>
+        <class>entity.Tipopagamento</class>
+        <class>entity.Tipoproduto</class>
+        <class>entity.Utilizador</class>
 
       <properties>
           <!-- Configurações do Jakarta Persistence -->
@@ -24,8 +29,11 @@
           <property name="jakarta.persistence.jdbc.password" value="paulosa01"/>
 
           <!-- Configuração do Hibernate (opcional) -->
-          <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
+          <property name="hibernate.id.new_generator_mappings" value="true"/>
+          <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>
+          <property name="hibernate.hbm2ddl.auto" value="update"/>
           <property name="hibernate.show_sql" value="true"/>
+          <property name="hibernate.format_sql" value="true"/>
       </properties>
 
   </persistence-unit>

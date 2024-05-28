@@ -42,6 +42,15 @@ public class AdminBll {
     }
 
 
+    public static void createDefaultAdminIfNotExists() {
+        Admin admin = findAdminByUsername("admin");
+        if (admin == null) {
+            Admin defaultAdmin = new Admin();
+            defaultAdmin.setUsername("admin");
+            defaultAdmin.setSenha("admin123");
+            criar(defaultAdmin);
+        }
+    }
 
     public static List<Admin> listar(){
         return DbConnection.getEntityManager().createQuery("FROM Admin", Admin.class).getResultList();

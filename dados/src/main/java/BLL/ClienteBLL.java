@@ -10,32 +10,44 @@ import java.util.List;
 
 public class ClienteBLL {
 
-    public static void criar(Cliente cli){
-        EntityManager em = DbConnection.getEntityManager();
+    private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("default");
+
+    public static void criar(Cliente cli) {
+        EntityManager em = emf.createEntityManager();
         try {
             em.getTransaction().begin();
             em.persist(cli);
             em.getTransaction().commit();
             System.out.println("Cliente criado com sucesso.");
         } catch (Exception e) {
-            em.getTransaction().rollback();
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
             System.err.println("Erro ao criar cliente: " + e.getMessage());
         } finally {
             em.close();
         }
     }
 
-    public static void apagar(Cliente cli){
-        EntityManager em = DbConnection.getEntityManager();
-        em.getTransaction().begin();
-        em.remove(cli);
-        em.getTransaction().commit();
+    public static void apagar(Cliente cli) {
+        EntityManager em = emf.createEntityManager();
+        try {
+            em.getTransaction().begin();
+            em.remove(em.contains(cli) ? cli : em.merge(cli));
+            em.getTransaction().commit();
+            System.out.println("Cliente apagado com sucesso.");
+        } catch (Exception e) {
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+            System.err.println("Erro ao apagar cliente: " + e.getMessage());
+        } finally {
+            em.close();
+        }
     }
 
     public static Cliente findClienteByUsername(String username) {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("persistence.xml");
         EntityManager em = emf.createEntityManager();
-
         try {
             return em.createQuery("SELECT c FROM Cliente c WHERE c.username = :username", Cliente.class)
                     .setParameter("username", username)
@@ -44,7 +56,6 @@ public class ClienteBLL {
             return null;
         } finally {
             em.close();
-            emf.close();
         }
     }
 
@@ -53,11 +64,23 @@ public class ClienteBLL {
         return cliente != null ? cliente.getSenha() : null;
     }
 
-    public static List<Cliente> listar(){
-        return DbConnection.getEntityManager().createQuery("from Cliente").getResultList();
+    public static List<Cliente> listar() {
+        EntityManager em = emf.createEntityManager();
+        try {
+            return em.createQuery("from Cliente", Cliente.class).getResultList();
+        } finally {
+            em.close();
+        }
     }
 
-    public static List<Cliente> listarWithName(String nome){
-        return DbConnection.getEntityManager().createQuery("from Cliente where nome like ?1").setParameter(1, nome).getResultList();
+    public static List<Cliente> listarWithName(String nome) {
+        EntityManager em = emf.createEntityManager();
+        try {
+            return em.createQuery("from Cliente where nome like ?1", Cliente.class)
+                    .setParameter(1, nome)
+                    .getResultList();
+        } finally {
+            em.close();
+        }
     }
 }

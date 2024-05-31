@@ -4,6 +4,7 @@ import BLL.AdminBll;
 import BLL.ClienteBLL;
 import entity.Admin;
 import entity.Cliente;
+import entity.PasswordUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -15,6 +16,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 
 public class LoginController {
 
@@ -42,13 +44,24 @@ public class LoginController {
 
             if (cliente != null) {
                 System.out.println("Found cliente: " + cliente.getNome());
-                if (cliente.getSenha().equals(password)) {
-                    showAlert(Alert.AlertType.INFORMATION, "Login Successful", "Welcome, " + cliente.getNome() + "!");
-                    redirectToClienteMenu();
-                } else {
-                    showAlert(Alert.AlertType.ERROR, "Login Failed", "Invalid username or password.");
+                String storedPassword = cliente.getSenha();
+                String[] parts = storedPassword.split(":");
+                String hash = parts[0];
+                String salt = parts[1];
+
+                try {
+                    String hashedPassword = PasswordUtils.hashPassword(password, salt);
+                    if (hashedPassword.equals(hash)) {
+                        showAlert(Alert.AlertType.INFORMATION, "Login Successful", "Welcome, " + cliente.getNome() + "!");
+                        redirectToClienteMenu();
+                    } else {
+                        showAlert(Alert.AlertType.ERROR, "Login Failed", "Invalid username or password.");
+                    }
+                } catch (NoSuchAlgorithmException e) {
+                    showAlert(Alert.AlertType.ERROR, "Login Failed", "Error processing password.");
                 }
-            } else {
+            }
+            else {
                 System.out.println("No cliente found, trying admin.");
                 Admin admin = AdminBll.findAdminByUsername(username);
 

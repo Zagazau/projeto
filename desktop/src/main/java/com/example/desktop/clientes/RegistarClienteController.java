@@ -89,12 +89,13 @@ public class RegistarClienteController {
     private String encryptPassword(String password) {
         String salt = PasswordUtils.generateSalt();
         try {
-            return PasswordUtils.hashPassword(password, salt);
+            return PasswordUtils.hashPassword(password, salt) + ":" + salt;
         } catch (NoSuchAlgorithmException e) {
             System.err.println("Error hashing password");
             return null;
         }
     }
+
 
     private void redirectToLogin(ActionEvent event) {
         System.out.println("redirectToLogin method called");

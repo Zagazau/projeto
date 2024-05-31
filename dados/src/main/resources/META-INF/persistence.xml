@@ -26,7 +26,7 @@
           <property name="jakarta.persistence.jdbc.driver_class" value="org.postgresql.Driver"/>
           <property name="jakarta.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/Proj2"/>
           <property name="jakarta.persistence.jdbc.user" value="postgres"/>
-          <property name="jakarta.persistence.jdbc.password" value="paulosa01"/>
+          <property name="jakarta.persistence.jdbc.password" value="123456789"/>
 
           <!-- Configuração do Hibernate (opcional) -->
           <property name="hibernate.id.new_generator_mappings" value="true"/>

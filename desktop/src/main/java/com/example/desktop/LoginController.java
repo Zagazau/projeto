@@ -2,8 +2,10 @@ package com.example.desktop;
 
 import BLL.AdminBll;
 import BLL.ClienteBLL;
+import BLL.FornecedorBll;
 import entity.Admin;
 import entity.Cliente;
+import entity.Fornecedor;
 import entity.PasswordUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -60,8 +62,7 @@ public class LoginController {
                 } catch (NoSuchAlgorithmException e) {
                     showAlert(Alert.AlertType.ERROR, "Login Failed", "Error processing password.");
                 }
-            }
-            else {
+            } else {
                 System.out.println("No cliente found, trying admin.");
                 Admin admin = AdminBll.findAdminByUsername(username);
 
@@ -74,14 +75,37 @@ public class LoginController {
                         showAlert(Alert.AlertType.ERROR, "Login Failed", "Invalid username or password.");
                     }
                 } else {
-                    showAlert(Alert.AlertType.ERROR, "Login Failed", "Invalid username or password.");
+                    System.out.println("No admin found, trying fornecedor.");
+                    Fornecedor fornecedor = FornecedorBll.findFornecedorByUsername(username);
+
+                    if (fornecedor != null) {
+                        System.out.println("Found fornecedor: " + fornecedor.getNome());
+                        String storedPassword = fornecedor.getSenha();
+                        String[] parts = storedPassword.split(":");
+                        String hash = parts[0];
+                        String salt = parts[1];
+
+                        try {
+                            String hashedPassword = PasswordUtils.hashPassword(password, salt);
+                            if (hashedPassword.equals(hash)) {
+                                showAlert(Alert.AlertType.INFORMATION, "Login Successful", "Welcome, " + fornecedor.getNome() + "!");
+                                redirectToFornecedorMenu();
+                            } else {
+                                showAlert(Alert.AlertType.ERROR, "Login Failed", "Invalid username or password.");
+                            }
+                        } catch (NoSuchAlgorithmException e) {
+                            showAlert(Alert.AlertType.ERROR, "Login Failed", "Error processing password.");
+                        }
+                    } else {
+                        showAlert(Alert.AlertType.ERROR, "Login Failed", "Invalid username or password.");
+                    }
                 }
             }
         });
 
         registerButton.setOnAction(event -> {
             try {
-                Parent root = FXMLLoader.load(getClass().getResource("/com/example/desktop/Cliente/registarCliente.fxml"));
+                Parent root = FXMLLoader.load(getClass().getResource("/com/example/desktop/Cliente/registarUtilizador.fxml"));
                 Scene scene = new Scene(root);
                 Stage stage = (Stage) registerButton.getScene().getWindow();
                 stage.setScene(scene);
@@ -107,6 +131,18 @@ public class LoginController {
     private void redirectToClienteMenu() {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/com/example/desktop/Cliente/clienteMenu.fxml"));
+            Scene scene = new Scene(root);
+            Stage stage = (Stage) loginButton.getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void redirectToFornecedorMenu() {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/com/example/desktop/Fornecedor/fornecedorMenu.fxml"));
             Scene scene = new Scene(root);
             Stage stage = (Stage) loginButton.getScene().getWindow();
             stage.setScene(scene);

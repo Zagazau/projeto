@@ -1,8 +1,12 @@
 package com.example.desktop.clientes;
 
 import BLL.ClienteBLL;
+import BLL.FornecedorBll;
 import entity.Cliente;
+import entity.Fornecedor;
 import entity.PasswordUtils;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,6 +15,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -50,36 +55,68 @@ public class RegistarClienteController {
     private TextField usernameField;
 
     @FXML
+    private ChoiceBox<String> tipoUtilizadorField;
+
+    @FXML
+    ObservableList<String> UserTypeList = FXCollections.observableArrayList("Cliente", "Fornecedor");
+
+    @FXML
     private void initialize() {
         System.out.println("Initializing RegistarClienteController");
-        registarClienteButton.setOnAction(this::registerCliente);
+        registarClienteButton.setOnAction(this::registerClienteOrFornecedor);
         sairButton.setOnAction(this::redirectToLogin);
+        this.tipoUtilizadorField.setItems(this.UserTypeList);
     }
 
     @FXML
-    private void registerCliente(ActionEvent event) {
-        System.out.println("registerCliente method called");
+    private void registerClienteOrFornecedor(ActionEvent event) {
+        System.out.println("registerClienteOrFornecedor method called");
         if (validateFields()) {
             System.out.println("Fields validation passed");
-            Cliente cliente = new Cliente();
-            cliente.setNome(nomeField.getText().trim());
-            cliente.setNif(Integer.parseInt(nifField.getText().trim()));
-            cliente.setRua(ruaField.getText().trim());
-            cliente.setNumporta(Integer.parseInt(numPortaField.getText().trim()));
-            cliente.setCodpostal(codPostalField.getText().trim());
-            cliente.setTelefone(Integer.parseInt(telefoneField.getText().trim()));
-            cliente.setUsername(usernameField.getText().trim());
-            cliente.setSenha(encryptPassword(passField.getText().trim()));
+            String selectedType = tipoUtilizadorField.getValue();
 
-            try {
-                System.out.println("Persisting client data: " + cliente.toString());
-                ClienteBLL.criar(cliente);
-                System.out.println("Cliente created successfully");
-                showAlert(Alert.AlertType.INFORMATION, "Sucesso", "Cliente registrado com sucesso!");
-                redirectToLogin(event);
-            } catch (Exception e) {
-                System.err.println("Error creating Cliente");
-                showAlert(Alert.AlertType.ERROR, "Erro", "Erro ao registrar o cliente.");
+            if (selectedType.equals("Cliente")) {
+                Cliente cliente = new Cliente();
+                cliente.setNome(nomeField.getText().trim());
+                cliente.setNif(Integer.parseInt(nifField.getText().trim()));
+                cliente.setRua(ruaField.getText().trim());
+                cliente.setNumporta(Integer.parseInt(numPortaField.getText().trim()));
+                cliente.setCodpostal(codPostalField.getText().trim());
+                cliente.setTelefone(Integer.parseInt(telefoneField.getText().trim()));
+                cliente.setUsername(usernameField.getText().trim());
+                cliente.setSenha(encryptPassword(passField.getText().trim()));
+
+                try {
+                    System.out.println("Persisting client data: " + cliente.toString());
+                    ClienteBLL.criar(cliente);
+                    System.out.println("Cliente created successfully");
+                    showAlert(Alert.AlertType.INFORMATION, "Sucesso", "Cliente registrado com sucesso!");
+                    redirectToLogin(event);
+                } catch (Exception e) {
+                    System.err.println("Error creating Cliente");
+                    showAlert(Alert.AlertType.ERROR, "Erro", "Erro ao registrar o cliente.");
+                }
+            } else if (selectedType.equals("Fornecedor")) {
+                Fornecedor fornecedor = new Fornecedor();
+                fornecedor.setNome(nomeField.getText().trim());
+                fornecedor.setNif(Integer.parseInt(nifField.getText().trim()));
+                fornecedor.setRua(ruaField.getText().trim());
+                fornecedor.setNumporta(Integer.parseInt(numPortaField.getText().trim()));
+                fornecedor.setCodpostal(codPostalField.getText().trim());
+                fornecedor.setTelefone(Integer.parseInt(telefoneField.getText().trim()));
+                fornecedor.setUsername(usernameField.getText().trim());
+                fornecedor.setSenha(encryptPassword(passField.getText().trim()));
+
+                try {
+                    System.out.println("Persisting fornecedor data: " + fornecedor.toString());
+                    FornecedorBll.criar(fornecedor);
+                    System.out.println("Fornecedor created successfully");
+                    showAlert(Alert.AlertType.INFORMATION, "Sucesso", "Fornecedor registrado com sucesso!");
+                    redirectToLogin(event);
+                } catch (Exception e) {
+                    System.err.println("Error creating Fornecedor");
+                    showAlert(Alert.AlertType.ERROR, "Erro", "Erro ao registrar o fornecedor.");
+                }
             }
         } else {
             System.out.println("Fields validation failed");
@@ -95,7 +132,6 @@ public class RegistarClienteController {
             return null;
         }
     }
-
 
     private void redirectToLogin(ActionEvent event) {
         System.out.println("redirectToLogin method called");

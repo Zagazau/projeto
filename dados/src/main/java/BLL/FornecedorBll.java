@@ -1,48 +1,53 @@
 package BLL;
 
+import entity.Fornecedor;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.NoResultException;
+import jakarta.persistence.Persistence;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.util.List;
 
 public class FornecedorBll {
-    private EntityManager entityManager;
 
-    public FornecedorBll() {
-        entityManager = DbConnection.getEntityManager();
+    private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("default");
+
+    public static void criar(Fornecedor fornecedor) {
+        EntityManager em = emf.createEntityManager();
+        try {
+            em.getTransaction().begin();
+            em.persist(fornecedor);
+            em.getTransaction().commit();
+            System.out.println("Fornecedor criado com sucesso.");
+        } catch (Exception e) {
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+            System.err.println("Erro ao criar fornecedor: " + e.getMessage());
+        } finally {
+            em.close();
+        }
     }
 
-    public void adicionarFornecedor(int idFornecedor, String codPostal, String nome, int telefone, String rua, int numPorta, int nif) {
-        String query = "INSERT INTO fornecedor (idfornecedor, codpostal, nome, telefone, rua, numporta, nif) VALUES (?, ?, ?, ?, ?, ?, ?)";
-        Connection connection = null;
-        PreparedStatement statement = null;
-
+    public static Fornecedor findFornecedorByUsername(String username) {
+        EntityManager em = emf.createEntityManager();
         try {
-            connection = entityManager.unwrap(Connection.class);
-            statement = connection.prepareStatement(query);
-            statement.setInt(1, idFornecedor);
-            statement.setString(2, codPostal);
-            statement.setString(3, nome);
-            statement.setInt(4, telefone);
-            statement.setString(5, rua);
-            statement.setInt(6, numPorta);
-            statement.setInt(7, nif);
-
-            statement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
+            return em.createQuery("SELECT f FROM Fornecedor f WHERE f.username = :username", Fornecedor.class)
+                    .setParameter("username", username)
+                    .getSingleResult();
+        } catch (NoResultException e) {
+            return null;
         } finally {
-            try {
-                if (statement != null) {
-                    statement.close();
-                }
-                if (connection != null) {
-                    connection.close();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            em.close();
+        }
+    }
+
+    public static List<Fornecedor> listar() {
+        EntityManager em = emf.createEntityManager();
+        try {
+            return em.createQuery("from Fornecedor", Fornecedor.class).getResultList();
+        } finally {
+            em.close();
         }
     }
 }

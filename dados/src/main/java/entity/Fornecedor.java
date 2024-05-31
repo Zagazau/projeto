@@ -9,6 +9,40 @@ public class Fornecedor {
     @Column(name = "idfornecedor")
     private int idfornecedor;
 
+    @Basic
+    @Column(name = "codpostal")
+    private String codpostal;
+
+    @Basic
+    @Column(name = "nome")
+    private String nome;
+
+    @Basic
+    @Column(name = "telefone")
+    private int telefone;
+
+    @Basic
+    @Column(name = "rua")
+    private String rua;
+
+    @Basic
+    @Column(name = "numporta")
+    private int numporta;
+
+    @Basic
+    @Column(name = "nif")
+    private int nif;
+
+    @Basic
+    @Column(name = "username", unique = true)
+    private String username;
+
+    @Basic
+    @Column(name = "senha")
+    private String senha;
+
+    // Getters e Setters
+
     public int getIdfornecedor() {
         return idfornecedor;
     }
@@ -16,10 +50,6 @@ public class Fornecedor {
     public void setIdfornecedor(int idfornecedor) {
         this.idfornecedor = idfornecedor;
     }
-
-    @Basic
-    @Column(name = "codpostal")
-    private String codpostal;
 
     public String getCodpostal() {
         return codpostal;
@@ -29,10 +59,6 @@ public class Fornecedor {
         this.codpostal = codpostal;
     }
 
-    @Basic
-    @Column(name = "nome")
-    private String nome;
-
     public String getNome() {
         return nome;
     }
@@ -40,10 +66,6 @@ public class Fornecedor {
     public void setNome(String nome) {
         this.nome = nome;
     }
-
-    @Basic
-    @Column(name = "telefone")
-    private int telefone;
 
     public int getTelefone() {
         return telefone;
@@ -53,10 +75,6 @@ public class Fornecedor {
         this.telefone = telefone;
     }
 
-    @Basic
-    @Column(name = "rua")
-    private String rua;
-
     public String getRua() {
         return rua;
     }
@@ -64,10 +82,6 @@ public class Fornecedor {
     public void setRua(String rua) {
         this.rua = rua;
     }
-
-    @Basic
-    @Column(name = "numporta")
-    private int numporta;
 
     public int getNumporta() {
         return numporta;
@@ -77,15 +91,27 @@ public class Fornecedor {
         this.numporta = numporta;
     }
 
-    @Basic
-    @Column(name = "nif")
-    private int nif;
-
     public int getNif() {
         return nif;
     }
 
     public void setNif(int nif) {
         this.nif = nif;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
     }
 }

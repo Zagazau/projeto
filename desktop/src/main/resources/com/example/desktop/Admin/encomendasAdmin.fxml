@@ -8,11 +8,10 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.desktop.MenuAdminController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.desktop.Admin.EncomendasAdminController">
     <top>
         <AnchorPane style="-fx-background-color: #FFDAB9;" BorderPane.alignment="CENTER">
-            <Button fx:id="goBack" layoutX="14.0" layoutY="453.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="128.0" text="Terminar sessão" />
-            <AnchorPane layoutX="-35.0" prefHeight="500.0" prefWidth="191.0" style="-fx-background-color: white;">
+            <AnchorPane layoutX="-32.0" prefHeight="500.0" prefWidth="191.0" style="-fx-background-color: white;">
                 <children>
 
                     <Label layoutX="60.0" layoutY="35.0" prefHeight="32.0" prefWidth="109.0" text="Menu Admin">
@@ -45,7 +44,7 @@
                             <Font size="13.0" />
                         </font>
                     </Button>
-               <Button fx:id="consultarFaturacaoButton1" layoutX="48.0" layoutY="227.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="133.0" text="Pagar Encomendas">
+               <Button fx:id="pagarEncomendasButton" layoutX="48.0" layoutY="227.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="133.0" text="Pagar Encomendas">
                   <font>
                      <Font size="13.0" />
                   </font>
@@ -57,7 +56,7 @@
                     <Font size="30.0" />
                 </font>
             </Label>
-         <Button fx:id="sairButton1" layoutX="361.0" layoutY="360.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="74.0" text="Voltar">
+         <Button fx:id="voltarButton" layoutX="361.0" layoutY="360.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="74.0" text="Voltar">
             <font>
                <Font size="13.0" />
             </font>

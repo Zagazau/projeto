@@ -5,9 +5,13 @@ module com.example.desktop {
     requires dados;
     requires java.sql;
 
+    exports com.example.desktop.clientes;
+    exports com.example.desktop.Admin to javafx.fxml;
+    exports com.example.desktop;
 
     opens com.example.desktop to javafx.fxml;
-    exports com.example.desktop;
     opens com.example.desktop.clientes to javafx.fxml;
-    exports com.example.desktop.clientes;
+    opens com.example.desktop.Admin to javafx.fxml;
+
+
 }

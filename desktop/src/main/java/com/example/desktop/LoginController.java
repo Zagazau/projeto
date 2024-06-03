@@ -142,7 +142,7 @@ public class LoginController {
 
     private void redirectToFornecedorMenu() {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/com/example/desktop/Fornecedor/fornecedorMenu.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/com/example/desktop/Fornecedor/FornecedorMenu.fxml"));
             Scene scene = new Scene(root);
             Stage stage = (Stage) loginButton.getScene().getWindow();
             stage.setScene(scene);

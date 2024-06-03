@@ -46,19 +46,19 @@
                             <Font size="13.0" />
                         </font>
                     </Button>
-                    <Button fx:id="pagarEncomendasButton" layoutX="47.0" layoutY="207.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="132.0" text="Pagar Encomendas">
-                        <font>
-                            <Font size="13.0" />
-                        </font>
-                    </Button>
+               <Button fx:id="pagarEncomendasButton" layoutX="47.0" layoutY="207.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="132.0" text="Pagar Encomendas">
+                  <font>
+                     <Font size="13.0" />
+                  </font>
+               </Button>
                 </children>
             </AnchorPane>
-            <Label layoutX="313.0" layoutY="30.0" prefHeight="45.0" prefWidth="262.0" text="Faturação">
+            <Label layoutX="277.0" layoutY="30.0" prefHeight="45.0" prefWidth="262.0" text="Pagar Encomendas">
                 <font>
                     <Font size="30.0" />
                 </font>
             </Label>
-            <Button fx:id="backButton" layoutX="305.0" layoutY="366.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="218.0" text="Voltar">
+            <Button fx:id="backButton" layoutX="313.0" layoutY="392.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="218.0" text="Voltar">
                 <font>
                     <Font size="13.0" />
                 </font>
@@ -66,10 +66,9 @@
 
             <TableView fx:id="customersTable" layoutX="184.0" layoutY="145.0" prefHeight="139.0" prefWidth="483.0">
                 <columns>
-                    <TableColumn fx:id="idEncomendaField" prefWidth="109.0" text="id_Encomenda" />
-                    <TableColumn fx:id="tipoQueijoField" prefWidth="109.0" text="Tipo de Queijo" />
-                    <TableColumn fx:id="quantidadeField" minWidth="0.0" prefWidth="140.0" text="Quantidade" />
-               <TableColumn fx:id="preçoField" minWidth="0.0" prefWidth="124.0" text="Preço" />
+                    <TableColumn fx:id="idEncomendaButton" prefWidth="105.0" text="id_Encomenda" />
+                    <TableColumn fx:id="tipoLeiteButton" prefWidth="218.0" text="Tipo de Leite" />
+                    <TableColumn fx:id="quanrtidadeButton" minWidth="0.0" prefWidth="159.0" text="Quantidade" />
                 </columns>
             </TableView>
 
@@ -83,16 +82,21 @@
                     <Font size="11.0" />
                 </font>
             </Label>
-            <Label layoutX="507.0" layoutY="296.0" prefHeight="26.0" prefWidth="95.0" text="TOTAL:    ">
+            <Button fx:id="removerProdutoButton" layoutX="313.0" layoutY="345.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="220.0" text="Pagar Encomenda">
                 <font>
-                    <Font size="17.0" />
+                    <Font size="13.0" />
+                </font>
+            </Button>
+            <Label layoutX="184.0" layoutY="284.0" prefHeight="18.0" prefWidth="230.0" text="Selecione a encomendas a pagar.">
+                <font>
+                    <Font size="11.0" />
                 </font>
             </Label>
-            <Label layoutX="234.0" layoutY="43.0" prefHeight="45.0" prefWidth="360.0" text="______________________________">
-                <font>
-                    <Font size="22.0" />
-                </font>
-            </Label>
+         <Label layoutX="234.0" layoutY="43.0" prefHeight="45.0" prefWidth="360.0" text="__________________________________">
+            <font>
+               <Font size="22.0" />
+            </font>
+         </Label>
 
         </AnchorPane>
     </top>

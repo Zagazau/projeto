@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.desktop.Admin.EfetuarEncomendasController">
     <top>
         <AnchorPane style="-fx-background-color: #FFDAB9;" BorderPane.alignment="CENTER">
             <Button fx:id="goBack" layoutX="14.0" layoutY="453.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="128.0" text="Terminar sessão" />
@@ -26,7 +26,7 @@
                             <Font size="13.0" />
                         </font>
                     </Button>
-                    <Button fx:id="pagarEncomendasButton3" layoutX="48.0" layoutY="184.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="133.0" text="Pagar Encomendas">
+                    <Button fx:id="pagarEncomendasButton" layoutX="48.0" layoutY="184.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="133.0" text="Pagar Encomendas">
                         <font>
                             <Font size="13.0" />
                         </font>
@@ -91,7 +91,7 @@
                     <Font size="13.0" />
                 </font>
             </Button>
-            <Button fx:id="backButton" layoutX="257.0" layoutY="293.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="287.0" text="Voltar">
+            <Button fx:id="voltarButton" layoutX="257.0" layoutY="293.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="287.0" text="Voltar">
                 <font>
                     <Font size="13.0" />
                 </font>

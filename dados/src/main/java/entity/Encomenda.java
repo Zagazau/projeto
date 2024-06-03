@@ -1,16 +1,37 @@
 package entity;
 
 import jakarta.persistence.Entity;
-
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Column;
+import jakarta.persistence.Basic;
 import java.sql.Date;
 
 @Entity
 public class Encomenda {
-    @jakarta.persistence.GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
-    @jakarta.persistence.Id
-    @jakarta.persistence.Column(name = "idencomenda")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @Column(name = "idencomenda")
     private int idencomenda;
 
+    @Basic
+    @Column(name = "idfornecedor")
+    private int idfornecedor;
+
+    @Basic
+    @Column(name = "quantidade")
+    private float quantidade;
+
+    @Basic
+    @Column(name = "data")
+    private Date data;
+
+    @Basic
+    @Column(name = "tipoLeite")
+    private String tipoLeite;
+
+    // Getters and Setters
     public int getIdencomenda() {
         return idencomenda;
     }
@@ -18,10 +39,6 @@ public class Encomenda {
     public void setIdencomenda(int idencomenda) {
         this.idencomenda = idencomenda;
     }
-
-    @jakarta.persistence.Basic
-    @jakarta.persistence.Column(name = "idfornecedor")
-    private int idfornecedor;
 
     public int getIdfornecedor() {
         return idfornecedor;
@@ -31,10 +48,6 @@ public class Encomenda {
         this.idfornecedor = idfornecedor;
     }
 
-    @jakarta.persistence.Basic
-    @jakarta.persistence.Column(name = "quantidade")
-    private float quantidade;
-
     public float getQuantidade() {
         return quantidade;
     }
@@ -43,15 +56,19 @@ public class Encomenda {
         this.quantidade = quantidade;
     }
 
-    @jakarta.persistence.Basic
-    @jakarta.persistence.Column(name = "data")
-    private Date data;
-
     public Date getData() {
         return data;
     }
 
     public void setData(Date data) {
         this.data = data;
+    }
+
+    public String getTipoLeite() {
+        return tipoLeite;
+    }
+
+    public void setTipoLeite(String tipoLeite) {
+        this.tipoLeite = tipoLeite;
     }
 }

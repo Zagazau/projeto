@@ -14,16 +14,13 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.Optional;
 
-public class pagarPedidosClienteController {
+public class pagarPedidosClienteEspecificoController {
 
     @FXML
     private Button backButton;
 
     @FXML
     private Button consultarProdutosButton;
-
-    @FXML
-    private TreeTableColumn<?, ?> dataField;
 
     @FXML
     private TreeTableColumn<?, ?> idpedidoField;
@@ -51,11 +48,27 @@ public class pagarPedidosClienteController {
 
     @FXML
     public void initialize() {
-        System.out.println("Inicializando pagarPedidosClienteController...");
+        System.out.println("Inicializando pagarPedidosClienteEspecificoController...");
 
         sairButton.setOnAction(event -> {
             System.out.println("Botão Sair pressionado!");
             showConfirmationAlert(event);
+        });
+
+        backButton.setOnAction(event -> {
+            System.out.println("Botão Voltar pressionado!");
+            try {
+                Parent root = FXMLLoader.load(getClass().getResource("/com/example/desktop/Cliente/pagarPedidos.fxml"));
+                Scene scene = new Scene(root);
+                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                stage.setScene(scene);
+                stage.setTitle("Pagar Pedidos");
+                stage.show();
+                System.out.println("Redirecionado para pagarPedidos.fxml com sucesso");
+            } catch (IOException e) {
+                e.printStackTrace();
+                showAlert(Alert.AlertType.ERROR, "Erro", "Não foi possível voltar para a página anterior.");
+            }
         });
 
         pedidosButton.setOnAction(event -> {
@@ -103,22 +116,6 @@ public class pagarPedidosClienteController {
             } catch (IOException e) {
                 e.printStackTrace();
                 showAlert(Alert.AlertType.ERROR, "Erro", "Não foi possível abrir a cena: consultarProdutos.fxml");
-            }
-        });
-
-        pagarButton.setOnAction(event -> {
-            System.out.println("Botão Pagar pressionado!");
-            try {
-                Parent root = FXMLLoader.load(getClass().getResource("/com/example/desktop/Cliente/pagarPedidoEspecifico.fxml"));
-                Scene scene = new Scene(root);
-                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                stage.setScene(scene);
-                stage.setTitle("Pagar Pedido Específico");
-                stage.show();
-                System.out.println("Cena pagarPedidoEspecifico.fxml carregada com sucesso.");
-            } catch (IOException e) {
-                e.printStackTrace();
-                showAlert(Alert.AlertType.ERROR, "Erro", "Não foi possível abrir a cena: pagarPedidoEspecifico.fxml");
             }
         });
     }

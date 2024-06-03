@@ -3,11 +3,17 @@ package com.example.desktop.Admin;
 import BLL.EncomendaBll;
 import entity.Encomenda;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.sql.Date;
 import java.time.LocalDate;
 
@@ -53,6 +59,26 @@ public class EfetuarEncomendasController {
     private void initialize() {
         tipoLeiteField.getItems().addAll("Leite de Vaca", "Leite de Cabra", "Leite de Ovelha");
         efetuarEncomendaButton.setOnAction(event -> efetuarEncomenda());
+        consultarFaturacaoButton.setOnAction(event -> loadScene(event, "/com/example/desktop/Admin/consultarFaturaçãoAdmin.fxml"));
+        consultarProducaoButton.setOnAction(event -> loadScene(event, "/com/example/desktop/Admin/consultarProducao.fxml"));
+        encomendarLeiteButton.setOnAction(event -> loadScene(event, "/com/example/desktop/Admin/encomendasAdmin.fxml"));
+        pagarEncomendasButton.setOnAction(event -> loadScene(event, "/com/example/desktop/Admin/pagarEncomendasAdmin.fxml"));
+        controlarStockButton.setOnAction(event -> loadScene(event, "/com/example/desktop/Admin/controlarStockAdmin.fxml"));
+        sairButton.setOnAction(event -> loadScene(event, "/com/example/desktop/firstPage.fxml"));
+        voltarButton.setOnAction(event -> loadScene(event, "/com/example/desktop/Admin/encomendasAdmin.fxml"));
+    }
+
+    private void loadScene(javafx.event.ActionEvent event, String fxmlFile) {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource(fxmlFile));
+            Scene scene = new Scene(root);
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert("Erro", "Erro ao carregar a página: " + fxmlFile);
+        }
     }
 
     private void efetuarEncomenda() {
@@ -60,7 +86,7 @@ public class EfetuarEncomendasController {
         String tipoLeite = tipoLeiteField.getValue();
 
         if (quantidade.isEmpty() || tipoLeite == null) {
-            mostrarAlerta("Erro", "Por favor, preencha todos os campos.");
+            showAlert("Erro", "Por favor, preencha todos os campos.");
             return;
         }
 
@@ -73,17 +99,17 @@ public class EfetuarEncomendasController {
             encomenda.setIdfornecedor(1); // Exemplo de idfornecedor
 
             encomendaBll.salvarEncomenda(encomenda);
-            mostrarAlerta("Sucesso", "Encomenda efetuada com sucesso!");
+            showAlert("Sucesso", "Encomenda efetuada com sucesso!");
         } catch (NumberFormatException e) {
-            mostrarAlerta("Erro", "Por favor, insira uma quantidade válida.");
+            showAlert("Erro", "Por favor, insira uma quantidade válida.");
         }
     }
 
-    private void mostrarAlerta(String titulo, String mensagem) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle(titulo);
+    private void showAlert(String title, String message) {
+        javafx.scene.control.Alert alert = new javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.ERROR);
+        alert.setTitle(title);
         alert.setHeaderText(null);
-        alert.setContentText(mensagem);
+        alert.setContentText(message);
         alert.showAndWait();
     }
 }

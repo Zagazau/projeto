@@ -1,10 +1,8 @@
 package BLL;
 
 import jakarta.persistence.EntityManager;
-
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import jakarta.persistence.EntityTransaction;
+import entity.Pedido;
 
 public class PedidoBll {
     private EntityManager entityManager;
@@ -13,21 +11,23 @@ public class PedidoBll {
         entityManager = DbConnection.getEntityManager();
     }
 
-    public void adicionarPedido(int idPedido, int idCliente, int quantidade, String data) {
-        String query = "INSERT INTO pedido (idpedido, idcliente, quantidade, data) VALUES (?, ?, ?, ?)";
+    public void adicionarPedido(int idCliente, int quantidade, java.sql.Date data) {
+        EntityTransaction transaction = null;
         try {
-            entityManager.getTransaction().begin();
-            Connection connection = entityManager.unwrap(Connection.class);
-            PreparedStatement statement = connection.prepareStatement(query);
-            statement.setInt(1, idPedido);
-            statement.setInt(2, idCliente);
-            statement.setInt(3, quantidade);
-            statement.setString(4, data);
+            transaction = entityManager.getTransaction();
+            transaction.begin();
 
-            statement.executeUpdate();
-            entityManager.getTransaction().commit();
-        } catch (SQLException e) {
-            entityManager.getTransaction().rollback();
+            Pedido pedido = new Pedido();
+            pedido.setIdcliente(idCliente);
+            pedido.setQuantidade(quantidade);
+            pedido.setData(data);
+
+            entityManager.persist(pedido);
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null && transaction.isActive()) {
+                transaction.rollback();
+            }
             e.printStackTrace();
         }
     }

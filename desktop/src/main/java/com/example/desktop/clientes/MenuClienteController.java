@@ -27,6 +27,12 @@ public class MenuClienteController {
     @FXML
     private Button sairButton;
 
+    private int idCliente; // Adicionado para armazenar o id do cliente
+
+    public void setIdCliente(int idCliente) { // Método para definir o id do cliente
+        this.idCliente = idCliente;
+    }
+
     @FXML
     public void initialize() {
         System.out.println("Inicializando MenuClienteController...");
@@ -81,7 +87,10 @@ public class MenuClienteController {
     private void efetuarPedidos(ActionEvent event) {
         System.out.println("Botão Efetuar Pedidos pressionado!");
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/com/example/desktop/Cliente/efetuarPedido.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/desktop/Cliente/efetuarPedido.fxml"));
+            Parent root = loader.load();
+            efetuarPedidosClienteController controller = loader.getController();
+            controller.setIdCliente(idCliente);
             Scene scene = new Scene(root);
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(scene);

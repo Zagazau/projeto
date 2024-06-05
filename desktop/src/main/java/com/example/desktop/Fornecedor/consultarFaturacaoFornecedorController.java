@@ -27,6 +27,9 @@ public class consultarFaturacaoFornecedorController {
     private Button consultarFaturacaoButton;
 
     @FXML
+    private Button inserirProdutoButton;
+
+    @FXML
     private TableView<?> customersTable;
 
     @FXML
@@ -99,6 +102,22 @@ public class consultarFaturacaoFornecedorController {
             } catch (IOException e) {
                 e.printStackTrace();
                 showAlert(Alert.AlertType.ERROR, "Erro", "Não foi possível abrir a cena consultarFaturacao.fxml.");
+            }
+        });
+
+        inserirProdutoButton.setOnAction(event -> {
+            System.out.println("Botão Inserir Produto pressionado!");
+            try {
+                Parent root = FXMLLoader.load(getClass().getResource("/com/example/desktop/Fornecedor/inserirProdutos.fxml"));
+                Scene scene = new Scene(root);
+                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                stage.setScene(scene);
+                stage.setTitle("Inserir Produto");
+                stage.show();
+                System.out.println("Redirecionado para inserirProduto.fxml com sucesso");
+            } catch (IOException e) {
+                e.printStackTrace();
+                showAlert(Alert.AlertType.ERROR, "Erro", "Não foi possível abrir a cena inserirProduto.fxml.");
             }
         });
     }

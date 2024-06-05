@@ -3,6 +3,7 @@ package com.example.desktop;
 import BLL.AdminBll;
 import BLL.ClienteBLL;
 import BLL.FornecedorBll;
+import com.example.desktop.clientes.MenuClienteController;
 import entity.Admin;
 import entity.Cliente;
 import entity.Fornecedor;
@@ -55,7 +56,7 @@ public class LoginController {
                     String hashedPassword = PasswordUtils.hashPassword(password, salt);
                     if (hashedPassword.equals(hash)) {
                         showAlert(Alert.AlertType.INFORMATION, "Login Successful", "Welcome, " + cliente.getNome() + "!");
-                        redirectToClienteMenu();
+                        redirectToClienteMenu(cliente.getIdcliente());  // Passe o idCliente aqui
                     } else {
                         showAlert(Alert.AlertType.ERROR, "Login Failed", "Invalid username or password.");
                     }
@@ -128,9 +129,12 @@ public class LoginController {
         }
     }
 
-    private void redirectToClienteMenu() {
+    private void redirectToClienteMenu(int idCliente) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/com/example/desktop/Cliente/clienteMenu.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/desktop/Cliente/clienteMenu.fxml"));
+            Parent root = loader.load();
+            MenuClienteController controller = loader.getController();
+            controller.setIdCliente(idCliente);
             Scene scene = new Scene(root);
             Stage stage = (Stage) loginButton.getScene().getWindow();
             stage.setScene(scene);
@@ -142,7 +146,7 @@ public class LoginController {
 
     private void redirectToFornecedorMenu() {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/com/example/desktop/Fornecedor/FornecedorMenu.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/com/example/desktop/Fornecedor/fornecedorMenu.fxml"));
             Scene scene = new Scene(root);
             Stage stage = (Stage) loginButton.getScene().getWindow();
             stage.setScene(scene);

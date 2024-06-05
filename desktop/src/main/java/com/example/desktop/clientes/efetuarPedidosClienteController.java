@@ -1,18 +1,17 @@
 package com.example.desktop.clientes;
 
+import BLL.PedidoBll;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.MenuButton;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.Optional;
 
 public class efetuarPedidosClienteController {
@@ -41,8 +40,20 @@ public class efetuarPedidosClienteController {
     @FXML
     private Button sairButton;
 
+    private int idCliente; // Adicionado para armazenar o id do cliente
+
+    public void setIdCliente(int idCliente) { // Método para definir o id do cliente
+        this.idCliente = idCliente;
+    }
+
     @FXML
     public void initialize() {
+        queijoField.getItems().addAll(
+                createMenuItem("Queijo de Vaca"),
+                createMenuItem("Queijo de Cabra"),
+                createMenuItem("Queijo de Ovelha")
+        );
+
         sairButton.setOnAction(event -> {
             System.out.println("Botão Sair pressionado!");
             showConfirmationAlert(event);
@@ -95,6 +106,17 @@ public class efetuarPedidosClienteController {
                 showAlert(Alert.AlertType.ERROR, "Erro", "Não foi possível abrir a cena consultarProdutos.fxml.");
             }
         });
+
+        efetuarPedidoButton.setOnAction(event -> {
+            System.out.println("Botão Efetuar Pedido pressionado!");
+            efetuarPedido();
+        });
+    }
+
+    private MenuItem createMenuItem(String text) {
+        MenuItem menuItem = new MenuItem(text);
+        menuItem.setOnAction(event -> queijoField.setText(text));
+        return menuItem;
     }
 
     private void showConfirmationAlert(javafx.event.ActionEvent event) {
@@ -126,5 +148,19 @@ public class efetuarPedidosClienteController {
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
+    }
+
+    private void efetuarPedido() {
+        try {
+            int quantidade = Integer.parseInt(quantidadeField.getText());
+            java.sql.Date data = Date.valueOf(LocalDate.now());
+
+            PedidoBll pedidoBll = new PedidoBll();
+            pedidoBll.adicionarPedido(idCliente, quantidade, data);
+
+            showAlert(Alert.AlertType.INFORMATION, "Pedido Efetuado", "Seu pedido foi efetuado com sucesso!");
+        } catch (NumberFormatException e) {
+            showAlert(Alert.AlertType.ERROR, "Erro no Pedido", "Quantidade inválida.");
+        }
     }
 }

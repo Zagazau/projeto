@@ -33,6 +33,11 @@
                      <Font size="14.0" />
                   </font>
                </Button>
+               <Button fx:id="inserirProdutosButton" layoutX="51.0" layoutY="218.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="159.0" text="Inserir Produtos">
+                  <font>
+                     <Font size="14.0" />
+                  </font>
+               </Button>
                 </children>
             </AnchorPane>
             <Label layoutX="240.0" layoutY="30.0" prefHeight="45.0" prefWidth="306.0" text="Consultar Encomendas">

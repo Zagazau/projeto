@@ -76,7 +76,7 @@
                 </font>
             </Label>
 
-            <Label layoutX="209.0" layoutY="126.0" prefHeight="19.0" prefWidth="150.0" text="Introduza o nome do Produto">
+            <Label layoutX="208.0" layoutY="136.0" prefHeight="19.0" prefWidth="150.0" text="Introduza o tipo de Leite">
                 <font>
                     <Font size="10.0" />
                 </font>
@@ -91,14 +91,13 @@
                     <Font size="13.0" />
                 </font>
             </Button>
-            <Label layoutX="357.0" layoutY="126.0" prefHeight="19.0" prefWidth="139.0" text="Introduza a quantidade (em L)">
+            <Label layoutX="357.0" layoutY="136.0" prefHeight="19.0" prefWidth="139.0" text="Introduza a quantidade (em L)">
                 <font>
                     <Font size="10.0" />
                 </font>
             </Label>
-            <TextField fx:id="nomeProdutoField" layoutX="209.0" layoutY="142.0" prefHeight="25.0" prefWidth="133.0" />
-            <TextField fx:id="valorField" layoutX="516.0" layoutY="142.0" prefHeight="25.0" prefWidth="125.0" />
-            <Label layoutX="516.0" layoutY="126.0" prefHeight="19.0" prefWidth="139.0" text="Introduza o valor (por Litro)">
+            <TextField fx:id="valorField" layoutX="516.0" layoutY="155.0" prefHeight="25.0" prefWidth="125.0" />
+            <Label layoutX="516.0" layoutY="136.0" prefHeight="19.0" prefWidth="139.0" text="Introduza o valor (por Litro)">
                 <font>
                     <Font size="10.0" />
                 </font>
@@ -108,7 +107,8 @@
                     <Font size="11.0" />
                 </font>
             </Label>
-         <TextField fx:id="quantidadeField" layoutX="360.0" layoutY="142.0" prefHeight="25.0" prefWidth="133.0" />
+         <TextField fx:id="quantidadeField" layoutX="360.0" layoutY="155.0" prefHeight="25.0" prefWidth="133.0" />
+         <TextField fx:id="nomeProdutoField" layoutX="208.0" layoutY="155.0" prefHeight="25.0" prefWidth="129.0" />
 
         </AnchorPane>
     </top>

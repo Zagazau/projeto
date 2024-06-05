@@ -48,11 +48,6 @@ public class efetuarPedidosClienteController {
 
     @FXML
     public void initialize() {
-        queijoField.getItems().addAll(
-                createMenuItem("Queijo de Vaca"),
-                createMenuItem("Queijo de Cabra"),
-                createMenuItem("Queijo de Ovelha")
-        );
 
         sairButton.setOnAction(event -> {
             System.out.println("Botão Sair pressionado!");

@@ -9,10 +9,12 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Optional;
 
 public class AdicionarProdutoController {
 
@@ -50,7 +52,6 @@ public class AdicionarProdutoController {
     private Button voltarButton;
 
     private ProdutoBll produtoBll;
-
     @FXML
     public void initialize() {
         controlarStockButton.setOnAction(event -> loadScene(event, "/com/example/desktop/Admin/controlarStockAdmin.fxml"));
@@ -60,37 +61,39 @@ public class AdicionarProdutoController {
         encomendarLeiteButton.setOnAction(event -> loadScene(event, "/com/example/desktop/Admin/encomendasAdmin.fxml"));
         sairButton.setOnAction(event -> loadScene(event, "/com/example/desktop/firstPage.fxml"));
         voltarButton.setOnAction(event -> loadScene(event, "/com/example/desktop/Admin/encomendasAdmin.fxml"));
-
         produtoBll = new ProdutoBll();
 
-        adicionarProdutoButton.setOnAction(event -> adicionarProduto());
-    }
+        voltarButton.setOnAction(event -> {
+            System.out.println("Botão Voltar pressionado!");
+            try {
+                Parent root = FXMLLoader.load(getClass().getResource("/com/example/desktop/Admin/AdminMenu.fxml"));
+                Scene scene = new Scene(root);
+                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                stage.setScene(scene);
+                stage.setTitle("Menu Admin");
+                stage.show();
+                System.out.println("Redirecionado para AdminMenu.fxml com sucesso");
+            } catch (IOException e) {
+                e.printStackTrace();
+                showAlert("Erro", "Não foi possível voltar para a página anterior.");
+            }
+        });
 
-    private void adicionarProduto() {
-        String nome = nomeProdutoField.getText();
-        String quantidadeText = quantidadeField.getText();
-        String valorText = valorField.getText();
+        adicionarProdutoButton.setOnAction(event -> {
+            System.out.println("Botão Adicionar Produto pressionado!");
+            try {
+                String nome = nomeProdutoField.getText();
+                Float valor = Float.parseFloat(valorField.getText());
+                Integer quantidade = Integer.parseInt(quantidadeField.getText());
+                Integer idProduto = (int) (Math.random() * 10000); // Gerando um ID aleatório para demonstração
 
-        if (nome.isEmpty() || quantidadeText.isEmpty() || valorText.isEmpty()) {
-            showAlert("Erro", "Todos os campos devem ser preenchidos.");
-            return;
-        }
-
-        try {
-            int quantidade = Integer.parseInt(quantidadeText);
-            float valor = Float.parseFloat(valorText);
-
-            Produto produto = new Produto(nome, valor, quantidade);
-            produtoBll.adicionarProduto(produto);
-            showAlert("Sucesso", "Produto adicionado com sucesso!");
-
-            // Limpar os campos após adicionar
-            nomeProdutoField.clear();
-            quantidadeField.clear();
-            valorField.clear();
-        } catch (NumberFormatException e) {
-            showAlert("Erro", "Quantidade e valor devem ser numéricos.");
-        }
+                produtoBll.adicionarProduto(idProduto, nome, valor, quantidade);
+                showAlert("Sucesso", "Produto adicionado com sucesso!");
+            } catch (Exception e) {
+                e.printStackTrace();
+                showAlert("Erro", "Não foi possível adicionar o produto.");
+            }
+        });
     }
 
     private void loadScene(javafx.event.ActionEvent event, String fxmlFile) {
@@ -107,7 +110,7 @@ public class AdicionarProdutoController {
     }
 
     private void showAlert(String title, String message) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        javafx.scene.control.Alert alert = new javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.ERROR);
         alert.setTitle(title);
         alert.setHeaderText(null);
         alert.setContentText(message);

@@ -9,6 +9,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+
 public class MenuAdminController {
 
     @FXML
@@ -30,151 +32,34 @@ public class MenuAdminController {
     private Button sairButton;
 
     @FXML
-    public void initialize() {
-        System.out.println("Inicializando MenuAdminController...");
-
-        if (consultarFaturacaoButton != null) {
-            System.out.println("Botão consultarFaturacaoButton inicializado.");
-            consultarFaturacaoButton.setOnAction(this::consultarFaturacao);
-        } else {
-            System.out.println("Botão consultarFaturacaoButton é nulo.");
-        }
-        if (consultarProducaoButton != null) {
-            System.out.println("Botão consultarProducaoButton inicializado.");
-            consultarProducaoButton.setOnAction(this::consultarProducao);
-        } else {
-            System.out.println("Botão consultarProducaoButton é nulo.");
-        }
-        if (controlarStockButton != null) {
-            System.out.println("Botão controlarStockButton inicializado.");
-            controlarStockButton.setOnAction(this::controlarStock);
-        } else {
-            System.out.println("Botão controlarStockButton é nulo.");
-        }
-        if (encomendarLeiteButton != null) {
-            System.out.println("Botão encomendarLeiteButton inicializado.");
-            encomendarLeiteButton.setOnAction(this::encomendarLeite);
-        } else {
-            System.out.println("Botão encomendarLeiteButton é nulo.");
-        }
-        if (pagarEncomendasButton != null) {
-            System.out.println("Botão pagarEncomendasButton inicializado.");
-            pagarEncomendasButton.setOnAction(this::pagarEncomendas);
-        } else {
-            System.out.println("Botão pagarEncomendasButton é nulo.");
-        }
-        if (sairButton != null) {
-            System.out.println("Botão sairButton inicializado.");
-            sairButton.setOnAction(this::sair);
-        } else {
-            System.out.println("Botão sairButton é nulo.");
-        }
-    }
+    private Button adicionarButton;
 
     @FXML
-    private void sair(javafx.event.ActionEvent event) {
-        System.out.println("Botão Sair pressionado!");
+    private void initialize() {
+        consultarFaturacaoButton.setOnAction(event -> loadScene(event, "/com/example/desktop/Admin/consultarFaturacaoAdmin.fxml"));
+        consultarProducaoButton.setOnAction(event -> loadScene(event, "/com/example/desktop/Admin/consultarProducao.fxml"));
+        controlarStockButton.setOnAction(event -> loadScene(event, "/com/example/desktop/Admin/controlarStockAdmin.fxml"));
+        encomendarLeiteButton.setOnAction(event -> loadScene(event, "/com/example/desktop/Admin/encomendasAdmin.fxml"));
+        pagarEncomendasButton.setOnAction(event -> loadScene(event, "/com/example/desktop/Admin/pagarEncomendas.fxml"));
+        sairButton.setOnAction(event -> loadScene(event, "/com/example/desktop/firstPage.fxml"));
+        adicionarButton.setOnAction(event -> loadScene(event, "/com/example/desktop/Admin/adicionarProdutoAdmin.fxml"));
+    }
+
+    private void loadScene(javafx.event.ActionEvent event, String fxmlFile) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/com/example/desktop/firstPage.fxml"));
-            Scene regCena = new Scene(root);
+            Parent root = FXMLLoader.load(getClass().getResource(fxmlFile));
+            Scene scene = new Scene(root);
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setScene(regCena);
-            stage.setTitle("Página Anterior");
+            stage.setScene(scene);
             stage.show();
-            System.out.println("Redirecionado para firstPage.fxml com sucesso");
-        } catch (Exception e) {
+        } catch (IOException e) {
             e.printStackTrace();
-            showAlert(Alert.AlertType.ERROR, "Erro", "Não foi possível voltar para a página anterior.");
+            showAlert("Erro", "Erro ao carregar a página: " + fxmlFile);
         }
     }
 
-    @FXML
-    private void encomendarLeite(javafx.event.ActionEvent event) {
-        System.out.println("Botão Encomendar Leite pressionado!");
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource("/com/example/desktop/Admin/encomendasAdmin.fxml"));
-            Scene regCena = new Scene(root);
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setScene(regCena);
-            stage.setTitle("Encomendar Leite");
-            stage.show();
-            System.out.println("Cena encomendasAdmin.fxml carregada com sucesso.");
-        } catch (Exception e) {
-            e.printStackTrace();
-            showAlert(Alert.AlertType.ERROR, "Erro", "Não foi possível abrir a cena: encomendasAdmin.fxml");
-        }
-    }
-
-    @FXML
-    private void controlarStock(javafx.event.ActionEvent event) {
-        System.out.println("Botão Controlar Stock pressionado!");
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource("/com/example/desktop/Admin/controlarStockAdmin.fxml"));
-            Scene regCena = new Scene(root);
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setScene(regCena);
-            stage.setTitle("Controlar Stock");
-            stage.show();
-            System.out.println("Cena controlarStockAdmin.fxml carregada com sucesso.");
-        } catch (Exception e) {
-            e.printStackTrace();
-            showAlert(Alert.AlertType.ERROR, "Erro", "Não foi possível abrir a cena: controlarStockAdmin.fxml");
-        }
-    }
-
-    @FXML
-    private void consultarFaturacao(javafx.event.ActionEvent event) {
-        System.out.println("Botão Consultar Faturação pressionado!");
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource("/com/example/desktop/Admin/consultarFaturacaoAdmin.fxml"));
-            Scene regCena = new Scene(root);
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setScene(regCena);
-            stage.setTitle("Consulta Faturação");
-            stage.show();
-            System.out.println("Cena consultarFaturacaoAdmin.fxml carregada com sucesso.");
-        } catch (Exception e) {
-            e.printStackTrace();
-            showAlert(Alert.AlertType.ERROR, "Erro", "Não foi possível abrir a cena: consultarFaturacaoAdmin.fxml");
-        }
-    }
-
-    @FXML
-    private void consultarProducao(javafx.event.ActionEvent event) {
-        System.out.println("Botão Consultar Produção pressionado!");
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource("/com/example/desktop/Admin/ConsultarProducao.fxml"));
-            Scene regCena = new Scene(root);
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setScene(regCena);
-            stage.setTitle("Consultar Produção");
-            stage.show();
-            System.out.println("Cena ConsultarProducao.fxml carregada com sucesso.");
-        } catch (Exception e) {
-            e.printStackTrace();
-            showAlert(Alert.AlertType.ERROR, "Erro", "Não foi possível abrir a cena: ConsultarProducao.fxml");
-        }
-    }
-
-    private void pagarEncomendas(javafx.event.ActionEvent event) {
-        System.out.println("Botão Pagar Encomendas pressionado!");
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource("/com/example/desktop/Admin/PagarEncomendas.fxml"));
-            Scene regCena = new Scene(root);
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setScene(regCena);
-            stage.setTitle("Pagar Encomendas");
-            stage.show();
-            System.out.println("Cena PagarEncomendas.fxml carregada com sucesso.");
-        } catch (Exception e) {
-            e.printStackTrace();
-            showAlert(Alert.AlertType.ERROR, "Erro", "Não foi possível abrir a cena: PagarEncomendas.fxml");
-        }
-    }
-
-    private void showAlert(Alert.AlertType alertType, String title, String message) {
-        System.out.println("Mostrando alerta: " + title + " - " + message);
-        Alert alert = new Alert(alertType);
+    private void showAlert(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle(title);
         alert.setHeaderText(null);
         alert.setContentText(message);

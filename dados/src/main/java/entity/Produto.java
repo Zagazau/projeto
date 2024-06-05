@@ -21,6 +21,14 @@ public class Produto {
     @Column(name = "quantidade", nullable = false)
     private Integer quantidade;
 
+    public Produto() {}
+
+    public Produto(String nome, Float valor, Integer quantidade) {
+        this.nome = nome;
+        this.valor = valor;
+        this.quantidade = quantidade;
+    }
+
     public Integer getId() {
         return id;
     }

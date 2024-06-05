@@ -11,15 +11,10 @@ public class ProdutoBll {
         entityManager = DbConnection.getEntityManager();
     }
 
-    public void adicionarProduto(int idProduto, String nome, float valor, int quantidade) {
+    public void adicionarProduto(Produto produto) {
         EntityTransaction transaction = entityManager.getTransaction();
         try {
             transaction.begin();
-            Produto produto = new Produto();
-            produto.setId(idProduto);
-            produto.setNome(nome);
-            produto.setValor(valor);
-            produto.setQuantidade(quantidade);
             entityManager.persist(produto);
             transaction.commit();
         } catch (Exception e) {
@@ -30,3 +25,4 @@ public class ProdutoBll {
         }
     }
 }
+

@@ -22,7 +22,7 @@ public class consultarEncomendasFornecedorController {
     private Button consultarFaturacaoButton;
 
     @FXML
-    private Button inserirProdutoButton;
+    private Button inserirProdutosButton;
 
     @FXML
     private Button sairButton;
@@ -72,7 +72,7 @@ public class consultarEncomendasFornecedorController {
         consultarFaturacaoButton.setOnAction(event -> {
             System.out.println("Botão Consultar Faturação pressionado!");
             try {
-                Parent root = FXMLLoader.load(getClass().getResource("/com/example/desktop/Fornecedor/consultarFaturaçãoFornecedor.fxml"));
+                Parent root = FXMLLoader.load(getClass().getResource("/com/example/desktop/Fornecedor/consultarFaturacaoFornecedor.fxml"));
                 Scene scene = new Scene(root);
                 Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 stage.setScene(scene);
@@ -85,7 +85,7 @@ public class consultarEncomendasFornecedorController {
             }
         });
 
-        inserirProdutoButton.setOnAction(event -> {
+        inserirProdutosButton.setOnAction(event -> {
             System.out.println("Botão Inserir Produto pressionado!");
             try {
                 Parent root = FXMLLoader.load(getClass().getResource("/com/example/desktop/Fornecedor/inserirProdutos.fxml"));

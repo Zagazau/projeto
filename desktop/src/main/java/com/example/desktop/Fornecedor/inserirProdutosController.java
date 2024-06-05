@@ -1,5 +1,7 @@
 package com.example.desktop.Fornecedor;
 
+import BLL.ProdutoBll;
+import entity.Produto;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -47,8 +49,12 @@ public class inserirProdutosController {
     @FXML
     private TextField valorField;
 
+    private ProdutoBll produtoBll;
+
     @FXML
     public void initialize() {
+        produtoBll = new ProdutoBll();
+
         sairButton.setOnAction(event -> {
             System.out.println("Botão Sair pressionado!");
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -118,6 +124,22 @@ public class inserirProdutosController {
             } catch (IOException e) {
                 e.printStackTrace();
                 showAlert(Alert.AlertType.ERROR, "Erro", "Não foi possível abrir a cena consultarFaturacao.fxml.");
+            }
+        });
+
+        adicionarProdutoButton.setOnAction(event -> {
+            System.out.println("Botão Adicionar Produto pressionado!");
+            try {
+                String nome = nomeProdutoField.getText();
+                Float valor = Float.parseFloat(valorField.getText());
+                Integer quantidade = Integer.parseInt(quantidadeField.getText());
+                Integer idProduto = (int) (Math.random() * 10000); // Gerando um ID aleatório para demonstração
+
+                produtoBll.adicionarProduto(idProduto, nome, valor, quantidade);
+                showAlert(Alert.AlertType.INFORMATION, "Sucesso", "Produto adicionado com sucesso!");
+            } catch (Exception e) {
+                e.printStackTrace();
+                showAlert(Alert.AlertType.ERROR, "Erro", "Não foi possível adicionar o produto.");
             }
         });
 

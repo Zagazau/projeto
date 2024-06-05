@@ -1,10 +1,8 @@
 package BLL;
 
+import entity.Produto;
 import jakarta.persistence.EntityManager;
-
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import jakarta.persistence.EntityTransaction;
 
 public class ProdutoBll {
     private EntityManager entityManager;
@@ -14,20 +12,20 @@ public class ProdutoBll {
     }
 
     public void adicionarProduto(int idProduto, String nome, float valor, int quantidade) {
-        String query = "INSERT INTO produto (idproduto, nome, valor, quantidade) VALUES (?, ?, ?, ?)";
+        EntityTransaction transaction = entityManager.getTransaction();
         try {
-            entityManager.getTransaction().begin();
-            Connection connection = entityManager.unwrap(Connection.class);
-            PreparedStatement statement = connection.prepareStatement(query);
-            statement.setInt(1, idProduto);
-            statement.setString(2, nome);
-            statement.setFloat(3, valor);
-            statement.setInt(4, quantidade);
-
-            statement.executeUpdate();
-            entityManager.getTransaction().commit();
-        } catch (SQLException e) {
-            entityManager.getTransaction().rollback();
+            transaction.begin();
+            Produto produto = new Produto();
+            produto.setId(idProduto);
+            produto.setNome(nome);
+            produto.setValor(valor);
+            produto.setQuantidade(quantidade);
+            entityManager.persist(produto);
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction.isActive()) {
+                transaction.rollback();
+            }
             e.printStackTrace();
         }
     }

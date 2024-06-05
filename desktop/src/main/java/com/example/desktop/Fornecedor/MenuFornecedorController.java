@@ -72,7 +72,7 @@ public class MenuFornecedorController {
         consultarFaturacaoButton.setOnAction(event -> {
             System.out.println("Botão Consultar Faturação pressionado!");
             try {
-                Parent root = FXMLLoader.load(getClass().getResource("/com/example/desktop/Fornecedor/consultarFaturaçãoFornecedor.fxml"));
+                Parent root = FXMLLoader.load(getClass().getResource("/com/example/desktop/Fornecedor/consultarFaturacaoFornecedor.fxml"));
                 Scene scene = new Scene(root);
                 Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 stage.setScene(scene);
@@ -84,8 +84,23 @@ public class MenuFornecedorController {
                 showAlert(Alert.AlertType.ERROR, "Erro", "Não foi possível abrir a cena consultarFaturacao.fxml.");
             }
         });
-    }
 
+        inserirProdutosButton.setOnAction(event -> {
+            System.out.println("Botão Inserir Produtos pressionado!");
+            try {
+                Parent root = FXMLLoader.load(getClass().getResource("/com/example/desktop/Fornecedor/inserirProdutos.fxml"));
+                Scene scene = new Scene(root);
+                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                stage.setScene(scene);
+                stage.setTitle("Inserir Produtos");
+                stage.show();
+                System.out.println("Redirecionado para inserirProdutos.fxml com sucesso");
+            } catch (IOException e) {
+                e.printStackTrace();
+                showAlert(Alert.AlertType.ERROR, "Erro", "Não foi possível abrir a cena inserirProdutos.fxml.");
+            }
+        });
+    }
 
     private void showAlert(Alert.AlertType alertType, String title, String message) {
         Alert alert = new Alert(alertType);

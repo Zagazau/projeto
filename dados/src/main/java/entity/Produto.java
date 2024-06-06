@@ -21,12 +21,17 @@ public class Produto {
     @Column(name = "quantidade", nullable = false)
     private Integer quantidade;
 
+    @Column(name = "adicionadoPor", nullable = false)
+    private String adicionadoPor;  // admin ou fornecedor
+
     public Produto() {}
 
-    public Produto(String nome, Float valor, Integer quantidade) {
+    public Produto(Integer id, String nome, Float valor, Integer quantidade, String adicionadoPor) {
+        this.id = id;
         this.nome = nome;
         this.valor = valor;
         this.quantidade = quantidade;
+        this.adicionadoPor = adicionadoPor;
     }
 
     public Integer getId() {
@@ -61,4 +66,11 @@ public class Produto {
         this.quantidade = quantidade;
     }
 
+    public String getAdicionadoPor() {
+        return adicionadoPor;
+    }
+
+    public void setAdicionadoPor(String adicionadoPor) {
+        this.adicionadoPor = adicionadoPor;
+    }
 }

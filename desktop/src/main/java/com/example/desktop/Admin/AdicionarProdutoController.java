@@ -52,6 +52,7 @@ public class AdicionarProdutoController {
     private Button voltarButton;
 
     private ProdutoBll produtoBll;
+
     @FXML
     public void initialize() {
         controlarStockButton.setOnAction(event -> loadScene(event, "/com/example/desktop/Admin/controlarStockAdmin.fxml"));
@@ -60,24 +61,9 @@ public class AdicionarProdutoController {
         consultarProducaoButton.setOnAction(event -> loadScene(event, "/com/example/desktop/Admin/consultarProducao.fxml"));
         encomendarLeiteButton.setOnAction(event -> loadScene(event, "/com/example/desktop/Admin/encomendasAdmin.fxml"));
         sairButton.setOnAction(event -> loadScene(event, "/com/example/desktop/firstPage.fxml"));
-        voltarButton.setOnAction(event -> loadScene(event, "/com/example/desktop/Admin/encomendasAdmin.fxml"));
+        voltarButton.setOnAction(event -> loadScene(event, "/com/example/desktop/Admin/controlarStockAdmin.fxml"));
         produtoBll = new ProdutoBll();
 
-        voltarButton.setOnAction(event -> {
-            System.out.println("Botão Voltar pressionado!");
-            try {
-                Parent root = FXMLLoader.load(getClass().getResource("/com/example/desktop/Admin/AdminMenu.fxml"));
-                Scene scene = new Scene(root);
-                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                stage.setScene(scene);
-                stage.setTitle("Menu Admin");
-                stage.show();
-                System.out.println("Redirecionado para AdminMenu.fxml com sucesso");
-            } catch (IOException e) {
-                e.printStackTrace();
-                showAlert("Erro", "Não foi possível voltar para a página anterior.");
-            }
-        });
 
         adicionarProdutoButton.setOnAction(event -> {
             System.out.println("Botão Adicionar Produto pressionado!");
@@ -87,7 +73,7 @@ public class AdicionarProdutoController {
                 Integer quantidade = Integer.parseInt(quantidadeField.getText());
                 Integer idProduto = (int) (Math.random() * 10000); // Gerando um ID aleatório para demonstração
 
-                produtoBll.adicionarProduto(idProduto, nome, valor, quantidade);
+                produtoBll.adicionarProduto(idProduto, nome, valor, quantidade, "admin");
                 showAlert("Sucesso", "Produto adicionado com sucesso!");
             } catch (Exception e) {
                 e.printStackTrace();

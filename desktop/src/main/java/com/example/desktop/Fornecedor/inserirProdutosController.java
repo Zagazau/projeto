@@ -135,7 +135,7 @@ public class inserirProdutosController {
                 Integer quantidade = Integer.parseInt(quantidadeField.getText());
                 Integer idProduto = (int) (Math.random() * 10000); // Gerando um ID aleatório para demonstração
 
-                produtoBll.adicionarProduto(idProduto, nome, valor, quantidade);
+                produtoBll.adicionarProduto(idProduto, nome, valor, quantidade, "fornecedor");
                 showAlert(Alert.AlertType.INFORMATION, "Sucesso", "Produto adicionado com sucesso!");
             } catch (Exception e) {
                 e.printStackTrace();

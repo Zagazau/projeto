@@ -31,8 +31,6 @@ public class MenuAdminController {
     @FXML
     private Button sairButton;
 
-    @FXML
-    private Button adicionarButton;
 
     @FXML
     private void initialize() {
@@ -40,9 +38,8 @@ public class MenuAdminController {
         consultarProducaoButton.setOnAction(event -> loadScene(event, "/com/example/desktop/Admin/consultarProducao.fxml"));
         controlarStockButton.setOnAction(event -> loadScene(event, "/com/example/desktop/Admin/controlarStockAdmin.fxml"));
         encomendarLeiteButton.setOnAction(event -> loadScene(event, "/com/example/desktop/Admin/encomendasAdmin.fxml"));
-        pagarEncomendasButton.setOnAction(event -> loadScene(event, "/com/example/desktop/Admin/pagarEncomendas.fxml"));
+        pagarEncomendasButton.setOnAction(event -> loadScene(event, "/com/example/desktop/Admin/pagarEncomendasAdmin.fxml"));
         sairButton.setOnAction(event -> loadScene(event, "/com/example/desktop/firstPage.fxml"));
-        adicionarButton.setOnAction(event -> loadScene(event, "/com/example/desktop/Admin/adicionarProdutoAdmin.fxml"));
     }
 
     private void loadScene(javafx.event.ActionEvent event, String fxmlFile) {

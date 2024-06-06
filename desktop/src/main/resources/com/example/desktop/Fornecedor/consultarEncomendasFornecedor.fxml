@@ -2,6 +2,8 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -9,7 +11,7 @@
 <?import javafx.scene.text.Font?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.desktop.Fornecedor.consultarEncomendasFornecedorController">
-    <top>
+   <center>
         <AnchorPane style="-fx-background-color: #FFDAB9;" BorderPane.alignment="CENTER">
             <AnchorPane layoutX="-40.0" layoutY="-6.0" prefHeight="500.0" prefWidth="215.0" style="-fx-background-color: white;">
                 <children>
@@ -40,9 +42,9 @@
                </Button>
                 </children>
             </AnchorPane>
-            <Label layoutX="240.0" layoutY="30.0" prefHeight="45.0" prefWidth="306.0" text="Consultar Encomendas">
+            <Label layoutX="270.0" layoutY="38.0" prefHeight="45.0" prefWidth="306.0" text="Consultar Encomendas">
                 <font>
-                    <Font size="30.0" />
+                    <Font size="27.0" />
                 </font>
             </Label>
 
@@ -57,7 +59,19 @@
                     <Font size="11.0" />
                 </font>
             </Label>
+         <Label layoutX="243.0" layoutY="52.0" prefHeight="45.0" prefWidth="360.0" text="___________________________________">
+            <font>
+               <Font size="22.0" />
+            </font>
+         </Label>
+         <TableView fx:id="encomendasTable" layoutX="202.0" layoutY="134.0" prefHeight="139.0" prefWidth="443.0">
+            <columns>
+               <TableColumn fx:id="idEncomendaField" prefWidth="105.0" text="id_Encomenda" />
+               <TableColumn fx:id="tipoLeiteField" prefWidth="224.0" text="Tipo de Leite" />
+               <TableColumn fx:id="quantidadeField" minWidth="0.0" prefWidth="126.0" text="Quantidade" />
+            </columns>
+         </TableView>
 
         </AnchorPane>
-    </top>
+   </center>
 </BorderPane>

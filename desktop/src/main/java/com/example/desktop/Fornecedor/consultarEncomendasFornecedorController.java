@@ -1,5 +1,9 @@
 package com.example.desktop.Fornecedor;
 
+import BLL.EncomendaBll;
+import entity.Encomenda;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -8,9 +12,13 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Optional;
 
 public class consultarEncomendasFornecedorController {
@@ -28,7 +36,31 @@ public class consultarEncomendasFornecedorController {
     private Button sairButton;
 
     @FXML
+    private TableView<Encomenda> encomendasTable;
+
+    @FXML
+    private TableColumn<Encomenda, Integer> idEncomendaField;
+
+    @FXML
+    private TableColumn<Encomenda, String> tipoLeiteField;
+
+    @FXML
+    private TableColumn<Encomenda, Float> quantidadeField;
+
+    private EncomendaBll encomendaBll;
+
+    @FXML
     public void initialize() {
+        encomendaBll = new EncomendaBll();
+
+        // Configurar as colunas da tabela
+        idEncomendaField.setCellValueFactory(new PropertyValueFactory<>("idencomenda"));
+        tipoLeiteField.setCellValueFactory(new PropertyValueFactory<>("tipoLeite"));
+        quantidadeField.setCellValueFactory(new PropertyValueFactory<>("quantidade"));
+
+        // Carregar os dados das encomendas
+        loadEncomendas();
+
         sairButton.setOnAction(event -> {
             System.out.println("Botão Sair pressionado!");
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -100,6 +132,12 @@ public class consultarEncomendasFornecedorController {
                 showAlert(Alert.AlertType.ERROR, "Erro", "Não foi possível abrir a cena inserirProduto.fxml.");
             }
         });
+    }
+
+    private void loadEncomendas() {
+        List<Encomenda> encomendas = encomendaBll.listarEncomendas();
+        ObservableList<Encomenda> encomendasObservableList = FXCollections.observableArrayList(encomendas);
+        encomendasTable.setItems(encomendasObservableList);
     }
 
     private void showAlert(Alert.AlertType alertType, String title, String message) {

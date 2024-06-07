@@ -1,15 +1,37 @@
 package entity;
 
-import jakarta.persistence.Entity;
+import jakarta.persistence.*;
 
 import java.sql.Date;
 
 @Entity
 public class Pedido {
-    @jakarta.persistence.GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
-    @jakarta.persistence.Id
-    @jakarta.persistence.Column(name = "idpedido")
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idpedido")
     private int idpedido;
+
+    @Basic
+    @Column(name = "idcliente")
+    private int idcliente;
+
+    @Basic
+    @Column(name = "quantidade")
+    private int quantidade;
+
+    @Basic
+    @Column(name = "data")
+    private Date data;
+
+    @Basic
+    @Column(name = "valor")
+    private double valor;
+
+    @Basic
+    @Column(name = "idproduto")
+    private int idproduto;
+
+    // Getters and Setters
 
     public int getIdpedido() {
         return idpedido;
@@ -19,10 +41,6 @@ public class Pedido {
         this.idpedido = idpedido;
     }
 
-    @jakarta.persistence.Basic
-    @jakarta.persistence.Column(name = "idcliente")
-    private int idcliente;
-
     public int getIdcliente() {
         return idcliente;
     }
@@ -30,10 +48,6 @@ public class Pedido {
     public void setIdcliente(int idcliente) {
         this.idcliente = idcliente;
     }
-
-    @jakarta.persistence.Basic
-    @jakarta.persistence.Column(name = "quantidade")
-    private int quantidade;
 
     public int getQuantidade() {
         return quantidade;
@@ -43,15 +57,27 @@ public class Pedido {
         this.quantidade = quantidade;
     }
 
-    @jakarta.persistence.Basic
-    @jakarta.persistence.Column(name = "data")
-    private Date data;
-
     public Date getData() {
         return data;
     }
 
     public void setData(Date data) {
         this.data = data;
+    }
+
+    public double getValor() {
+        return valor;
+    }
+
+    public void setValor(double valor) {
+        this.valor = valor;
+    }
+
+    public int getIdproduto() {
+        return idproduto;
+    }
+
+    public void setIdproduto(int idproduto) {
+        this.idproduto = idproduto;
     }
 }

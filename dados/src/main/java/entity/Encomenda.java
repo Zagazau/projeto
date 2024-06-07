@@ -1,11 +1,6 @@
 package entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Column;
-import jakarta.persistence.Basic;
+import jakarta.persistence.*;
 import java.sql.Date;
 
 @Entity
@@ -30,6 +25,10 @@ public class Encomenda {
     @Basic
     @Column(name = "tipoLeite")
     private String tipoLeite;
+
+    @Basic
+    @Column(name = "idproduto")
+    private int idproduto;
 
     // Getters and Setters
     public int getIdencomenda() {
@@ -70,5 +69,13 @@ public class Encomenda {
 
     public void setTipoLeite(String tipoLeite) {
         this.tipoLeite = tipoLeite;
+    }
+
+    public int getIdproduto() {
+        return idproduto;
+    }
+
+    public void setIdproduto(int idproduto) {
+        this.idproduto = idproduto;
     }
 }

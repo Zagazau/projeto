@@ -43,7 +43,6 @@ public class EncomendasAdminController {
     private void initialize() {
         cancelarEncomendasButton.setOnAction(event -> loadScene(event, "/com/example/desktop/Admin/cancelarEncomenda.fxml"));
         consultarFaturacaoButton.setOnAction(event -> loadScene(event, "/com/example/desktop/Admin/consultarFaturaçãoAdmin.fxml"));
-        consultarProducaoButton.setOnAction(event -> loadScene(event, "/com/example/desktop/Admin/consultarProducao.fxml"));
         controlarStockButton.setOnAction(event -> loadScene(event, "/com/example/desktop/Admin/controlarStockAdmin.fxml"));
         encomendarButton.setOnAction(event -> loadScene(event, "/com/example/desktop/Admin/efetuarEncomendasAdmin.fxml"));
         encomendarLeiteButton.setOnAction(event -> loadScene(event, "/com/example/desktop/Admin/encomendarLeite.fxml"));

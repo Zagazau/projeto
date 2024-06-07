@@ -1,8 +1,9 @@
 package BLL;
 
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityTransaction;
 import entity.Pedido;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.Persistence;
 
 public class PedidoBll {
     private EntityManager entityManager;
@@ -11,24 +12,12 @@ public class PedidoBll {
         entityManager = DbConnection.getEntityManager();
     }
 
-    public void adicionarPedido(int idCliente, int quantidade, java.sql.Date data) {
-        EntityTransaction transaction = null;
-        try {
-            transaction = entityManager.getTransaction();
-            transaction.begin();
-
-            Pedido pedido = new Pedido();
-            pedido.setIdcliente(idCliente);
-            pedido.setQuantidade(quantidade);
-            pedido.setData(data);
-
-            entityManager.persist(pedido);
-            transaction.commit();
-        } catch (Exception e) {
-            if (transaction != null && transaction.isActive()) {
-                transaction.rollback();
-            }
-            e.printStackTrace();
-        }
+    public void adicionarPedido(Pedido pedido) {
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("default");
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+        em.persist(pedido);
+        em.getTransaction().commit();
+        em.close();
     }
 }

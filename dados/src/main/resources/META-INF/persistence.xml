@@ -9,12 +9,10 @@
         <class>entity.Cliente</class>
         <class>entity.Codigopostal</class>
         <class>entity.Encomenda</class>
-        <class>entity.Encomendaproduto</class>
         <class>entity.Faturacompra</class>
         <class>entity.Faturavenda</class>
         <class>entity.Fornecedor</class>
         <class>entity.Pedido</class>
-        <class>entity.Pedidoproduto</class>
         <class>entity.Admin</class>
         <class>entity.Tipoutilizador</class>
         <class>entity.Produto</class>

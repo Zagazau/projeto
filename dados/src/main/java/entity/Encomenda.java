@@ -1,6 +1,11 @@
 package entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Column;
+import jakarta.persistence.Basic;
 import java.sql.Date;
 
 @Entity
@@ -29,6 +34,10 @@ public class Encomenda {
     @Basic
     @Column(name = "idproduto")
     private int idproduto;
+
+    @Basic
+    @Column(name = "valor")
+    private float valor;
 
     // Getters and Setters
     public int getIdencomenda() {
@@ -77,5 +86,13 @@ public class Encomenda {
 
     public void setIdproduto(int idproduto) {
         this.idproduto = idproduto;
+    }
+
+    public float getValor() {
+        return valor;
+    }
+
+    public void setValor(float valor) {
+        this.valor = valor;
     }
 }

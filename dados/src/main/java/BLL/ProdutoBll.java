@@ -1,43 +1,61 @@
 package BLL;
 
 import entity.Produto;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.TypedQuery;
+import jakarta.persistence.*;
 
 import java.util.List;
 
 public class ProdutoBll {
     private EntityManager entityManager;
+    private EntityManagerFactory emf = Persistence.createEntityManagerFactory("default");
 
     public ProdutoBll() {
         entityManager = DbConnection.getEntityManager();
     }
 
     public void adicionarProduto(Integer id, String nome, Float valor, Integer quantidade, String adicionadoPor) {
-        entityManager.getTransaction().begin();
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
         Produto produto = new Produto(id, nome, valor, quantidade, adicionadoPor);
-        entityManager.persist(produto);
-        entityManager.getTransaction().commit();
+        em.persist(produto);
+        em.getTransaction().commit();
+        em.close();
     }
 
     public List<Produto> obterProdutosAdicionadosPor(String adicionadoPor) {
-        TypedQuery<Produto> query = entityManager.createQuery("SELECT p FROM Produto p WHERE p.adicionadoPor = :adicionadoPor", Produto.class);
+        EntityManager em = emf.createEntityManager();
+        TypedQuery<Produto> query = em.createQuery("SELECT p FROM Produto p WHERE p.adicionadoPor = :adicionadoPor", Produto.class);
         query.setParameter("adicionadoPor", adicionadoPor);
-        return query.getResultList();
+        List<Produto> produtos = query.getResultList();
+        em.close();
+        return produtos;
     }
 
     public Produto obterProdutoPorNome(String nome) {
-        TypedQuery<Produto> query = entityManager.createQuery("SELECT p FROM Produto p WHERE p.nome = :nome", Produto.class);
+        EntityManager em = emf.createEntityManager();
+        TypedQuery<Produto> query = em.createQuery("SELECT p FROM Produto p WHERE p.nome = :nome", Produto.class);
         query.setParameter("nome", nome);
-        return query.getSingleResult();
+        Produto produto = query.getSingleResult();
+        em.close();
+        return produto;
+    }
+
+    public void atualizarProduto(Produto produto) {
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+        em.merge(produto);
+        em.getTransaction().commit();
+        em.close();
     }
 
     public void removerProduto(Integer id) {
-        entityManager.getTransaction().begin();
-        Produto produto = entityManager.find(Produto.class, id);
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+        Produto produto = em.find(Produto.class, id);
         if (produto != null) {
-            entityManager.remove(produto);
+            em.remove(produto);
         }
-        entityManager.getTransaction().commit();
+        em.getTransaction().commit();
+        em.close();
     }
 }

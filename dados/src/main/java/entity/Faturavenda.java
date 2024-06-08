@@ -1,6 +1,9 @@
 package entity;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Faturavenda {
@@ -8,6 +11,10 @@ public class Faturavenda {
     @jakarta.persistence.Id
     @jakarta.persistence.Column(name = "idfaturav")
     private int idfaturav;
+
+    @jakarta.persistence.Basic
+    @jakarta.persistence.Column(name = "idcliente")
+    private int idcliente;
 
     public int getIdfaturav() {
         return idfaturav;
@@ -42,18 +49,6 @@ public class Faturavenda {
     }
 
     @jakarta.persistence.Basic
-    @jakarta.persistence.Column(name = "idutilizador")
-    private int idutilizador;
-
-    public int getIdutilizador() {
-        return idutilizador;
-    }
-
-    public void setIdutilizador(int idutilizador) {
-        this.idutilizador = idutilizador;
-    }
-
-    @jakarta.persistence.Basic
     @jakarta.persistence.Column(name = "valor")
     private float valor;
 
@@ -68,6 +63,14 @@ public class Faturavenda {
     @jakarta.persistence.Basic
     @jakarta.persistence.Column(name = "quantidade")
     private int quantidade;
+
+    public int getIdcliente() {
+        return idcliente;
+    }
+
+    public void setIdcliente(int idcliente) {
+        this.idcliente = idcliente;
+    }
 
     public int getQuantidade() {
         return quantidade;

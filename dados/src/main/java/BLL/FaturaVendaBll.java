@@ -1,11 +1,8 @@
 package BLL;
 
-import BLL.DbConnection;
+import entity.Faturavenda;
 import jakarta.persistence.EntityManager;
-
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import jakarta.persistence.EntityTransaction;
 
 public class FaturaVendaBll {
     private EntityManager entityManager;
@@ -14,34 +11,23 @@ public class FaturaVendaBll {
         entityManager = DbConnection.getEntityManager();
     }
 
-    public void adicionarFaturaVenda(int idFatura, int idPedido, int idTipoPagamento, int idUtilizador, float valor, int quantidade) {
-        String query = "INSERT INTO faturavenda (idfaturav, idpedido, idtipopag, idutilizador, valor, quantidade) VALUES (?, ?, ?, ?, ?, ?)";
-        Connection connection = null;
-        PreparedStatement statement = null;
-
+    public void adicionarFaturaVenda(int idFatura, int idPedido, int idTipoPagamento, int idCliente, float valor, int quantidade) {
+        EntityTransaction transaction = entityManager.getTransaction();
         try {
-            connection = entityManager.unwrap(Connection.class);
-            statement = connection.prepareStatement(query);
-            statement.setInt(1, idFatura);
-            statement.setInt(2, idPedido);
-            statement.setInt(3, idTipoPagamento);
-            statement.setInt(4, idUtilizador);
-            statement.setFloat(5, valor);
-            statement.setInt(6, quantidade);
-
-            statement.executeUpdate();
-        } catch (SQLException e) {
+            transaction.begin();
+            Faturavenda faturavenda = new Faturavenda();
+            faturavenda.setIdfaturav(idFatura);
+            faturavenda.setIdpedido(idPedido);
+            faturavenda.setIdtipopag(idTipoPagamento);
+            faturavenda.setIdcliente(idCliente);
+            faturavenda.setValor(valor);
+            faturavenda.setQuantidade(quantidade);
+            entityManager.persist(faturavenda);
+            transaction.commit();
+        } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            try {
-                if (statement != null) {
-                    statement.close();
-                }
-                if (connection != null) {
-                    connection.close();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
+            if (transaction.isActive()) {
+                transaction.rollback();
             }
         }
     }

@@ -41,17 +41,7 @@ public class Faturavenda {
         this.idtipopag = idtipopag;
     }
 
-    @jakarta.persistence.Basic
-    @jakarta.persistence.Column(name = "idutilizador")
-    private int idutilizador;
 
-    public int getIdutilizador() {
-        return idutilizador;
-    }
-
-    public void setIdutilizador(int idutilizador) {
-        this.idutilizador = idutilizador;
-    }
 
     @jakarta.persistence.Basic
     @jakarta.persistence.Column(name = "valor")

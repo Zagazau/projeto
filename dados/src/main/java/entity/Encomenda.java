@@ -1,11 +1,6 @@
 package entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Column;
-import jakarta.persistence.Basic;
+import jakarta.persistence.*;
 import java.sql.Date;
 
 @Entity

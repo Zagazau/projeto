@@ -25,11 +25,11 @@ public class Pedido {
 
     @Basic
     @Column(name = "valor")
-    private double valor;
+    private Double valor;
 
-    @Basic
-    @Column(name = "idproduto")
-    private int idproduto;
+    @ManyToOne
+    @JoinColumn(name = "idproduto")
+    private Produto produto;
 
     // Getters and Setters
 
@@ -65,19 +65,23 @@ public class Pedido {
         this.data = data;
     }
 
-    public double getValor() {
+    public Double getValor() {
         return valor;
     }
 
-    public void setValor(double valor) {
+    public void setValor(Double valor) {
         this.valor = valor;
     }
 
-    public int getIdproduto() {
-        return idproduto;
+
+    public Produto getProduto() {
+        return produto;
     }
 
-    public void setIdproduto(int idproduto) {
-        this.idproduto = idproduto;
+    public void setProduto(Produto produto) {
+        this.produto = produto;
+    }
+
+    public void setIdproduto(Integer id) {
     }
 }

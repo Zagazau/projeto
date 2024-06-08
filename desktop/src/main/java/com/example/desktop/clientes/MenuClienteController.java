@@ -29,7 +29,7 @@ public class MenuClienteController {
 
     private int idCliente; // Adicionado para armazenar o id do cliente
 
-    public void setIdCliente(int idCliente) { // Método para definir o id do cliente
+    public void setIdCliente(int idCliente) {
         this.idCliente = idCliente;
     }
 
@@ -37,49 +37,22 @@ public class MenuClienteController {
     public void initialize() {
         System.out.println("Inicializando MenuClienteController...");
 
-        if (consultarProdutosButton != null) {
-            consultarProdutosButton.setOnAction(this::consultarProdutos);
-        }
-        if (pagamentosButton != null) {
-            pagamentosButton.setOnAction(this::pagarPedidos);
-        }
-        if (pedidosButton != null) {
-            pedidosButton.setOnAction(this::efetuarPedidos);
-        }
-        if (sairButton != null) {
-            sairButton.setOnAction(this::sair);
-        }
+        consultarProdutosButton.setOnAction(event -> loadScene(event, "/com/example/desktop/Cliente/consultarProdutos.fxml"));
+        pagamentosButton.setOnAction(event -> loadScene(event, "/com/example/desktop/Cliente/pagarPedidos.fxml"));
+        pedidosButton.setOnAction(this::efetuarPedidos);
+        sairButton.setOnAction(event -> loadScene(event, "/com/example/desktop/firstPage.fxml"));
     }
 
-    @FXML
-    private void consultarProdutos(ActionEvent event) {
-        System.out.println("Botão Consultar Produtos pressionado!");
+    private void loadScene(ActionEvent event, String fxmlFile) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/com/example/desktop/Cliente/consultarProdutos.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource(fxmlFile));
             Scene scene = new Scene(root);
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(scene);
-            stage.setTitle("Consultar Produtos");
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
-            showAlert(Alert.AlertType.ERROR, "Erro", "Não foi possível abrir a cena: consultarProdutos.fxml");
-        }
-    }
-
-    @FXML
-    private void pagarPedidos(ActionEvent event) {
-        System.out.println("Botão Pagar Pedidos pressionado!");
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource("/com/example/desktop/Cliente/pagarPedidos.fxml"));
-            Scene scene = new Scene(root);
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setScene(scene);
-            stage.setTitle("Pagar Pedidos");
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-            showAlert(Alert.AlertType.ERROR, "Erro", "Não foi possível abrir a cena: pagarPedidos.fxml");
+            showAlert("Erro", "Erro ao carregar a página: " + fxmlFile);
         }
     }
 
@@ -98,7 +71,7 @@ public class MenuClienteController {
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
-            showAlert(Alert.AlertType.ERROR, "Erro", "Não foi possível abrir a cena: efetuarPedido.fxml");
+            showAlert("Erro", "Não foi possível abrir a cena: efetuarPedido.fxml");
         }
     }
 
@@ -111,23 +84,13 @@ public class MenuClienteController {
         alert.setContentText("Tem certeza que deseja sair?");
 
         if (alert.showAndWait().get() == ButtonType.OK) {
-            try {
-                Parent root = FXMLLoader.load(getClass().getResource("/com/example/desktop/firstPage.fxml"));
-                Scene scene = new Scene(root);
-                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                stage.setScene(scene);
-                stage.setTitle("Página Inicial");
-                stage.show();
-            } catch (IOException e) {
-                e.printStackTrace();
-                showAlert(Alert.AlertType.ERROR, "Erro", "Não foi possível voltar para a página inicial.");
-            }
+            loadScene(event, "/com/example/desktop/firstPage.fxml");
         }
     }
 
-    private void showAlert(Alert.AlertType alertType, String title, String message) {
+    private void showAlert(String title, String message) {
         System.out.println("Mostrando alerta: " + title + " - " + message);
-        Alert alert = new Alert(alertType);
+        Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle(title);
         alert.setHeaderText(null);
         alert.setContentText(message);

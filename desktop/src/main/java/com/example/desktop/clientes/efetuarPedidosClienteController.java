@@ -157,7 +157,10 @@ public class efetuarPedidosClienteController {
             pedido.setQuantidade(quantidade);
             pedido.setData(Date.valueOf(LocalDate.now()));
             pedido.setIdproduto(produto.getId());
-            pedido.setValor(produto.getValor() * quantidade);
+
+            // Corrigindo o valor do pedido para ser do tipo Double
+            double valorPedido = produto.getValor() * quantidade;
+            pedido.setValor(valorPedido);
 
             pedidoBll.adicionarPedido(pedido);
 
@@ -169,4 +172,5 @@ public class efetuarPedidosClienteController {
             showAlert(Alert.AlertType.ERROR, "Erro no Pedido", "Quantidade inválida.");
         }
     }
+
 }

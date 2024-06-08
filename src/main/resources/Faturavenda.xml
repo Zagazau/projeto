@@ -14,8 +14,8 @@
             <basic name="idtipopag">
                 <column name="idtipopag"/>
             </basic>
-            <basic name="idutilizador">
-                <column name="idutilizador"/>
+            <basic name="idcliente">
+                <column name="idcliente"/>
             </basic>
             <basic name="valor">
                 <column name="valor"/>

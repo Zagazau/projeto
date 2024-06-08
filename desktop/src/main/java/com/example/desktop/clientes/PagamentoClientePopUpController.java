@@ -10,23 +10,26 @@ public class PagamentoClientePopUpController {
     @FXML
     private ChoiceBox<String> metodoPagamentoChoiceBox;
 
+    private PagarPedidoController parentController;
+
+    public void setParentController(PagarPedidoController parentController) {
+        this.parentController = parentController;
+    }
+
     @FXML
     public void initialize() {
+        metodoPagamentoChoiceBox.getItems().addAll();
         metodoPagamentoChoiceBox.getSelectionModel().selectFirst();
     }
 
     @FXML
     private void efetuarPagamento() {
         String metodoSelecionado = metodoPagamentoChoiceBox.getSelectionModel().getSelectedItem();
-        // Lógica para processar o pagamento com o método selecionado
 
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Pagamento Efetuado");
-        alert.setHeaderText(null);
-        alert.setContentText("Pagamento efetuado com sucesso usando " + metodoSelecionado);
-        alert.showAndWait();
+        if (parentController != null) {
+            parentController.processarPagamento(metodoSelecionado);
+        }
 
-        // Fechar o pop-up após o pagamento
         Stage stage = (Stage) metodoPagamentoChoiceBox.getScene().getWindow();
         stage.close();
     }

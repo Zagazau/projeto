@@ -10,6 +10,8 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.desktop.clientes.PagarPedidoController">
    <bottom>
         <AnchorPane style="-fx-background-color: #FFDAB9;" BorderPane.alignment="CENTER">
@@ -64,16 +66,17 @@
                     <Font size="11.0" />
                 </font>
             </Label>
-         <TreeTableView layoutX="190.0" layoutY="134.0" prefHeight="204.0" prefWidth="470.0">
-           <columns>
-             <TreeTableColumn fx:id="idpedidoField" prefWidth="83.0" text="id_pedido" />
-             <TreeTableColumn fx:id="dataField" prefWidth="85.0" text="Data" />
-               <TreeTableColumn fx:id="quantidadeField" prefWidth="93.0" text="Quantidade" />
-               <TreeTableColumn fx:id="queijoField" minWidth="0.0" prefWidth="99.0" text="Queijo" />
-               <TreeTableColumn fx:id="valorField" prefWidth="109.0" text="Valor" />
-           </columns>
-         </TreeTableView>
-         <Label layoutX="190.0" layoutY="338.0" prefHeight="19.0" prefWidth="198.0" text="Selecione o pedido que pretende pagar">
+            <TableView fx:id="tableView" layoutX="190.0" layoutY="134.0" prefHeight="204.0" prefWidth="470.0">
+                <columns>
+                    <TableColumn fx:id="idpedidoField" prefWidth="83.0" text="id_pedido" />
+                    <TableColumn fx:id="dataField" prefWidth="85.0" text="Data" />
+                    <TableColumn fx:id="quantidadeField" prefWidth="93.0" text="Quantidade" />
+                    <TableColumn fx:id="queijoField" prefWidth="99.0" text="Queijo" />
+                    <TableColumn fx:id="valorField" prefWidth="109.0" text="Valor" />
+                </columns>
+            </TableView>
+
+            <Label layoutX="190.0" layoutY="338.0" prefHeight="19.0" prefWidth="198.0" text="Selecione o pedido que pretende pagar">
             <font>
                <Font size="11.0" />
             </font>

@@ -15,8 +15,8 @@
             <items>
                 <FXCollections fx:factory="observableArrayList">
                     <String fx:value="Cartão de Crédito"/>
-                    <String fx:value="PayPal"/>
                     <String fx:value="Transferência Bancária"/>
+                    <String fx:value="PayPal"/>
                 </FXCollections>
             </items>
         </ChoiceBox>

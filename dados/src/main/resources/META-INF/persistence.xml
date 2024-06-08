@@ -20,7 +20,6 @@
         <class>entity.Produto</class>
         <class>entity.Tipopagamento</class>
         <class>entity.Tipoproduto</class>
-        <class>entity.Utilizador</class>
 
       <properties>
           <!-- Configurações do Jakarta Persistence -->

@@ -1,7 +1,9 @@
 package com.example.desktop.Admin;
 
 import BLL.EncomendaBll;
+import BLL.ProdutoBll;
 import entity.Encomenda;
+import entity.Produto;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -16,6 +18,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.List;
 
 public class EfetuarEncomendasController {
 
@@ -50,14 +53,16 @@ public class EfetuarEncomendasController {
     private Button voltarButton;
 
     private EncomendaBll encomendaBll;
+    private ProdutoBll produtoBll;
 
     public EfetuarEncomendasController() {
         this.encomendaBll = new EncomendaBll();
+        this.produtoBll = new ProdutoBll();
     }
 
     @FXML
     private void initialize() {
-        tipoLeiteField.getItems().addAll("Leite de Vaca", "Leite de Cabra", "Leite de Ovelha");
+        loadProdutosFornecedores();
         efetuarEncomendaButton.setOnAction(event -> efetuarEncomenda());
         consultarFaturacaoButton.setOnAction(event -> loadScene(event, "/com/example/desktop/Admin/consultarFaturaçãoAdmin.fxml"));
         encomendarLeiteButton.setOnAction(event -> loadScene(event, "/com/example/desktop/Admin/encomendasAdmin.fxml"));
@@ -65,6 +70,13 @@ public class EfetuarEncomendasController {
         controlarStockButton.setOnAction(event -> loadScene(event, "/com/example/desktop/Admin/controlarStockAdmin.fxml"));
         sairButton.setOnAction(event -> loadScene(event, "/com/example/desktop/firstPage.fxml"));
         voltarButton.setOnAction(event -> loadScene(event, "/com/example/desktop/Admin/encomendasAdmin.fxml"));
+    }
+
+    private void loadProdutosFornecedores() {
+        List<Produto> produtos = produtoBll.obterProdutosAdicionadosPor("fornecedor");
+        for (Produto produto : produtos) {
+            tipoLeiteField.getItems().add(produto.getNome());
+        }
     }
 
     private void loadScene(javafx.event.ActionEvent event, String fxmlFile) {
@@ -91,14 +103,27 @@ public class EfetuarEncomendasController {
 
         try {
             float quantidadeLitros = Float.parseFloat(quantidade);
+            Produto produtoSelecionado = produtoBll.obterProdutoPorNome(tipoLeite);
+
+            if (produtoSelecionado.getQuantidade() < quantidadeLitros) {
+                showAlert("Erro", "Quantidade indisponível no estoque.");
+                return;
+            }
+
             Encomenda encomenda = new Encomenda();
             encomenda.setQuantidade(quantidadeLitros);
             encomenda.setTipoLeite(tipoLeite);
             encomenda.setData(Date.valueOf(LocalDate.now()));
             encomenda.setIdfornecedor(1); // Exemplo de idfornecedor
+            encomenda.setIdproduto(produtoSelecionado.getId());
+            encomenda.setValor(produtoSelecionado.getValor() * quantidadeLitros);
 
             encomendaBll.salvarEncomenda(encomenda);
             showAlert("Sucesso", "Encomenda efetuada com sucesso!");
+
+            // Atualizar a quantidade do produto no estoque
+            produtoSelecionado.setQuantidade((int) (produtoSelecionado.getQuantidade() - quantidadeLitros));
+            produtoBll.atualizarProduto(produtoSelecionado);
         } catch (NumberFormatException e) {
             showAlert("Erro", "Por favor, insira uma quantidade válida.");
         }

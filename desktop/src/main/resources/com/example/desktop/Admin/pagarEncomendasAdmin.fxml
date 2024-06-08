@@ -61,9 +61,10 @@
 
             <TableView fx:id="customersTable" layoutX="184.0" layoutY="145.0" prefHeight="139.0" prefWidth="483.0">
                 <columns>
-                    <TableColumn fx:id="idEncomendaField" prefWidth="105.0" text="id_Encomenda" />
-                    <TableColumn fx:id="tipoLeiteField" prefWidth="218.0" text="Tipo de Leite" />
-                    <TableColumn fx:id="quantidadeField" minWidth="0.0" prefWidth="159.0" text="Quantidade" />
+                    <TableColumn fx:id="idEncomendaField" prefWidth="94.0" text="id_Encomenda" />
+                    <TableColumn fx:id="tipoLeiteField" prefWidth="127.0" text="Tipo de Leite" />
+                    <TableColumn fx:id="quantidadeField" minWidth="0.0" prefWidth="124.0" text="Quantidade" />
+                    <TableColumn fx:id="valorField" minWidth="0.0" prefWidth="137.0" text="Valor" />
                 </columns>
             </TableView>
 

@@ -9,44 +9,37 @@ import jakarta.persistence.TypedQuery;
 import java.util.List;
 
 public class EncomendaDAL {
+    private EntityManager entityManager;
     private EntityManagerFactory emf;
 
     public EncomendaDAL() {
         emf = Persistence.createEntityManagerFactory("default");
+        entityManager = emf.createEntityManager();
     }
 
     public void salvar(Encomenda encomenda) {
-        EntityManager em = emf.createEntityManager();
-        em.getTransaction().begin();
-        em.persist(encomenda);
-        em.getTransaction().commit();
-        em.close();
+        entityManager.getTransaction().begin();
+        entityManager.persist(encomenda);
+        entityManager.getTransaction().commit();
     }
 
     public List<Encomenda> listar() {
-        EntityManager em = emf.createEntityManager();
-        TypedQuery<Encomenda> query = em.createQuery("SELECT e FROM Encomenda e", Encomenda.class);
-        List<Encomenda> encomendas = query.getResultList();
-        em.close();
-        return encomendas;
+        TypedQuery<Encomenda> query = entityManager.createQuery("SELECT e FROM Encomenda e", Encomenda.class);
+        return query.getResultList();
     }
 
     public void atualizar(Encomenda encomenda) {
-        EntityManager em = emf.createEntityManager();
-        em.getTransaction().begin();
-        em.merge(encomenda);
-        em.getTransaction().commit();
-        em.close();
+        entityManager.getTransaction().begin();
+        entityManager.merge(encomenda);
+        entityManager.getTransaction().commit();
     }
 
     public void excluir(int id) {
-        EntityManager em = emf.createEntityManager();
-        em.getTransaction().begin();
-        Encomenda encomenda = em.find(Encomenda.class, id);
+        entityManager.getTransaction().begin();
+        Encomenda encomenda = entityManager.find(Encomenda.class, id);
         if (encomenda != null) {
-            em.remove(encomenda);
+            entityManager.remove(encomenda);
         }
-        em.getTransaction().commit();
-        em.close();
+        entityManager.getTransaction().commit();
     }
 }

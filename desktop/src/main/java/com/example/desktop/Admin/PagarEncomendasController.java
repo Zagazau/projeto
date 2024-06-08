@@ -1,5 +1,9 @@
 package com.example.desktop.Admin;
 
+import BLL.EncomendaBll;
+import entity.Encomenda;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -9,10 +13,12 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.List;
 
 public class PagarEncomendasController {
 
@@ -26,7 +32,7 @@ public class PagarEncomendasController {
     private Button controlarStockButton;
 
     @FXML
-    private TableView<?> customersTable;
+    private TableView<Encomenda> customersTable;
 
     @FXML
     private Button encomendarLeiteButton;
@@ -35,13 +41,13 @@ public class PagarEncomendasController {
     private Button goBack;
 
     @FXML
-    private TableColumn<?, ?> idEncomendaField;
+    private TableColumn<Encomenda, Integer> idEncomendaField;
 
     @FXML
     private Button pagarEncomendasButton;
 
     @FXML
-    private TableColumn<?, ?> quantidadeField;
+    private TableColumn<Encomenda, Float> quantidadeField;
 
     @FXML
     private Button pagarEncomendaButton;
@@ -50,13 +56,22 @@ public class PagarEncomendasController {
     private Button sairButton;
 
     @FXML
-    private TableColumn<?, ?> tipoLeiteField;
+    private TableColumn<Encomenda, String> tipoLeiteField;
+
+    @FXML
+    private TableColumn<Encomenda, Float> valorField;
 
     @FXML
     private Button voltarButton;
 
+    private EncomendaBll encomendaBll;
+
     @FXML
     public void initialize() {
+        encomendaBll = new EncomendaBll();
+        configurarColunasTabela();
+        carregarEncomendas();
+
         controlarStockButton.setOnAction(event -> loadScene(event, "/com/example/desktop/Admin/controlarStockAdmin.fxml"));
         pagarEncomendasButton.setOnAction(event -> loadScene(event, "/com/example/desktop/Admin/pagarEncomendasAdmin.fxml"));
         consultarFaturacaoButton.setOnAction(event -> loadScene(event, "/com/example/desktop/Admin/consultarFaturaçãoAdmin.fxml"));
@@ -65,6 +80,22 @@ public class PagarEncomendasController {
         voltarButton.setOnAction(event -> loadScene(event, "/com/example/desktop/Admin/controlarStockAdmin.fxml"));
 
         pagarEncomendaButton.setOnAction(event -> abrirPopUpPagamento());
+    }
+
+    private void configurarColunasTabela() {
+        idEncomendaField.setCellValueFactory(new PropertyValueFactory<>("idencomenda"));
+        tipoLeiteField.setCellValueFactory(new PropertyValueFactory<>("tipoLeite"));
+        quantidadeField.setCellValueFactory(new PropertyValueFactory<>("quantidade"));
+        valorField.setCellValueFactory(new PropertyValueFactory<>("valor")); // Configurar a coluna valor
+    }
+
+    private void carregarEncomendas() {
+        List<Encomenda> encomendas = encomendaBll.listarEncomendas();
+        for (Encomenda encomenda : encomendas) {
+            System.out.println("Encomenda ID: " + encomenda.getIdencomenda() + ", Valor: " + encomenda.getValor());
+        }
+        ObservableList<Encomenda> encomendaList = FXCollections.observableArrayList(encomendas);
+        customersTable.setItems(encomendaList);
     }
 
     private void abrirPopUpPagamento() {
@@ -97,7 +128,7 @@ public class PagarEncomendasController {
     }
 
     private void showAlert(String title, String message) {
-        javafx.scene.control.Alert alert = new javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.ERROR);
+        Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle(title);
         alert.setHeaderText(null);
         alert.setContentText(message);

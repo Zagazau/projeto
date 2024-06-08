@@ -1,17 +1,20 @@
 package com.example.desktop.clientes;
 
+import BLL.ProdutoBll;
+import entity.Produto;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.TreeTableColumn;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.TreeItemPropertyValueFactory;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Optional;
 
 public class consultarProdutosClienteController {
@@ -23,7 +26,7 @@ public class consultarProdutosClienteController {
     private Button consultarProdutosButton;
 
     @FXML
-    private TreeTableColumn<?, ?> idpedidoField;
+    private TreeTableColumn<Produto, Integer> idpedidoField;
 
     @FXML
     private Button pagamentosButton;
@@ -32,19 +35,28 @@ public class consultarProdutosClienteController {
     private Button pedidosButton;
 
     @FXML
-    private TreeTableColumn<?, ?> quantidadeField;
+    private TreeTableColumn<Produto, Integer> quantidadeField;
 
     @FXML
-    private TreeTableColumn<?, ?> queijoField;
+    private TreeTableColumn<Produto, String> queijoField;
 
     @FXML
     private Button sairButton;
 
     @FXML
-    private TreeTableColumn<?, ?> valorField;
+    private TreeTableColumn<Produto, Float> valorField;
+
+    @FXML
+    private TreeTableView<Produto> productsTable;
+
+    private ProdutoBll produtoBll;
 
     @FXML
     public void initialize() {
+        produtoBll = new ProdutoBll();
+        configurarColunasTabela();
+        carregarProdutos();
+
         sairButton.setOnAction(event -> {
             System.out.println("Botão Sair pressionado!");
             showConfirmationAlert(event);
@@ -97,6 +109,28 @@ public class consultarProdutosClienteController {
                 showAlert(Alert.AlertType.ERROR, "Erro", "Não foi possível abrir a cena consultarProdutos.fxml.");
             }
         });
+    }
+
+    private void configurarColunasTabela() {
+        idpedidoField.setCellValueFactory(new TreeItemPropertyValueFactory<>("id"));
+        quantidadeField.setCellValueFactory(new TreeItemPropertyValueFactory<>("quantidade"));
+        queijoField.setCellValueFactory(new TreeItemPropertyValueFactory<>("nome"));
+        valorField.setCellValueFactory(new TreeItemPropertyValueFactory<>("valor"));
+    }
+
+    private void carregarProdutos() {
+        List<Produto> produtos = produtoBll.obterProdutosAdicionadosPor("admin");
+        ObservableList<TreeItem<Produto>> produtoList = FXCollections.observableArrayList();
+
+        for (Produto produto : produtos) {
+            TreeItem<Produto> item = new TreeItem<>(produto);
+            produtoList.add(item);
+        }
+
+        TreeItem<Produto> root = new TreeItem<>(new Produto()); // Root item
+        root.getChildren().addAll(produtoList);
+        productsTable.setRoot(root);
+        productsTable.setShowRoot(false); // Hide the root item
     }
 
     private void showConfirmationAlert(javafx.event.ActionEvent event) {

@@ -47,8 +47,6 @@
                     <Font size="30.0" />
                 </font>
             </Label>
-
-
             <ImageView fitHeight="36.0" fitWidth="44.0" layoutX="644.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
                 <image>
                     <Image url="@../../../../../../../../Logo.png" />
@@ -64,7 +62,7 @@
                     <Font size="11.0" />
                 </font>
             </Label>
-            <TreeTableView layoutX="190.0" layoutY="134.0" prefHeight="204.0" prefWidth="470.0">
+            <TreeTableView fx:id="productsTable" layoutX="190.0" layoutY="134.0" prefHeight="204.0" prefWidth="470.0">
                 <columns>
                     <TreeTableColumn fx:id="idpedidoField" prefWidth="96.0" text="id_produto" />
                     <TreeTableColumn fx:id="quantidadeField" prefWidth="119.0" text="Quantidade" />
@@ -77,7 +75,6 @@
                     <Font size="13.0" />
                 </font>
             </Button>
-
         </AnchorPane>
     </bottom>
 </BorderPane>

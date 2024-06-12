@@ -75,7 +75,9 @@ public class EfetuarEncomendasController {
     private void loadProdutosFornecedores() {
         List<Produto> produtos = produtoBll.obterProdutosAdicionadosPor("fornecedor");
         for (Produto produto : produtos) {
-            tipoLeiteField.getItems().add(produto.getNome());
+            if (produto.getQuantidade() > 0) {
+                tipoLeiteField.getItems().add(produto.getNome());
+            }
         }
     }
 
@@ -121,7 +123,6 @@ public class EfetuarEncomendasController {
             encomendaBll.salvarEncomenda(encomenda);
             showAlert("Sucesso", "Encomenda efetuada com sucesso!");
 
-            // Atualizar a quantidade do produto no estoque
             produtoSelecionado.setQuantidade((int) (produtoSelecionado.getQuantidade() - quantidadeLitros));
             produtoBll.atualizarProduto(produtoSelecionado);
         } catch (NumberFormatException e) {

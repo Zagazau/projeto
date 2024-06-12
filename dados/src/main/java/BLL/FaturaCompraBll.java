@@ -1,9 +1,8 @@
 package BLL;
-import jakarta.persistence.EntityManager;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import entity.Faturacompra;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityTransaction;
 
 public class FaturaCompraBll {
     private EntityManager entityManager;
@@ -13,38 +12,27 @@ public class FaturaCompraBll {
     }
 
     public void adicionarFaturaCompra(int idFatura, int idEncomenda, int idTipoPagamento, float valor, int quantidade) {
-        String query = "INSERT INTO faturacompra (idfaturac, idencomenda, idtipopag, valor, quantidade) VALUES (?, ?, ?, ?, ?)";
-        Connection connection = null;
-        PreparedStatement statement = null;
-
+        EntityTransaction transaction = entityManager.getTransaction();
         try {
-            entityManager.getTransaction().begin();
-            connection = entityManager.unwrap(Connection.class);
-            statement = connection.prepareStatement(query);
-            statement.setInt(1, idFatura);
-            statement.setInt(2, idEncomenda);
-            statement.setInt(3, idTipoPagamento);
-            statement.setFloat(4, valor);
-            statement.setInt(5, quantidade);
+            transaction.begin();
 
-            statement.executeUpdate();
-            entityManager.getTransaction().commit();
-        } catch (SQLException e) {
-            if (entityManager.getTransaction().isActive()) {
-                entityManager.getTransaction().rollback();
+            Faturacompra fatura = new Faturacompra();
+            fatura.setIdfaturac(idFatura);
+            fatura.setIdencomenda(idEncomenda);
+            fatura.setIdtipopag(idTipoPagamento);
+            fatura.setValor(valor);
+            fatura.setQuantidade(quantidade);
+
+            entityManager.persist(fatura);
+            transaction.commit();
+
+            System.out.println("FaturaCompra inserida com sucesso na tabela.");
+        } catch (Exception e) {
+            if (transaction.isActive()) {
+                transaction.rollback();
             }
             e.printStackTrace();
-        } finally {
-            try {
-                if (statement != null) {
-                    statement.close();
-                }
-                if (connection != null) {
-                    connection.close();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            throw new RuntimeException("Erro ao inserir na tabela faturacompra: " + e.getMessage());
         }
     }
 }

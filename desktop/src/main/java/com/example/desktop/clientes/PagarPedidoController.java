@@ -2,7 +2,6 @@ package com.example.desktop.clientes;
 
 import BLL.FaturaVendaBll;
 import BLL.PedidoBll;
-import com.example.desktop.clientes.PagamentoClientePopUpController;
 import entity.Pedido;
 import entity.Produto;
 import javafx.beans.property.SimpleStringProperty;
@@ -21,6 +20,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import entity.PagamentoEnum;
+
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
@@ -65,6 +65,7 @@ public class PagarPedidoController {
 
     private PedidoBll pedidoBll;
     private FaturaVendaBll faturaVendaBll;
+    private ObservableList<Pedido> pedidosObservableList;
 
     @FXML
     public void initialize() {
@@ -90,24 +91,16 @@ public class PagarPedidoController {
 
     private void carregarPedidos() {
         List<Pedido> pedidos = pedidoBll.obterTodosPedidos();
-        ObservableList<Pedido> pedidosObservableList = FXCollections.observableArrayList(pedidos);
-
-        idpedidoField.setCellValueFactory(new PropertyValueFactory<>("idpedido"));
-        dataField.setCellValueFactory(new PropertyValueFactory<>("data"));
-        quantidadeField.setCellValueFactory(new PropertyValueFactory<>("quantidade"));
-        valorField.setCellValueFactory(new PropertyValueFactory<>("valor"));
-        queijoField.setCellValueFactory(cellData -> {
-            Produto produto = cellData.getValue().getProduto();
-            return new SimpleStringProperty(produto != null ? produto.getNome() : "N/A");
-        });
-
+        pedidosObservableList = FXCollections.observableArrayList(pedidos);
         tableView.setItems(pedidosObservableList);
     }
 
-
     private void abrirPopUpPagamento() {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/desktop/Cliente/PagamentoClientePopUp.fxml"));
+            String fxmlPath = "/com/example/desktop/Cliente/PagamentoClientePopUp.fxml";
+            System.out.println("Loading FXML from: " + getClass().getResource(fxmlPath));
+
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(fxmlPath));
             Parent parent = fxmlLoader.load();
 
             PagamentoClientePopUpController controller = fxmlLoader.getController();
@@ -124,6 +117,7 @@ public class PagarPedidoController {
         }
     }
 
+
     public void processarPagamento(String metodoPagamento) {
         Pedido pedidoSelecionado = tableView.getSelectionModel().getSelectedItem();
         if (pedidoSelecionado != null) {
@@ -139,6 +133,9 @@ public class PagarPedidoController {
                     valorFloat,
                     pedidoSelecionado.getQuantidade()
             );
+
+            // Remover o pedido pago da lista observável
+            pedidosObservableList.remove(pedidoSelecionado);
 
             showAlert(Alert.AlertType.INFORMATION, "Pagamento Efetuado", "Pagamento efetuado com sucesso usando " + metodoPagamento);
         } else {

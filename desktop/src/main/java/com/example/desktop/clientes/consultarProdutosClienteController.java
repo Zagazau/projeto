@@ -20,7 +20,7 @@ import java.util.Optional;
 public class consultarProdutosClienteController {
 
     @FXML
-    private Button backButton;
+    private Button voltarButton;
 
     @FXML
     private Button consultarProdutosButton;
@@ -53,62 +53,16 @@ public class consultarProdutosClienteController {
 
     @FXML
     public void initialize() {
+
+        consultarProdutosButton.setOnAction(event -> loadScene(event, "/com/example/desktop/Cliente/consultarProdutos.fxml"));
+        pagamentosButton.setOnAction(event -> loadScene(event, "/com/example/desktop/Cliente/pagarPedidos.fxml"));
+        pedidosButton.setOnAction(event -> loadScene(event, "/com/example/desktop/Cliente/efetuarPedido.fxml"));
+        sairButton.setOnAction(event -> loadScene(event, "/com/example/desktop/firstPage.fxml"));
+        voltarButton.setOnAction(event -> loadScene(event, "/com/example/desktop/Cliente/clienteMenu.fxml"));
+
         produtoBll = new ProdutoBll();
         configurarColunasTabela();
         carregarProdutos();
-
-        sairButton.setOnAction(event -> {
-            System.out.println("Botão Sair pressionado!");
-            showConfirmationAlert(event);
-        });
-
-        pedidosButton.setOnAction(event -> {
-            System.out.println("Botão Pedidos pressionado!");
-            try {
-                Parent root = FXMLLoader.load(getClass().getResource("/com/example/desktop/Cliente/efetuarPedido.fxml"));
-                Scene scene = new Scene(root);
-                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                stage.setScene(scene);
-                stage.setTitle("Efetuar Pedido");
-                stage.show();
-                System.out.println("Redirecionado para efetuarPedido.fxml com sucesso");
-            } catch (IOException e) {
-                e.printStackTrace();
-                showAlert(Alert.AlertType.ERROR, "Erro", "Não foi possível abrir a cena efetuarPedido.fxml.");
-            }
-        });
-
-        pagamentosButton.setOnAction(event -> {
-            System.out.println("Botão Pagamentos pressionado!");
-            try {
-                Parent root = FXMLLoader.load(getClass().getResource("/com/example/desktop/Cliente/pagarPedidos.fxml"));
-                Scene scene = new Scene(root);
-                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                stage.setScene(scene);
-                stage.setTitle("Pagamentos");
-                stage.show();
-                System.out.println("Redirecionado para pagarPedidos.fxml com sucesso");
-            } catch (IOException e) {
-                e.printStackTrace();
-                showAlert(Alert.AlertType.ERROR, "Erro", "Não foi possível abrir a cena pagarPedidos.fxml.");
-            }
-        });
-
-        consultarProdutosButton.setOnAction(event -> {
-            System.out.println("Botão Consultar Produtos pressionado!");
-            try {
-                Parent root = FXMLLoader.load(getClass().getResource("/com/example/desktop/Cliente/consultarProdutos.fxml"));
-                Scene scene = new Scene(root);
-                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                stage.setScene(scene);
-                stage.setTitle("Consultar Produtos");
-                stage.show();
-                System.out.println("Redirecionado para consultarProdutos.fxml com sucesso");
-            } catch (IOException e) {
-                e.printStackTrace();
-                showAlert(Alert.AlertType.ERROR, "Erro", "Não foi possível abrir a cena consultarProdutos.fxml.");
-            }
-        });
     }
 
     private void configurarColunasTabela() {
@@ -127,12 +81,24 @@ public class consultarProdutosClienteController {
             produtoList.add(item);
         }
 
-        TreeItem<Produto> root = new TreeItem<>(new Produto()); // Root item
+        TreeItem<Produto> root = new TreeItem<>(new Produto());
         root.getChildren().addAll(produtoList);
         productsTable.setRoot(root);
-        productsTable.setShowRoot(false); // Hide the root item
+        productsTable.setShowRoot(false);
     }
 
+    private void loadScene(javafx.event.ActionEvent event, String fxmlFile) {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource(fxmlFile));
+            Scene scene = new Scene(root);
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR,"Erro", "Erro ao carregar a página: " + fxmlFile);
+        }
+    }
     private void showConfirmationAlert(javafx.event.ActionEvent event) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmar Saída");

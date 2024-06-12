@@ -69,6 +69,10 @@ public class PagarPedidoController {
 
     @FXML
     public void initialize() {
+        consultarProdutosButton.setOnAction(event -> loadScene(event, "/com/example/desktop/Cliente/consultarProdutos.fxml"));
+        pagamentosButton.setOnAction(event -> loadScene(event, "/com/example/desktop/Cliente/pagarPedidos.fxml"));
+        pedidosButton.setOnAction(event -> loadScene(event, "/com/example/desktop/Cliente/efetuarPedido.fxml"));
+
         pedidoBll = new PedidoBll();
         faturaVendaBll = new FaturaVendaBll();
 
@@ -97,7 +101,7 @@ public class PagarPedidoController {
 
     private void abrirPopUpPagamento() {
         try {
-            String fxmlPath = "/com/example/desktop/Cliente/PagamentoClientePopUp.fxml";
+            String fxmlPath = "/com/example/desktop/Clientec/PagamentoClientePopUp.fxml";
             System.out.println("Loading FXML from: " + getClass().getResource(fxmlPath));
 
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(fxmlPath));
@@ -134,7 +138,6 @@ public class PagarPedidoController {
                     pedidoSelecionado.getQuantidade()
             );
 
-            // Remover o pedido pago da lista observável
             pedidosObservableList.remove(pedidoSelecionado);
 
             showAlert(Alert.AlertType.INFORMATION, "Pagamento Efetuado", "Pagamento efetuado com sucesso usando " + metodoPagamento);

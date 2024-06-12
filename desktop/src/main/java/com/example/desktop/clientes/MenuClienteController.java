@@ -27,7 +27,7 @@ public class MenuClienteController {
     @FXML
     private Button sairButton;
 
-    private int idCliente; // Adicionado para armazenar o id do cliente
+    private int idCliente;
 
     public void setIdCliente(int idCliente) {
         this.idCliente = idCliente;
@@ -39,7 +39,7 @@ public class MenuClienteController {
 
         consultarProdutosButton.setOnAction(event -> loadScene(event, "/com/example/desktop/Cliente/consultarProdutos.fxml"));
         pagamentosButton.setOnAction(event -> loadScene(event, "/com/example/desktop/Cliente/pagarPedidos.fxml"));
-        pedidosButton.setOnAction(this::efetuarPedidos);
+        pedidosButton.setOnAction(event -> loadScene(event, "/com/example/desktop/Cliente/efetuarPedido.fxml"));
         sairButton.setOnAction(event -> loadScene(event, "/com/example/desktop/firstPage.fxml"));
     }
 
@@ -53,38 +53,6 @@ public class MenuClienteController {
         } catch (IOException e) {
             e.printStackTrace();
             showAlert("Erro", "Erro ao carregar a página: " + fxmlFile);
-        }
-    }
-
-    @FXML
-    private void efetuarPedidos(ActionEvent event) {
-        System.out.println("Botão Efetuar Pedidos pressionado!");
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/desktop/Cliente/efetuarPedido.fxml"));
-            Parent root = loader.load();
-            efetuarPedidosClienteController controller = loader.getController();
-            controller.setIdCliente(idCliente);
-            Scene scene = new Scene(root);
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setScene(scene);
-            stage.setTitle("Efetuar Pedidos");
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-            showAlert("Erro", "Não foi possível abrir a cena: efetuarPedido.fxml");
-        }
-    }
-
-    @FXML
-    private void sair(ActionEvent event) {
-        System.out.println("Botão Sair pressionado!");
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Confirmação de Saída");
-        alert.setHeaderText(null);
-        alert.setContentText("Tem certeza que deseja sair?");
-
-        if (alert.showAndWait().get() == ButtonType.OK) {
-            loadScene(event, "/com/example/desktop/firstPage.fxml");
         }
     }
 

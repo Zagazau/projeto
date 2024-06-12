@@ -104,6 +104,7 @@ public class PagarPedidoController {
         tableView.setItems(pedidosObservableList);
     }
 
+
     private void abrirPopUpPagamento() {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/desktop/Cliente/PagamentoClientePopUp.fxml"));
@@ -158,7 +159,7 @@ public class PagarPedidoController {
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
-            showAlert(Alert.AlertType.ERROR, "Erro", "Erro ao carregar a página: " + fxmlFile);
+            showAlert(Alert.AlertType.ERROR,"Erro", "Erro ao carregar a página: " + fxmlFile);
         }
     }
 

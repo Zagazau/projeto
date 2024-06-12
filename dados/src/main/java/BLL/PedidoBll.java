@@ -2,8 +2,6 @@ package BLL;
 
 import entity.Pedido;
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.Persistence;
 import java.util.List;
 
 public class PedidoBll {
@@ -14,19 +12,12 @@ public class PedidoBll {
     }
 
     public void adicionarPedido(Pedido pedido) {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("default");
-        EntityManager em = emf.createEntityManager();
-        em.getTransaction().begin();
-        em.persist(pedido);
-        em.getTransaction().commit();
-        em.close();
+        entityManager.getTransaction().begin();
+        entityManager.persist(pedido);
+        entityManager.getTransaction().commit();
     }
 
     public List<Pedido> obterTodosPedidos() {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("default");
-        EntityManager em = emf.createEntityManager();
-        List<Pedido> pedidos = em.createQuery("SELECT p FROM Pedido p", Pedido.class).getResultList();
-        em.close();
-        return pedidos;
+        return entityManager.createQuery("SELECT p FROM Pedido p", Pedido.class).getResultList();
     }
 }

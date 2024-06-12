@@ -73,15 +73,11 @@ public class Pedido {
         this.valor = valor;
     }
 
-
     public Produto getProduto() {
         return produto;
     }
 
     public void setProduto(Produto produto) {
         this.produto = produto;
-    }
-
-    public void setIdproduto(Integer id) {
     }
 }

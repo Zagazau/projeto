@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.desktop.Admin.consultarFaturacaoController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.desktop.Admin.ConsultarFaturacaoController">
     <top>
         <AnchorPane style="-fx-background-color: #FFDAB9;" BorderPane.alignment="CENTER">
             <Button fx:id="goBack" layoutX="14.0" layoutY="453.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="128.0" text="Terminar sessão" />
@@ -64,7 +64,7 @@
                     <TableColumn fx:id="idEncomendaField" prefWidth="109.0" text="id_Encomenda" />
                     <TableColumn fx:id="tipoQueijoField" prefWidth="109.0" text="Tipo de Queijo" />
                     <TableColumn fx:id="quantidadeField" minWidth="0.0" prefWidth="140.0" text="Quantidade" />
-               <TableColumn fx:id="preçoField" minWidth="0.0" prefWidth="124.0" text="Preço" />
+                    <TableColumn fx:id="preçoField" minWidth="0.0" prefWidth="124.0" text="Preço" />
                 </columns>
             </TableView>
 
@@ -78,7 +78,12 @@
                     <Font size="11.0" />
                 </font>
             </Label>
-            <Label layoutX="507.0" layoutY="296.0" prefHeight="26.0" prefWidth="95.0" text="TOTAL:    ">
+            <Label layoutX="390.0" layoutY="296.0" prefHeight="26.0" prefWidth="100.0">
+                <font>
+                    <Font size="17.0" />
+                </font>
+            </Label>
+            <Label fx:id="totalLabel" layoutX="460.0" layoutY="296.0" prefHeight="26.0" prefWidth="200.0" text="0.00">
                 <font>
                     <Font size="17.0" />
                 </font>

@@ -77,7 +77,9 @@ public class efetuarPedidosClienteController {
     private void carregarProdutosAdmin() {
         List<Produto> produtosAdmin = produtoBll.obterProdutosAdicionadosPor("admin");
         for (Produto produto : produtosAdmin) {
-            queijoField.getItems().add(produto.getNome());
+            if (produto.getQuantidade() > 0) {
+                queijoField.getItems().add(produto.getNome());
+            }
         }
     }
 

@@ -53,85 +53,16 @@ public class consultarEncomendasFornecedorController {
     public void initialize() {
         encomendaBll = new EncomendaBll();
 
-        // Configurar as colunas da tabela
         idEncomendaField.setCellValueFactory(new PropertyValueFactory<>("idencomenda"));
         tipoLeiteField.setCellValueFactory(new PropertyValueFactory<>("tipoLeite"));
         quantidadeField.setCellValueFactory(new PropertyValueFactory<>("quantidade"));
 
-        // Carregar os dados das encomendas
         loadEncomendas();
 
-        sairButton.setOnAction(event -> {
-            System.out.println("Botão Sair pressionado!");
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Confirmação de Saída");
-            alert.setHeaderText(null);
-            alert.setContentText("Tem certeza que deseja sair?");
-
-            Optional<ButtonType> result = alert.showAndWait();
-            if (result.isPresent() && result.get() == ButtonType.OK) {
-                try {
-                    Parent root = FXMLLoader.load(getClass().getResource("/com/example/desktop/firstPage.fxml"));
-                    Scene scene = new Scene(root);
-                    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                    stage.setScene(scene);
-                    stage.setTitle("Página Anterior");
-                    stage.show();
-                    System.out.println("Redirecionado para firstPage.fxml com sucesso");
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    showAlert(Alert.AlertType.ERROR, "Erro", "Não foi possível voltar para a página anterior.");
-                }
-            }
-        });
-
-        consultarEncomendasButton.setOnAction(event -> {
-            System.out.println("Botão Consultar Encomendas pressionado!");
-            try {
-                Parent root = FXMLLoader.load(getClass().getResource("/com/example/desktop/Fornecedor/consultarEncomendasFornecedor.fxml"));
-                Scene scene = new Scene(root);
-                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                stage.setScene(scene);
-                stage.setTitle("Consultar Encomendas");
-                stage.show();
-                System.out.println("Redirecionado para consultarEncomendas.fxml com sucesso");
-            } catch (IOException e) {
-                e.printStackTrace();
-                showAlert(Alert.AlertType.ERROR, "Erro", "Não foi possível abrir a cena consultarEncomendas.fxml.");
-            }
-        });
-
-        consultarFaturacaoButton.setOnAction(event -> {
-            System.out.println("Botão Consultar Faturação pressionado!");
-            try {
-                Parent root = FXMLLoader.load(getClass().getResource("/com/example/desktop/Fornecedor/consultarFaturacaoFornecedor.fxml"));
-                Scene scene = new Scene(root);
-                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                stage.setScene(scene);
-                stage.setTitle("Consultar Faturação");
-                stage.show();
-                System.out.println("Redirecionado para consultarFaturacao.fxml com sucesso");
-            } catch (IOException e) {
-                e.printStackTrace();
-                showAlert(Alert.AlertType.ERROR, "Erro", "Não foi possível abrir a cena consultarFaturacao.fxml.");
-            }
-        });
-
-        inserirProdutosButton.setOnAction(event -> {
-            System.out.println("Botão Inserir Produto pressionado!");
-            try {
-                Parent root = FXMLLoader.load(getClass().getResource("/com/example/desktop/Fornecedor/inserirProdutos.fxml"));
-                Scene scene = new Scene(root);
-                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                stage.setScene(scene);
-                stage.setTitle("Inserir Produto");
-                stage.show();
-                System.out.println("Redirecionado para inserirProduto.fxml com sucesso");
-            } catch (IOException e) {
-                e.printStackTrace();
-                showAlert(Alert.AlertType.ERROR, "Erro", "Não foi possível abrir a cena inserirProduto.fxml.");
-            }
-        });
+        sairButton.setOnAction(event -> showConfirmationAlert(event, "/com/example/desktop/firstPage.fxml"));
+        consultarEncomendasButton.setOnAction(event -> loadScene(event, "/com/example/desktop/Fornecedor/consultarEncomendasFornecedor.fxml"));
+        consultarFaturacaoButton.setOnAction(event -> loadScene(event, "/com/example/desktop/Fornecedor/consultarFaturacaoFornecedor.fxml"));
+        inserirProdutosButton.setOnAction(event -> loadScene(event, "/com/example/desktop/Fornecedor/inserirProdutos.fxml"));
     }
 
     private void loadEncomendas() {
@@ -140,11 +71,36 @@ public class consultarEncomendasFornecedorController {
         encomendasTable.setItems(encomendasObservableList);
     }
 
+    private void loadScene(javafx.event.ActionEvent event, String fxmlFile) {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource(fxmlFile));
+            Scene scene = new Scene(root);
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Erro", "Erro ao carregar a página: " + fxmlFile);
+        }
+    }
+
     private void showAlert(Alert.AlertType alertType, String title, String message) {
         Alert alert = new Alert(alertType);
         alert.setTitle(title);
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
+    }
+
+    private void showConfirmationAlert(javafx.event.ActionEvent event, String fxmlFile) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmação de Saída");
+        alert.setHeaderText(null);
+        alert.setContentText("Tem certeza que deseja sair?");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            loadScene(event, fxmlFile);
+        }
     }
 }

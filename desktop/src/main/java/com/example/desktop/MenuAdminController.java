@@ -10,6 +10,7 @@ import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
 
 public class MenuAdminController {
 
@@ -31,10 +32,9 @@ public class MenuAdminController {
     @FXML
     private Button sairButton;
 
-
     @FXML
     private void initialize() {
-        consultarFaturacaoButton.setOnAction(event -> loadScene(event, "/com/example/desktop/Admin/consultarFaturacaoAdmin.fxml"));
+        consultarFaturacaoButton.setOnAction(event -> loadScene(event, "/com/example/desktop/Admin/consultarFaturaçãoAdmin.fxml"));
         controlarStockButton.setOnAction(event -> loadScene(event, "/com/example/desktop/Admin/controlarStockAdmin.fxml"));
         encomendarLeiteButton.setOnAction(event -> loadScene(event, "/com/example/desktop/Admin/encomendasAdmin.fxml"));
         pagarEncomendasButton.setOnAction(event -> loadScene(event, "/com/example/desktop/Admin/pagarEncomendasAdmin.fxml"));
@@ -43,14 +43,18 @@ public class MenuAdminController {
 
     private void loadScene(javafx.event.ActionEvent event, String fxmlFile) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource(fxmlFile));
+            URL fxmlLocation = getClass().getResource(fxmlFile);
+            if (fxmlLocation == null) {
+                throw new IOException("FXML file not found: " + fxmlFile);
+            }
+            Parent root = FXMLLoader.load(fxmlLocation);
             Scene scene = new Scene(root);
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(scene);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
-            showAlert("Erro", "Erro ao carregar a página: " + fxmlFile);
+            showAlert("Erro", "Erro ao carregar a página: " + fxmlFile + "\n" + e.getMessage());
         }
     }
 

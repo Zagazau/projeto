@@ -1,7 +1,6 @@
 package com.example.desktop.Admin;
 
 import BLL.ProdutoBll;
-import entity.Admin;
 import entity.Produto;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -80,14 +79,15 @@ public class RemoverProdutoController {
     private void removerProduto() {
         Produto produtoSelecionado = removerTable.getSelectionModel().getSelectedItem();
         if (produtoSelecionado != null) {
-            produtoBll.removerProduto(produtoSelecionado.getId());
-            produtos.remove(produtoSelecionado);
+            try {
+                produtoBll.removerProduto(produtoSelecionado.getId());
+                produtos.remove(produtoSelecionado);
+                showAlert(Alert.AlertType.INFORMATION, "Sucesso", "Produto removido com sucesso.");
+            } catch (Exception e) {
+                showAlert(Alert.AlertType.ERROR, "Erro", e.getMessage());
+            }
         } else {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Nenhum produto selecionado");
-            alert.setHeaderText(null);
-            alert.setContentText("Por favor, selecione um produto para remover.");
-            alert.showAndWait();
+            showAlert(Alert.AlertType.WARNING, "Nenhum produto selecionado", "Por favor, selecione um produto para remover.");
         }
     }
 
@@ -100,12 +100,12 @@ public class RemoverProdutoController {
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
-            showAlert("Erro", "Erro ao carregar a página: " + fxmlFile);
+            showAlert(Alert.AlertType.ERROR, "Erro", "Erro ao carregar a página: " + fxmlFile);
         }
     }
 
-    private void showAlert(String title, String message) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
+    private void showAlert(Alert.AlertType alertType, String title, String message) {
+        Alert alert = new Alert(alertType);
         alert.setTitle(title);
         alert.setHeaderText(null);
         alert.setContentText(message);

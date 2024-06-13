@@ -48,14 +48,27 @@ public class ProdutoBll {
         em.close();
     }
 
-    public void removerProduto(Integer id) {
+    public boolean temPedidosAssociados(Integer id) {
+        EntityManager em = emf.createEntityManager();
+        TypedQuery<Long> query = em.createQuery("SELECT COUNT(p) FROM Pedido p WHERE p.produto.id = :id", Long.class);
+        query.setParameter("id", id);
+        Long count = query.getSingleResult();
+        em.close();
+        return count > 0;
+    }
+
+    public void removerProduto(Integer id) throws Exception {
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
         Produto produto = em.find(Produto.class, id);
         if (produto != null) {
+            if (temPedidosAssociados(id)) {
+                throw new Exception("Não é possível remover o produto uma vez que está associado a um ou mais pedidos.");
+            }
             em.remove(produto);
         }
         em.getTransaction().commit();
         em.close();
     }
 }
+

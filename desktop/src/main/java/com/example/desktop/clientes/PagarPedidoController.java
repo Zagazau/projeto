@@ -101,7 +101,7 @@ public class PagarPedidoController {
 
     private void abrirPopUpPagamento() {
         try {
-            String fxmlPath = "/com/example/desktop/Clientec/PagamentoClientePopUp.fxml";
+            String fxmlPath = "/com/example/desktop/Cliente/PagamentoClientePopUp.fxml";
             System.out.println("Loading FXML from: " + getClass().getResource(fxmlPath));
 
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(fxmlPath));

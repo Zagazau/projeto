@@ -27,4 +27,8 @@ public class EncomendaBll {
     public void excluirEncomenda(int id) {
         encomendaDAL.excluir(id);
     }
+    public Encomenda obterEncomendaPorId(int id) {
+        return encomendaDAL.buscarPorId(id); // Implemente o método buscarPorId na classe EncomendaDAL
+    }
+
 }

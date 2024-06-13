@@ -1,11 +1,8 @@
 package entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-
+import jakarta.persistence.*;
 import java.sql.Date;
+import java.util.List;
 
 @Entity
 public class Encomenda {
@@ -13,12 +10,33 @@ public class Encomenda {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idencomenda;
+
+    @Basic
+    @Column(name = "idfornecedor")
     private int idfornecedor;
+
+    @Basic
+    @Column(name = "quantidade")
     private float quantidade;
+
+    @Basic
+    @Column(name = "data")
     private Date data;
+
+    @Basic
+    @Column(name = "tipoleite")
     private String tipoLeite;
+
+    @Basic
+    @Column(name = "valor")
     private Float valor;
-    private Integer idproduto;  // Change to Integer to allow null values
+
+    @Basic
+    @Column(name = "idproduto")
+    private Integer idproduto;
+
+    @OneToMany(mappedBy = "encomenda", cascade = CascadeType.ALL)
+    private List<Faturacompra> faturacompras;
 
     public int getIdencomenda() {
         return idencomenda;
@@ -76,4 +94,11 @@ public class Encomenda {
         this.idproduto = idproduto;
     }
 
+    public List<Faturacompra> getFaturacompras() {
+        return faturacompras;
+    }
+
+    public void setFaturacompras(List<Faturacompra> faturacompras) {
+        this.faturacompras = faturacompras;
+    }
 }

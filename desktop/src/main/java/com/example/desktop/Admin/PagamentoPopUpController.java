@@ -12,7 +12,7 @@ public class PagamentoPopUpController {
     private ChoiceBox<String> metodoPagamentoChoiceBox;
 
     private PagarEncomendasController parentController;
-    private Encomenda encomenda;
+
 
     @FXML
     public void initialize() {
@@ -24,15 +24,12 @@ public class PagamentoPopUpController {
         this.parentController = parentController;
     }
 
-    public void setEncomenda(Encomenda encomenda) {
-        this.encomenda = encomenda;
-    }
 
     @FXML
     private void efetuarPagamento() {
         String metodoSelecionado = metodoPagamentoChoiceBox.getSelectionModel().getSelectedItem();
 
-        if (parentController != null && encomenda != null) {
+        if (parentController != null) {
             parentController.processarPagamento(metodoSelecionado);
         }
 

@@ -32,12 +32,15 @@ public class ProdutoBll {
     }
 
     public Produto obterProdutoPorNome(String nome) {
-        EntityManager em = emf.createEntityManager();
-        TypedQuery<Produto> query = em.createQuery("SELECT p FROM Produto p WHERE p.nome = :nome", Produto.class);
-        query.setParameter("nome", nome);
-        Produto produto = query.getSingleResult();
-        em.close();
-        return produto;
+        try {
+            return entityManager.createQuery("SELECT p FROM Produto p WHERE p.nome = :nome", Produto.class)
+                    .setParameter("nome", nome)
+                    .setMaxResults(1)
+                    .getSingleResult();
+        } catch (NoResultException | NonUniqueResultException ex) {
+
+            return null;
+        }
     }
 
     public void atualizarProduto(Produto produto) {

@@ -4,6 +4,7 @@ module com.example.desktop {
     requires javafx.web;
     requires dados;
     requires java.sql;
+    requires java.desktop;
 
     exports com.example.desktop.clientes;
     exports com.example.desktop.Fornecedor;

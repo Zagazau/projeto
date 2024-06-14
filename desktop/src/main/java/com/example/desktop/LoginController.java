@@ -56,7 +56,7 @@ public class LoginController {
                     String hashedPassword = PasswordUtils.hashPassword(password, salt);
                     if (hashedPassword.equals(hash)) {
                         showAlert(Alert.AlertType.INFORMATION, "Login com sucesso", "Bem vindo, " + cliente.getNome() + "!");
-                        redirectToClienteMenu(cliente.getIdcliente());  // Passe o idCliente aqui
+                        redirectToClienteMenu(cliente.getIdcliente());
                     } else {
                         showAlert(Alert.AlertType.ERROR, "Erro", "Password ou username inválidos.");
                     }

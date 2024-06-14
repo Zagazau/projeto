@@ -20,4 +20,10 @@ public class PedidoBll {
     public List<Pedido> obterTodosPedidos() {
         return entityManager.createQuery("SELECT p FROM Pedido p", Pedido.class).getResultList();
     }
+
+    public List<Pedido> obterPedidosPorCliente(int idCliente) {
+        return entityManager.createQuery("SELECT p FROM Pedido p WHERE p.idcliente = :idCliente", Pedido.class)
+                .setParameter("idCliente", idCliente)
+                .getResultList();
+    }
 }

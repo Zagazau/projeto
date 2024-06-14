@@ -66,6 +66,12 @@ public class PagarPedidoController {
     private PedidoBll pedidoBll;
     private FaturaVendaBll faturaVendaBll;
     private ObservableList<Pedido> pedidosObservableList;
+    private int idCliente;
+
+    public void setIdCliente(int idCliente) {
+        this.idCliente = idCliente;
+        carregarPedidos();
+    }
 
     @FXML
     public void initialize() {
@@ -93,10 +99,12 @@ public class PagarPedidoController {
         pagarButton.setOnAction(event -> abrirPopUpPagamento());
     }
 
-    private void carregarPedidos() {
-        List<Pedido> pedidos = pedidoBll.obterTodosPedidos();
-        pedidosObservableList = FXCollections.observableArrayList(pedidos);
-        tableView.setItems(pedidosObservableList);
+    public void carregarPedidos() {
+        if (idCliente > 0) {
+            List<Pedido> pedidos = pedidoBll.obterPedidosPorCliente(idCliente);
+            pedidosObservableList = FXCollections.observableArrayList(pedidos);
+            tableView.setItems(pedidosObservableList);
+        }
     }
 
     private void abrirPopUpPagamento() {
@@ -120,7 +128,6 @@ public class PagarPedidoController {
             showAlert(Alert.AlertType.ERROR, "Erro", "Erro ao abrir o pop-up de pagamento.");
         }
     }
-
 
     public void processarPagamento(String metodoPagamento) {
         Pedido pedidoSelecionado = tableView.getSelectionModel().getSelectedItem();
@@ -152,14 +159,25 @@ public class PagarPedidoController {
 
     private void loadScene(javafx.event.ActionEvent event, String fxmlFile) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource(fxmlFile));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFile));
+            Parent root = loader.load();
             Scene scene = new Scene(root);
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(scene);
             stage.show();
+
+            // Passar o idCliente para a nova cena, se aplicável
+            if (fxmlFile.contains("pagarPedidos.fxml")) {
+                PagarPedidoController controller = loader.getController();
+                controller.setIdCliente(idCliente);
+            } else if (fxmlFile.contains("efetuarPedido.fxml")) {
+                efetuarPedidosClienteController controller = loader.getController();
+                controller.setIdCliente(idCliente);
+            }
+
         } catch (IOException e) {
             e.printStackTrace();
-            showAlert(Alert.AlertType.ERROR,"Erro", "Erro ao carregar a página: " + fxmlFile);
+            showAlert(Alert.AlertType.ERROR, "Erro", "Erro ao carregar a página: " + fxmlFile);
         }
     }
 

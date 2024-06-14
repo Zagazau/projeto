@@ -16,7 +16,6 @@ import java.io.IOException;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
 public class efetuarPedidosClienteController {
 
@@ -49,24 +48,22 @@ public class efetuarPedidosClienteController {
     private ProdutoBll produtoBll;
     private PedidoBll pedidoBll;
 
-    public void setIdCliente(int idCliente) { // Método para definir o id do cliente
+    public void setIdCliente(int idCliente) {
         this.idCliente = idCliente;
     }
 
     @FXML
     public void initialize() {
-
-        consultarProdutosButton.setOnAction(event -> loadScene(event, "/com/example/desktop/Cliente/consultarProdutos.fxml"));
-        pagamentosButton.setOnAction(event -> loadScene(event, "/com/example/desktop/Cliente/pagarPedidos.fxml"));
-        pedidosButton.setOnAction(event -> loadScene(event, "/com/example/desktop/Cliente/efetuarPedido.fxml"));
-        sairButton.setOnAction(event -> loadScene(event, "/com/example/desktop/firstPage.fxml"));
-        voltarButton.setOnAction(event -> loadScene(event, "/com/example/desktop/Cliente/clienteMenu.fxml"));
-
         produtoBll = new ProdutoBll();
         pedidoBll = new PedidoBll();
 
-        carregarProdutosAdmin();
+        consultarProdutosButton.setOnAction(event -> loadScene(event, "/com/example/desktop/Cliente/consultarProdutos.fxml"));
+        pagamentosButton.setOnAction(event -> loadPagamentosScene(event));
+        pedidosButton.setOnAction(event -> loadEfetuarPedidoScene(event));
+        sairButton.setOnAction(event -> loadScene(event, "/com/example/desktop/firstPage.fxml"));
+        voltarButton.setOnAction(event -> loadScene(event, "/com/example/desktop/Cliente/clienteMenu.fxml"));
 
+        carregarProdutosAdmin();
 
         efetuarPedidoButton.setOnAction(event -> {
             System.out.println("Botão Efetuar Pedido pressionado!");
@@ -79,29 +76,6 @@ public class efetuarPedidosClienteController {
         for (Produto produto : produtosAdmin) {
             if (produto.getQuantidade() > 0) {
                 queijoField.getItems().add(produto.getNome());
-            }
-        }
-    }
-
-    private void showConfirmationAlert(javafx.event.ActionEvent event) {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Confirmar Saída");
-        alert.setHeaderText(null);
-        alert.setContentText("Tem certeza de que deseja sair?");
-
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.isPresent() && result.get() == ButtonType.OK) {
-            try {
-                Parent root = FXMLLoader.load(getClass().getResource("/com/example/desktop/firstPage.fxml"));
-                Scene scene = new Scene(root);
-                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                stage.setScene(scene);
-                stage.setTitle("Página Anterior");
-                stage.show();
-                System.out.println("Redirecionado para firstPage.fxml com sucesso");
-            } catch (IOException e) {
-                e.printStackTrace();
-                showAlert(Alert.AlertType.ERROR, "Erro", "Não foi possível voltar para a página anterior.");
             }
         }
     }
@@ -119,6 +93,38 @@ public class efetuarPedidosClienteController {
         }
     }
 
+    private void loadPagamentosScene(javafx.event.ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/desktop/Cliente/pagarPedidos.fxml"));
+            Parent root = loader.load();
+            PagarPedidoController controller = loader.getController();
+            controller.setIdCliente(idCliente); // Passe o idCliente para o controller
+            Scene scene = new Scene(root);
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR,"Erro", "Erro ao carregar a página de pagamentos.");
+        }
+    }
+
+    private void loadEfetuarPedidoScene(javafx.event.ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/desktop/Cliente/efetuarPedido.fxml"));
+            Parent root = loader.load();
+            efetuarPedidosClienteController controller = loader.getController();
+            controller.setIdCliente(idCliente); // Passe o idCliente para o controller
+            Scene scene = new Scene(root);
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR,"Erro", "Erro ao carregar a página de efetuar pedido.");
+        }
+    }
+
     private void showAlert(Alert.AlertType alertType, String title, String message) {
         Alert alert = new Alert(alertType);
         alert.setTitle(title);
@@ -128,6 +134,11 @@ public class efetuarPedidosClienteController {
     }
 
     private void efetuarPedido() {
+        if (idCliente == 0) {
+            showAlert(Alert.AlertType.ERROR, "Erro", "ID do cliente inválido. Por favor, faça login novamente.");
+            return;
+        }
+
         try {
             String produtoNome = queijoField.getValue();
             int quantidade = Integer.parseInt(quantidadeField.getText());

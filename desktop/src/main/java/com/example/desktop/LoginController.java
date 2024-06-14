@@ -55,13 +55,13 @@ public class LoginController {
                 try {
                     String hashedPassword = PasswordUtils.hashPassword(password, salt);
                     if (hashedPassword.equals(hash)) {
-                        showAlert(Alert.AlertType.INFORMATION, "Login Successful", "Welcome, " + cliente.getNome() + "!");
+                        showAlert(Alert.AlertType.INFORMATION, "Login com sucesso", "Bem vindo, " + cliente.getNome() + "!");
                         redirectToClienteMenu(cliente.getIdcliente());  // Passe o idCliente aqui
                     } else {
-                        showAlert(Alert.AlertType.ERROR, "Login Failed", "Invalid username or password.");
+                        showAlert(Alert.AlertType.ERROR, "Erro", "Password ou username inválidos.");
                     }
                 } catch (NoSuchAlgorithmException e) {
-                    showAlert(Alert.AlertType.ERROR, "Login Failed", "Error processing password.");
+                    showAlert(Alert.AlertType.ERROR, "Login Falhou", "Erro a processar Password");
                 }
             } else {
                 System.out.println("No cliente found, trying admin.");
@@ -70,10 +70,10 @@ public class LoginController {
                 if (admin != null) {
                     System.out.println("Found admin: " + admin.getUsername());
                     if (admin.getSenha().equals(password)) {
-                        showAlert(Alert.AlertType.INFORMATION, "Login Successful", "Welcome, Admin!");
+                        showAlert(Alert.AlertType.INFORMATION, "Login com sucesso", "Bem vindo, Admin!");
                         redirectToAdminMenu();
                     } else {
-                        showAlert(Alert.AlertType.ERROR, "Login Failed", "Invalid username or password.");
+                        showAlert(Alert.AlertType.ERROR, "Erro", "Password ou username inválidos.");
                     }
                 } else {
                     System.out.println("No admin found, trying fornecedor.");
@@ -89,10 +89,10 @@ public class LoginController {
                         try {
                             String hashedPassword = PasswordUtils.hashPassword(password, salt);
                             if (hashedPassword.equals(hash)) {
-                                showAlert(Alert.AlertType.INFORMATION, "Login Successful", "Welcome, " + fornecedor.getNome() + "!");
+                                showAlert(Alert.AlertType.INFORMATION, "Login com sucesso", "Bem vindo, " + fornecedor.getNome() + "!");
                                 redirectToFornecedorMenu();
                             } else {
-                                showAlert(Alert.AlertType.ERROR, "Login Failed", "Invalid username or password.");
+                                showAlert(Alert.AlertType.ERROR, "Erro", "Password ou username inválidos.");
                             }
                         } catch (NoSuchAlgorithmException e) {
                             showAlert(Alert.AlertType.ERROR, "Login Failed", "Error processing password.");

@@ -18,21 +18,22 @@
             <items>
                 <AnchorPane prefHeight="498.0" prefWidth="319.0" style="-fx-background-color: white; ">
                <children>
-                        <Label layoutX="61.0" layoutY="60.0" prefHeight="70.0" prefWidth="209.0" text="Queijaria Taulo">
+                        <Label layoutX="76.0" layoutY="66.0" prefHeight="70.0" prefWidth="181.0" text="Queijaria Taulo">
                             <font>
-                                <Font size="27.0" />
+                                <Font name="System Italic" size="27.0" />
                             </font>
                         </Label>
 
 
-                   <ImageView fitHeight="255.0" fitWidth="208.0" layoutX="61.0" layoutY="130.0" pickOnBounds="true" preserveRatio="true">
+                   <ImageView fitHeight="255.0" fitWidth="208.0" layoutX="62.0" layoutY="145.0" pickOnBounds="true" preserveRatio="true">
                        <image>
-                           <Image url="@../../../../../../../Logo.png" />
+                           <Image url="@../../../Logo.png" />
                        </image>
                      <effect>
                         <Glow />
                      </effect>
                    </ImageView>
+
                </children>
                 </AnchorPane>
                 <AnchorPane prefHeight="500.0" prefWidth="334.0" style="-fx-background-color: #FFDAB9; ">
@@ -59,6 +60,24 @@
                                 <Font size="14.0" />
                             </font>
                         </Button>
+
+                   <ImageView fitHeight="21.0" fitWidth="23.0" layoutX="262.0" layoutY="188.0" pickOnBounds="true" preserveRatio="true">
+                       <image>
+                           <Image url="@../../../Profile.png" />
+                       </image>
+                       <effect>
+                           <Glow />
+                       </effect>
+                   </ImageView>
+
+                   <ImageView fitHeight="28.0" fitWidth="26.0" layoutX="260.0" layoutY="238.0" pickOnBounds="true" preserveRatio="true">
+                       <image>
+                           <Image url="@../../../password.png" />
+                       </image>
+                       <effect>
+                           <Glow />
+                       </effect>
+                   </ImageView>
                     </children>
                 </AnchorPane>
             </items>

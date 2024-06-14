@@ -29,6 +29,9 @@ public class PagarEncomendasController {
     private Button consultarFaturacaoButton;
 
     @FXML
+    private Button consultarProducaoButton;
+
+    @FXML
     private Button controlarStockButton;
 
     @FXML
@@ -36,6 +39,9 @@ public class PagarEncomendasController {
 
     @FXML
     private Button encomendarLeiteButton;
+
+    @FXML
+    private Button goBack;
 
     @FXML
     private TableColumn<Encomenda, Integer> idEncomendaField;
@@ -96,12 +102,18 @@ public class PagarEncomendasController {
     }
 
     private void abrirPopUpPagamento() {
+        Encomenda selectedEncomenda = customersTable.getSelectionModel().getSelectedItem();
+        if (selectedEncomenda == null) {
+            showAlert(Alert.AlertType.ERROR,"Erro", "Nenhuma encomenda selecionada.");
+            return;
+        }
 
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/desktop/Admin/PagamentoPopUp.fxml"));
             Parent parent = fxmlLoader.load();
 
             PagamentoPopUpController controller = fxmlLoader.getController();
+            controller.setEncomenda(selectedEncomenda);
 
             controller.setParentController(this);
             Stage stage = new Stage();
@@ -111,33 +123,35 @@ public class PagarEncomendasController {
             stage.showAndWait();
         } catch (IOException e) {
             e.printStackTrace();
-            showAlert(Alert.AlertType.ERROR, "Erro", "Erro ao abrir o pop-up de pagamento.");
+            showAlert(Alert.AlertType.ERROR,"Erro", "Erro ao abrir o pop-up de pagamento.");
         }
     }
 
     public void processarPagamento(String metodoPagamento) {
+        System.out.println("Método processarPagamento acionado");
         Encomenda encomendaSelecionada = customersTable.getSelectionModel().getSelectedItem();
         if (encomendaSelecionada != null) {
+            System.out.println("Encomenda Selecionada: " + encomendaSelecionada.getIdencomenda());
             int idTipoPagamento = obterIdTipoPagamento(metodoPagamento);
+            System.out.println("Método de Pagamento: " + metodoPagamento);
+            System.out.println("ID do Método de Pagamento: " + idTipoPagamento);
+
             float valor = encomendaSelecionada.getValor().floatValue();
             float quantidade = (float) encomendaSelecionada.getQuantidade();
+            System.out.println("Valor: " + valor);
+            System.out.println("Quantidade: " + quantidade);
 
             try {
-                // Busca a encomenda completa pelo id
-                Encomenda encomendaCompleta = encomendaBll.obterEncomendaPorId(encomendaSelecionada.getIdencomenda());
-
-                // Process payment and add Faturacompra
                 faturaCompraBll.adicionarFaturaCompra(
-                        0,
-                        encomendaCompleta, // Passa a encomenda completa aqui
+                        0, // idFatura será gerado automaticamente se estiver configurado como auto-generated
+                        encomendaSelecionada.getIdencomenda(),
                         idTipoPagamento,
                         valor,
                         (int) quantidade
                 );
+                System.out.println("Fatura adicionada com sucesso.");
 
-                // Remove from UI list
                 encomendaObservableList.remove(encomendaSelecionada);
-
                 showAlert(Alert.AlertType.INFORMATION, "Pagamento Efetuado", "Pagamento efetuado com sucesso usando " + metodoPagamento);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -147,8 +161,6 @@ public class PagarEncomendasController {
             showAlert(Alert.AlertType.ERROR, "Erro", "Nenhuma encomenda selecionada.");
         }
     }
-
-
 
 
     private int obterIdTipoPagamento(String metodoPagamento) {
@@ -164,12 +176,12 @@ public class PagarEncomendasController {
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
-            showAlert(Alert.AlertType.ERROR, "Erro", "Erro ao carregar a página: " + fxmlFile);
+            showAlert(Alert.AlertType.ERROR,"Erro", "Erro ao carregar a página: " + fxmlFile);
         }
     }
 
     private void showAlert(Alert.AlertType alertType, String title, String message) {
-        Alert alert = new Alert(alertType);
+        Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle(title);
         alert.setHeaderText(null);
         alert.setContentText(message);

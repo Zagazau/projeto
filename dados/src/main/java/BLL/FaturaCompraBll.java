@@ -1,40 +1,38 @@
 package BLL;
 
 import entity.Faturacompra;
-import entity.Encomenda;
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
-import jakarta.persistence.Persistence;
 
 public class FaturaCompraBll {
-
     private EntityManager entityManager;
-    private EntityManagerFactory emf = Persistence.createEntityManagerFactory("default");
 
     public FaturaCompraBll() {
-        entityManager = emf.createEntityManager();
+        entityManager = DbConnection.getEntityManager();
     }
 
-    public void adicionarFaturaCompra(int idfaturac, Encomenda encomenda, int idtipopag, float valor, int quantidade) {
-        EntityManager em = emf.createEntityManager();
+    public void adicionarFaturaCompra(int idFatura, int idEncomenda, int idTipoPagamento, float valor, int quantidade) {
         EntityTransaction transaction = entityManager.getTransaction();
         try {
             transaction.begin();
-            Faturacompra faturacompra = new Faturacompra();
-            faturacompra.setIdfaturac(idfaturac);
-            faturacompra.setEncomenda(encomenda);
-            faturacompra.setIdtipopag(idtipopag);
-            faturacompra.setValor(valor);
-            faturacompra.setQuantidade(quantidade);
-            entityManager.persist(faturacompra);
+
+            Faturacompra fatura = new Faturacompra();
+            fatura.setIdfaturac(idFatura);
+            fatura.setIdencomenda(idEncomenda);
+            fatura.setIdtipopag(idTipoPagamento);
+            fatura.setValor(valor);
+            fatura.setQuantidade(quantidade);
+
+            entityManager.persist(fatura);
             transaction.commit();
+
+            System.out.println("FaturaCompra inserida com sucesso na tabela.");
         } catch (Exception e) {
-            e.printStackTrace();
             if (transaction.isActive()) {
                 transaction.rollback();
             }
+            e.printStackTrace();
+            throw new RuntimeException("Erro ao inserir na tabela faturacompra: " + e.getMessage());
         }
     }
-
 }

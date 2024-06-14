@@ -116,7 +116,7 @@ public class EfetuarEncomendasController {
             encomenda.setQuantidade(quantidadeLitros);
             encomenda.setTipoLeite(tipoLeite);
             encomenda.setData(Date.valueOf(LocalDate.now()));
-            encomenda.setIdfornecedor(1);
+            encomenda.setIdfornecedor(1); // Exemplo de idfornecedor
             encomenda.setIdproduto(produtoSelecionado.getId());
             encomenda.setValor(produtoSelecionado.getValor() * quantidadeLitros);
 

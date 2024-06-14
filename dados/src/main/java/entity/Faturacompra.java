@@ -4,28 +4,10 @@ import jakarta.persistence.*;
 
 @Entity
 public class Faturacompra {
-    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
     @Column(name = "idfaturac")
     private int idfaturac;
-
-    @ManyToOne
-    @JoinColumn(name = "idencomenda")
-    private Encomenda encomenda;
-
-    @Basic
-    @Column(name = "idtipopag")
-    private int idtipopag;
-
-    @Basic
-    @Column(name = "valor")
-    private float valor;
-
-    @Basic
-    @Column(name = "quantidade")
-    private int quantidade;
-
-    // Getters e Setters
 
     public int getIdfaturac() {
         return idfaturac;
@@ -35,13 +17,21 @@ public class Faturacompra {
         this.idfaturac = idfaturac;
     }
 
-    public Encomenda getEncomenda() {
-        return encomenda;
+    @Basic
+    @Column(name = "idencomenda")
+    private int idencomenda;
+
+    public int getIdencomenda() {
+        return idencomenda;
     }
 
-    public void setEncomenda(Encomenda encomenda) {
-        this.encomenda = encomenda;
+    public void setIdencomenda(int idencomenda) {
+        this.idencomenda = idencomenda;
     }
+
+    @Basic
+    @Column(name = "idtipopag")
+    private int idtipopag;
 
     public int getIdtipopag() {
         return idtipopag;
@@ -51,6 +41,10 @@ public class Faturacompra {
         this.idtipopag = idtipopag;
     }
 
+    @Basic
+    @Column(name = "valor")
+    private float valor;
+
     public float getValor() {
         return valor;
     }
@@ -58,6 +52,10 @@ public class Faturacompra {
     public void setValor(float valor) {
         this.valor = valor;
     }
+
+    @Basic
+    @Column(name = "quantidade")
+    private int quantidade;
 
     public int getQuantidade() {
         return quantidade;

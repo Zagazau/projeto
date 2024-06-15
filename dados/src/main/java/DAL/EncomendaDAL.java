@@ -1,20 +1,17 @@
 package DAL;
 
+import BLL.DbConnection;
 import entity.Encomenda;
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.Persistence;
 import jakarta.persistence.TypedQuery;
 
 import java.util.List;
 
 public class EncomendaDAL {
     private EntityManager entityManager;
-    private EntityManagerFactory emf;
 
     public EncomendaDAL() {
-        emf = Persistence.createEntityManagerFactory("default");
-        entityManager = emf.createEntityManager();
+        this.entityManager = DbConnection.getEntityManager();
     }
 
     public void salvar(Encomenda encomenda) {
@@ -28,6 +25,12 @@ public class EncomendaDAL {
         return query.getResultList();
     }
 
+    public List<Encomenda> obterPorFornecedor(int idFornecedor) {
+        TypedQuery<Encomenda> query = entityManager.createQuery("SELECT e FROM Encomenda e WHERE e.idfornecedor = :idFornecedor", Encomenda.class);
+        query.setParameter("idFornecedor", idFornecedor);
+        return query.getResultList();
+    }
+
     public void atualizar(Encomenda encomenda) {
         entityManager.getTransaction().begin();
         entityManager.merge(encomenda);
@@ -35,11 +38,11 @@ public class EncomendaDAL {
     }
 
     public void excluir(int id) {
-        entityManager.getTransaction().begin();
         Encomenda encomenda = entityManager.find(Encomenda.class, id);
         if (encomenda != null) {
+            entityManager.getTransaction().begin();
             entityManager.remove(encomenda);
+            entityManager.getTransaction().commit();
         }
-        entityManager.getTransaction().commit();
     }
 }

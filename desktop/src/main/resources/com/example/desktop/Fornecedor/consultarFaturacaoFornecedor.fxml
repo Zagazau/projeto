@@ -57,7 +57,7 @@
                     <Font size="30.0" />
                 </font>
             </Label>
-            <Button fx:id="backButton" layoutX="305.0" layoutY="366.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="218.0" text="Voltar">
+            <Button fx:id="voltarButton" layoutX="305.0" layoutY="366.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="218.0" text="Voltar">
                 <font>
                     <Font size="13.0" />
                 </font>
@@ -70,24 +70,14 @@
                     <TableColumn fx:id="precoField" minWidth="0.0" prefWidth="124.0" text="Preço" />
                 </columns>
             </TableView>
-            <ImageView fitHeight="36.0" fitWidth="44.0" layoutX="644.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
-                <image>
-                    <Image url="@../../../../../../../../Logo.png" />
-                </image>
-            </ImageView>
-            <Label layoutX="567.0" layoutY="33.0" prefHeight="19.0" prefWidth="102.0" text="Queijaria Taulo">
-                <font>
-                    <Font size="11.0" />
-                </font>
-            </Label>
-            <Label layoutX="507.0" layoutY="296.0" prefHeight="26.0" prefWidth="95.0" text="TOTAL:    ">
-                <font>
-                    <Font size="17.0" />
-                </font>
-            </Label>
             <Label layoutX="246.0" layoutY="43.0" prefHeight="45.0" prefWidth="360.0" text="______________________________">
                 <font>
                     <Font size="22.0" />
+                </font>
+            </Label>
+            <Label fx:id="totalLabel" layoutX="507.0" layoutY="296.0" prefHeight="26.0" prefWidth="180.0" text="TOTAL: ">
+                <font>
+                    <Font size="17.0" />
                 </font>
             </Label>
         </AnchorPane>

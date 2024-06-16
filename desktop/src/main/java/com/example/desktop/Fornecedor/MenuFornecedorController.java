@@ -30,7 +30,6 @@ public class MenuFornecedorController {
     @FXML
     public void initialize() {
         sairButton.setOnAction(event -> {
-            System.out.println("Botão Sair pressionado!");
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Confirmação de Saída");
             alert.setHeaderText(null);
@@ -45,16 +44,14 @@ public class MenuFornecedorController {
                     stage.setScene(scene);
                     stage.setTitle("Página Anterior");
                     stage.show();
-                    System.out.println("Redirecionado para firstPage.fxml com sucesso");
                 } catch (IOException e) {
                     e.printStackTrace();
-                    showAlert(Alert.AlertType.ERROR, "Erro", "Não foi possível voltar para a página anterior.");
+                    showAlert(Alert.AlertType.ERROR, "Erro", "Não foi possível voltar para o menu inicial.");
                 }
             }
         });
 
         consultarEncomendasButton.setOnAction(event -> {
-            System.out.println("Botão Consultar Encomendas pressionado!");
             try {
                 Parent root = FXMLLoader.load(getClass().getResource("/com/example/desktop/Fornecedor/consultarEncomendasFornecedor.fxml"));
                 Scene scene = new Scene(root);
@@ -62,15 +59,13 @@ public class MenuFornecedorController {
                 stage.setScene(scene);
                 stage.setTitle("Consultar Encomendas");
                 stage.show();
-                System.out.println("Redirecionado para consultarEncomendas.fxml com sucesso");
             } catch (IOException e) {
                 e.printStackTrace();
-                showAlert(Alert.AlertType.ERROR, "Erro", "Não foi possível abrir a cena consultarEncomendas.fxml.");
+                showAlert(Alert.AlertType.ERROR, "Erro", "Não foi possível abrir a página 'Consultar Encomendas'.");
             }
         });
 
         consultarFaturacaoButton.setOnAction(event -> {
-            System.out.println("Botão Consultar Faturação pressionado!");
             try {
                 Parent root = FXMLLoader.load(getClass().getResource("/com/example/desktop/Fornecedor/consultarFaturacaoFornecedor.fxml"));
                 Scene scene = new Scene(root);
@@ -78,15 +73,13 @@ public class MenuFornecedorController {
                 stage.setScene(scene);
                 stage.setTitle("Consultar Faturação");
                 stage.show();
-                System.out.println("Redirecionado para consultarFaturacao.fxml com sucesso");
             } catch (IOException e) {
                 e.printStackTrace();
-                showAlert(Alert.AlertType.ERROR, "Erro", "Não foi possível abrir a cena consultarFaturacao.fxml.");
+                showAlert(Alert.AlertType.ERROR, "Erro", "Não foi possível abrir a página 'Consultar Faturação'.");
             }
         });
 
         inserirProdutosButton.setOnAction(event -> {
-            System.out.println("Botão Inserir Produtos pressionado!");
             try {
                 Parent root = FXMLLoader.load(getClass().getResource("/com/example/desktop/Fornecedor/inserirProdutos.fxml"));
                 Scene scene = new Scene(root);
@@ -94,10 +87,9 @@ public class MenuFornecedorController {
                 stage.setScene(scene);
                 stage.setTitle("Inserir Produtos");
                 stage.show();
-                System.out.println("Redirecionado para inserirProdutos.fxml com sucesso");
             } catch (IOException e) {
                 e.printStackTrace();
-                showAlert(Alert.AlertType.ERROR, "Erro", "Não foi possível abrir a cena inserirProdutos.fxml.");
+                showAlert(Alert.AlertType.ERROR, "Erro", "Não foi possível abrir a página 'Inserir Produtos'.");
             }
         });
     }

@@ -18,7 +18,7 @@ public class Encomenda {
     private Date data;
     private String tipoLeite;
     private Float valor;
-    private Integer idproduto;  // Change to Integer to allow null values
+    private Integer idproduto;
 
     public int getIdencomenda() {
         return idencomenda;

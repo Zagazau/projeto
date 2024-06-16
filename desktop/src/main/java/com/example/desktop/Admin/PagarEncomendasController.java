@@ -29,9 +29,6 @@ public class PagarEncomendasController {
     private Button consultarFaturacaoButton;
 
     @FXML
-    private Button consultarProducaoButton;
-
-    @FXML
     private Button controlarStockButton;
 
     @FXML
@@ -39,9 +36,6 @@ public class PagarEncomendasController {
 
     @FXML
     private Button encomendarLeiteButton;
-
-    @FXML
-    private Button goBack;
 
     @FXML
     private TableColumn<Encomenda, Integer> idEncomendaField;
@@ -80,7 +74,7 @@ public class PagarEncomendasController {
 
         controlarStockButton.setOnAction(event -> loadScene(event, "/com/example/desktop/Admin/controlarStockAdmin.fxml"));
         pagarEncomendasButton.setOnAction(event -> loadScene(event, "/com/example/desktop/Admin/pagarEncomendasAdmin.fxml"));
-        consultarFaturacaoButton.setOnAction(event -> loadScene(event, "/com/example/desktop/Admin/consultarFaturacaoAdmin.fxml"));
+        consultarFaturacaoButton.setOnAction(event -> loadScene(event, "/com/example/desktop/Admin/consultarFaturaçãoAdmin.fxml"));
         encomendarLeiteButton.setOnAction(event -> loadScene(event, "/com/example/desktop/Admin/encomendasAdmin.fxml"));
         sairButton.setOnAction(event -> loadScene(event, "/com/example/desktop/firstPage.fxml"));
         voltarButton.setOnAction(event -> loadScene(event, "/com/example/desktop/Admin/adminMenu.fxml"));
@@ -128,22 +122,18 @@ public class PagarEncomendasController {
     }
 
     public void processarPagamento(String metodoPagamento) {
-        System.out.println("Método processarPagamento acionado");
         Encomenda encomendaSelecionada = customersTable.getSelectionModel().getSelectedItem();
         if (encomendaSelecionada != null) {
-            System.out.println("Encomenda Selecionada: " + encomendaSelecionada.getIdencomenda());
             int idTipoPagamento = obterIdTipoPagamento(metodoPagamento);
             System.out.println("Método de Pagamento: " + metodoPagamento);
             System.out.println("ID do Método de Pagamento: " + idTipoPagamento);
 
             float valor = encomendaSelecionada.getValor().floatValue();
             float quantidade = (float) encomendaSelecionada.getQuantidade();
-            System.out.println("Valor: " + valor);
-            System.out.println("Quantidade: " + quantidade);
 
             try {
                 faturaCompraBll.adicionarFaturaCompra(
-                        0, // idFatura será gerado automaticamente se estiver configurado como auto-generated
+                        0,
                         encomendaSelecionada.getIdencomenda(),
                         idTipoPagamento,
                         valor,
@@ -152,7 +142,7 @@ public class PagarEncomendasController {
                 System.out.println("Fatura adicionada com sucesso.");
 
                 encomendaObservableList.remove(encomendaSelecionada);
-                showAlert(Alert.AlertType.INFORMATION, "Pagamento Efetuado", "Pagamento efetuado com sucesso usando " + metodoPagamento);
+                showAlert(Alert.AlertType.INFORMATION, "Pagamento Efetuado", "Pagamento efetuado com sucesso utilizando " + metodoPagamento);
             } catch (Exception e) {
                 e.printStackTrace();
                 showAlert(Alert.AlertType.ERROR, "Erro", "Erro ao processar o pagamento: " + e.getMessage());

@@ -14,10 +14,9 @@
         <class>entity.Fornecedor</class>
         <class>entity.Pedido</class>
         <class>entity.Admin</class>
-        <class>entity.Tipoutilizador</class>
         <class>entity.Produto</class>
         <class>entity.Tipopagamento</class>
-        <class>entity.Tipoproduto</class>
+
 
       <properties>
           <!-- Configurações do Jakarta Persistence -->

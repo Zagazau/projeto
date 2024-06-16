@@ -69,7 +69,7 @@ public class AdicionarProdutoController {
                 String nome = nomeProdutoField.getText();
                 Float valor = Float.parseFloat(valorField.getText());
                 Integer quantidade = Integer.parseInt(quantidadeField.getText());
-                Integer idProduto = (int) (Math.random() * 10000); // Gerando um ID aleatório para demonstração
+                Integer idProduto = (int) (Math.random() * 10000);
 
                 produtoBll.adicionarProduto(idProduto, nome, valor, quantidade, "admin");
                 showAlert("Sucesso", "Produto adicionado com sucesso!");

@@ -22,7 +22,7 @@ public class Produto {
     private Integer quantidade;
 
     @Column(name = "adicionadoPor", nullable = false)
-    private String adicionadoPor;  // admin ou fornecedor
+    private String adicionadoPor;
 
     public Produto() {}
 

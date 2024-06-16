@@ -31,7 +31,6 @@ public class Pedido {
     @JoinColumn(name = "idproduto")
     private Produto produto;
 
-    // Getters and Setters
 
     public int getIdpedido() {
         return idpedido;

@@ -34,10 +34,10 @@ public class AdminBll {
                     .stream()
                     .findFirst()
                     .orElse(null);
-            System.out.println("Found admin: " + admin); // Verifica se o admin foi encontrado
+            System.out.println("Found admin: " + admin);
             return admin;
         } finally {
-            em.close(); // Feche o EntityManager somente após ter concluído o trabalho com os resultados da consulta
+            em.close();
         }
     }
 

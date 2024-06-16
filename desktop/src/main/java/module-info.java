@@ -14,7 +14,7 @@ module com.example.desktop {
     opens com.example.desktop to javafx.fxml;
     opens com.example.desktop.clientes to javafx.fxml;
     opens com.example.desktop.Admin to javafx.fxml;
-    opens com.example.desktop.Fornecedor to javafx.fxml; // Adicione esta linha
+    opens com.example.desktop.Fornecedor to javafx.fxml;
 
 
 }

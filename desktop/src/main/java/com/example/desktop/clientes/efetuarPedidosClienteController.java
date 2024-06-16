@@ -98,7 +98,7 @@ public class efetuarPedidosClienteController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/desktop/Cliente/pagarPedidos.fxml"));
             Parent root = loader.load();
             PagarPedidoController controller = loader.getController();
-            controller.setIdCliente(idCliente); // Passe o idCliente para o controller
+            controller.setIdCliente(idCliente);
             Scene scene = new Scene(root);
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(scene);
@@ -114,7 +114,7 @@ public class efetuarPedidosClienteController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/desktop/Cliente/efetuarPedido.fxml"));
             Parent root = loader.load();
             efetuarPedidosClienteController controller = loader.getController();
-            controller.setIdCliente(idCliente); // Passe o idCliente para o controller
+            controller.setIdCliente(idCliente);
             Scene scene = new Scene(root);
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(scene);

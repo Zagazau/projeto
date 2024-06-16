@@ -41,7 +41,6 @@ public class Fornecedor {
     @Column(name = "senha")
     private String senha;
 
-    // Getters e Setters
 
     public int getIdfornecedor() {
         return idfornecedor;

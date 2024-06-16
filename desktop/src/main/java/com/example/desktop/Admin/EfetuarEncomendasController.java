@@ -90,7 +90,7 @@ public class EfetuarEncomendasController {
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
-            showAlert("Erro", "Erro ao carregar a página: " + fxmlFile);
+            showAlert(Alert.AlertType.ERROR, "Erro", "Erro ao carregar a página: " + fxmlFile);
         }
     }
 
@@ -99,7 +99,7 @@ public class EfetuarEncomendasController {
         String tipoLeite = tipoLeiteField.getValue();
 
         if (quantidade.isEmpty() || tipoLeite == null) {
-            showAlert("Erro", "Por favor, preencha todos os campos.");
+            showAlert(Alert.AlertType.ERROR, "Erro", "Por favor, preencha todos os campos.");
             return;
         }
 
@@ -108,7 +108,7 @@ public class EfetuarEncomendasController {
             Produto produtoSelecionado = produtoBll.obterProdutoPorNome(tipoLeite);
 
             if (produtoSelecionado.getQuantidade() < quantidadeLitros) {
-                showAlert("Erro", "Quantidade indisponível no estoque.");
+                showAlert(Alert.AlertType.ERROR, "Erro", "Quantidade indisponível no estoque.");
                 return;
             }
 
@@ -116,22 +116,22 @@ public class EfetuarEncomendasController {
             encomenda.setQuantidade(quantidadeLitros);
             encomenda.setTipoLeite(tipoLeite);
             encomenda.setData(Date.valueOf(LocalDate.now()));
-            encomenda.setIdfornecedor(1); // Exemplo de idfornecedor
+            encomenda.setIdfornecedor(1);
             encomenda.setIdproduto(produtoSelecionado.getId());
             encomenda.setValor(produtoSelecionado.getValor() * quantidadeLitros);
 
             encomendaBll.salvarEncomenda(encomenda);
-            showAlert("Sucesso", "Encomenda efetuada com sucesso!");
+            showAlert(Alert.AlertType.INFORMATION, "Sucesso", "Encomenda efetuada com sucesso!");
 
             produtoSelecionado.setQuantidade((int) (produtoSelecionado.getQuantidade() - quantidadeLitros));
             produtoBll.atualizarProduto(produtoSelecionado);
         } catch (NumberFormatException e) {
-            showAlert("Erro", "Por favor, insira uma quantidade válida.");
+            showAlert(Alert.AlertType.ERROR, "Erro", "Por favor, insira uma quantidade válida.");
         }
     }
 
-    private void showAlert(String title, String message) {
-        javafx.scene.control.Alert alert = new javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.ERROR);
+    private void showAlert(Alert.AlertType alertType, String title, String message) {
+        Alert alert = new Alert(alertType);
         alert.setTitle(title);
         alert.setHeaderText(null);
         alert.setContentText(message);

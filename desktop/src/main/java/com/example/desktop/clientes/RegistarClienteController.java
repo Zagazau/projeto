@@ -62,7 +62,6 @@ public class RegistarClienteController {
 
     @FXML
     private void initialize() {
-        System.out.println("Initializing RegistarClienteController");
         registarClienteButton.setOnAction(this::registerClienteOrFornecedor);
         sairButton.setOnAction(this::redirectToLogin);
         this.tipoUtilizadorField.setItems(this.UserTypeList);
@@ -70,7 +69,6 @@ public class RegistarClienteController {
 
     @FXML
     private void registerClienteOrFornecedor(ActionEvent event) {
-        System.out.println("registerClienteOrFornecedor method called");
         if (validateFields()) {
             System.out.println("Fields validation passed");
             String selectedType = tipoUtilizadorField.getValue();
@@ -87,7 +85,6 @@ public class RegistarClienteController {
                 cliente.setSenha(encryptPassword(passField.getText().trim()));
 
                 try {
-                    System.out.println("Persisting client data: " + cliente.toString());
                     ClienteBLL.criar(cliente);
                     System.out.println("Cliente created successfully");
                     showAlert(Alert.AlertType.INFORMATION, "Sucesso", "Cliente registrado com sucesso!");
@@ -108,7 +105,6 @@ public class RegistarClienteController {
                 fornecedor.setSenha(encryptPassword(passField.getText().trim()));
 
                 try {
-                    System.out.println("Persisting fornecedor data: " + fornecedor.toString());
                     FornecedorBll.criar(fornecedor);
                     System.out.println("Fornecedor created successfully");
                     showAlert(Alert.AlertType.INFORMATION, "Sucesso", "Fornecedor registrado com sucesso!");
@@ -134,7 +130,6 @@ public class RegistarClienteController {
     }
 
     private void redirectToLogin(ActionEvent event) {
-        System.out.println("redirectToLogin method called");
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/com/example/desktop/firstPage.fxml"));
             Scene loginScene = new Scene(root);
@@ -150,7 +145,6 @@ public class RegistarClienteController {
     }
 
     private boolean validateFields() {
-        System.out.println("validateFields method called");
         boolean valid = true;
 
         if (!validateTextField(nomeField)) valid = false;

@@ -18,9 +18,6 @@ public class MenuAdminController {
     private Button consultarFaturacaoButton;
 
     @FXML
-    private Button consultarProducaoButton;
-
-    @FXML
     private Button controlarStockButton;
 
     @FXML

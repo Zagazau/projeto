@@ -65,7 +65,6 @@ public class AdicionarProdutoController {
 
 
         adicionarProdutoButton.setOnAction(event -> {
-            System.out.println("Botão Adicionar Produto pressionado!");
             try {
                 String nome = nomeProdutoField.getText();
                 Float valor = Float.parseFloat(valorField.getText());

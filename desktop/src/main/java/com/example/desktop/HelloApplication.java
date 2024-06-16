@@ -20,7 +20,7 @@ public class HelloApplication extends Application {
 
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("firstPage.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 655.0, 500.0);
-        stage.setTitle("Hello!");
+        stage.setTitle("QUEIJARIA TAULO");
         stage.setScene(scene);
         stage.show();
     }

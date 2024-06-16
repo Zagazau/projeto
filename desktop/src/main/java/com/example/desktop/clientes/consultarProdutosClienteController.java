@@ -114,7 +114,6 @@ public class consultarProdutosClienteController {
                 stage.setScene(scene);
                 stage.setTitle("Página Anterior");
                 stage.show();
-                System.out.println("Redirecionado para firstPage.fxml com sucesso");
             } catch (IOException e) {
                 e.printStackTrace();
                 showAlert(Alert.AlertType.ERROR, "Erro", "Não foi possível voltar para a página anterior.");

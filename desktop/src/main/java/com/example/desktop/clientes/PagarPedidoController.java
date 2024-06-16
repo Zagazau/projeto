@@ -166,7 +166,7 @@ public class PagarPedidoController {
             stage.setScene(scene);
             stage.show();
 
-            // Passar o idCliente para a nova cena, se aplicável
+
             if (fxmlFile.contains("pagarPedidos.fxml")) {
                 PagarPedidoController controller = loader.getController();
                 controller.setIdCliente(idCliente);

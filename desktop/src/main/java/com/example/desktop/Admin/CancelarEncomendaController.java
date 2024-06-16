@@ -80,7 +80,6 @@ public class CancelarEncomendaController {
     private void loadOrders() {
         List<Encomenda> orders = encomendaBll.listarEncomendas();
         if (orders != null) {
-            System.out.println("Encomendas carregadas: " + orders.size());
             for (Encomenda order : orders) {
                 System.out.println(order.getIdencomenda() + " - " + order.getIdfornecedor() + " - " + order.getData());
             }
@@ -96,7 +95,6 @@ public class CancelarEncomendaController {
         if (selectedOrder != null) {
             encomendaBll.excluirEncomenda(selectedOrder.getIdencomenda());
             customersTable.getItems().remove(selectedOrder);
-            System.out.println("Encomenda cancelada: " + selectedOrder.getIdencomenda());
         }
     }
 

@@ -34,8 +34,6 @@ public class MenuClienteController {
 
     @FXML
     public void initialize() {
-        System.out.println("Inicializando MenuClienteController...");
-
         consultarProdutosButton.setOnAction(event -> loadScene(event, "/com/example/desktop/Cliente/consultarProdutos.fxml"));
         pagamentosButton.setOnAction(event -> loadPagamentosScene(event));
         pedidosButton.setOnAction(event -> loadEfetuarPedidoScene(event));
@@ -88,7 +86,6 @@ public class MenuClienteController {
     }
 
     private void showAlert(String title, String message) {
-        System.out.println("Mostrando alerta: " + title + " - " + message);
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle(title);
         alert.setHeaderText(null);

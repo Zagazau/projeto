@@ -25,12 +25,6 @@ public class EncomendaDAL {
         return query.getResultList();
     }
 
-    public List<Encomenda> obterPorFornecedor(int idFornecedor) {
-        TypedQuery<Encomenda> query = entityManager.createQuery("SELECT e FROM Encomenda e WHERE e.idfornecedor = :idFornecedor", Encomenda.class);
-        query.setParameter("idFornecedor", idFornecedor);
-        return query.getResultList();
-    }
-
     public void atualizar(Encomenda encomenda) {
         entityManager.getTransaction().begin();
         entityManager.merge(encomenda);

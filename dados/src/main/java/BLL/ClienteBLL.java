@@ -29,23 +29,6 @@ public class ClienteBLL {
         }
     }
 
-    public static void apagar(Cliente cli) {
-        EntityManager em = emf.createEntityManager();
-        try {
-            em.getTransaction().begin();
-            em.remove(em.contains(cli) ? cli : em.merge(cli));
-            em.getTransaction().commit();
-            System.out.println("Cliente apagado com sucesso.");
-        } catch (Exception e) {
-            if (em.getTransaction().isActive()) {
-                em.getTransaction().rollback();
-            }
-            System.err.println("Erro ao apagar cliente: " + e.getMessage());
-        } finally {
-            em.close();
-        }
-    }
-
     public static Cliente findClienteByUsername(String username) {
         EntityManager em = emf.createEntityManager();
         try {
@@ -59,28 +42,4 @@ public class ClienteBLL {
         }
     }
 
-    public static String getPasswordForCliente(String username) {
-        Cliente cliente = findClienteByUsername(username);
-        return cliente != null ? cliente.getSenha() : null;
-    }
-
-    public static List<Cliente> listar() {
-        EntityManager em = emf.createEntityManager();
-        try {
-            return em.createQuery("from Cliente", Cliente.class).getResultList();
-        } finally {
-            em.close();
-        }
-    }
-
-    public static List<Cliente> listarWithName(String nome) {
-        EntityManager em = emf.createEntityManager();
-        try {
-            return em.createQuery("from Cliente where nome like ?1", Cliente.class)
-                    .setParameter(1, nome)
-                    .getResultList();
-        } finally {
-            em.close();
-        }
-    }
 }

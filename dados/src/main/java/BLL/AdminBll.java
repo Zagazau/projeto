@@ -13,17 +13,6 @@ public class AdminBll {
         em.getTransaction().commit();
     }
 
-    public static void apagar(Admin admin){
-        EntityManager em = DbConnection.getEntityManager();
-        em.getTransaction().begin();
-        em.remove(admin);
-        em.getTransaction().commit();
-    }
-
-    public static Admin findAdminById(int id){
-        return DbConnection.getEntityManager().find(Admin.class, id);
-    }
-
     public static Admin findAdminByUsername(String username){
         EntityManager em = DbConnection.getEntityManager();
         System.out.println("Searching for admin with username: " + username);
@@ -52,8 +41,5 @@ public class AdminBll {
         }
     }
 
-    public static List<Admin> listar(){
-        return DbConnection.getEntityManager().createQuery("FROM Admin", Admin.class).getResultList();
-    }
 }
 
